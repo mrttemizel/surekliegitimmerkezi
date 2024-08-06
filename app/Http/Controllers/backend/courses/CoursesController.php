@@ -1,0 +1,182 @@
+<?php
+
+namespace App\Http\Controllers\backend\courses;
+
+use App\Http\Controllers\Controller;
+use App\Models\Categories;
+use App\Models\Courses;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class CoursesController extends Controller
+{
+
+    public  function  toastr($message,$alertType)
+    {
+        $notification = array(
+            'message' => $message,
+            'alert-type' => $alertType
+        );
+
+        return $notification;
+    }
+
+    public function switch(Request $request)
+    {
+        $data = Courses::findOrFail($request->id);
+        $data->status = $request->status=="true" ? 1 : 0;
+        $data->save();
+    }
+
+    public function index()
+    {
+        $data = Courses::all();
+        return view('backend.courses.index', compact('data'));
+    }
+
+    public function create()
+    {
+        $categories = Categories::all();
+        return view('backend.courses.create',compact('categories'));
+    }
+
+
+    public function  store(Request $request)
+    {
+
+        $request->validate([
+            'egitim_adi' => 'required',
+            'category_id' => 'required',
+        ]);
+        if ($request->input('kesin_kayit') === 'on' && !$request->hasAny(['kimlik', 'diploma', 'kurumkarti'])) {
+            return back()->withErrors(['belgeler' => 'Kesin kayıt seçilmişse, formda istenilen belgelerden en az bir tanesinin seçilmesi gerekmektedir.'])->withInput();
+        }
+
+
+        $data = new Courses();
+        $data->egitim_adi = $request->input('egitim_adi');
+        $data->category_id = $request->input('category_id');
+        $data->egitim_kordinatorleri = $request->input('egitim_kordinatorleri');
+        $data->egitim_saati = $request->input('egitim_saati');
+        $data->egitim_baslangic_tarihi = $request->input('egitim_baslangic_tarihi');
+        $data->egitim_bitis_tarihi = $request->input('egitim_bitis_tarihi');
+        $data->egitim_platformu = $request->input('egitim_platformu');
+        $data->egitim_yeri = $request->input('egitim_yeri');
+        $data->egitici_adi = $request->input('egitici_adi');
+        $data->egitim_ücreti = $request->input('egitim_ücreti');
+        $data->egitim_katilim_sarti = $request->input('egitim_katilim_sarti');
+        $data->egitim_kontejyani = $request->input('egitim_kontejyani');
+
+        $data->detay = $request->input('detay');
+
+        $data->on_basvuru = $request->input('on_basvuru') === 'on' ? 'on' : 'off';
+        $data->kesin_kayit = $request->input('kesin_kayit') === 'on' ? 'on' : 'off';
+        $data->kimlik = $request->input('kimlik') === 'on' ? 'on' : 'off';
+        $data->diploma = $request->input('diploma') === 'on' ? 'on' : 'off';
+        $data->kurumkarti = $request->input('kurumkarti') === 'on' ? 'on' : 'off';
+
+
+        $data->slug = Str::slug($request->input('egitim_adi'));
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+            ]);
+
+            $file = $request->file('image');
+            $imagename = Str::slug($request->input('egitim_adi')).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('courses'), $imagename);
+            $data->image = $imagename;
+
+        }
+
+        $query = $data->save();
+        if (!$query) {
+            return back()->with('error', 'Eklenirken bir hata oluştu!');
+        } else {
+            return redirect()->route('courses.index')->with($this->toastr('Eğitim Ekleme Başarılı','success'));
+        }
+
+    }
+
+    public function delete($id)
+    {
+        $data = Courses::find($id);
+
+        $path = public_path() . '/courses/' . $data->image;
+
+        if (\File::exists($path)) {
+            \File::delete($path);
+        }
+        $query = $data->delete();
+        if (!$query) {
+            return back()->with($this->toastr('Ders Silerken Hata Oluştu','error'));
+        } else {
+            return back()->with($this->toastr('Ders Silme Başarılı','success'));
+        }
+    }
+
+
+
+    public function edit($id)
+    {
+        $data = Courses::where('id', $id)->first();
+        $categories = Categories::all();
+        return view('backend.courses.edit', compact('data', 'categories'));
+    }
+
+
+    public function update(Request $request)
+    {
+        $data = Courses::where('id', $request->id)->first();
+
+        $request->validate([
+            'egitim_adi' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $data->egitim_adi = $request->input('egitim_adi');
+        $data->category_id = $request->input('category_id');
+        $data->egitim_kordinatorleri = $request->input('egitim_kordinatorleri');
+        $data->egitim_saati = $request->input('egitim_saati');
+        $data->egitim_baslangic_tarihi = $request->input('egitim_baslangic_tarihi');
+        $data->egitim_bitis_tarihi = $request->input('egitim_bitis_tarihi');
+        $data->egitim_platformu = $request->input('egitim_platformu');
+        $data->egitim_yeri = $request->input('egitim_yeri');
+        $data->egitici_adi = $request->input('egitici_adi');
+        $data->egitim_ücreti = $request->input('egitim_ücreti');
+        $data->egitim_katilim_sarti = $request->input('egitim_katilim_sarti');
+        $data->egitim_kontejyani = $request->input('egitim_kontejyani');
+
+        $data->detay = $request->input('detay');
+
+
+        $data->slug = Str::slug($request->input('egitim_adi'));
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+            ]);
+
+            $path = public_path() . '/courses/' . $data->image;
+
+            if (\File::exists($path)) ;
+            {
+                \File::delete($path);
+            }
+
+            $file = $request->file('image');
+            $imagename = Str::slug($request->input('egitim_adi')).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('courses'), $imagename);
+            $data->image = $imagename;
+
+        }
+        $query = $data->update();
+
+        if (!$query) {
+            return back()->with($this->toastr('Eğitim Güncelleme Başarısız','error'));
+        } else {
+            return redirect()->route('courses.index')->with($this->toastr('Eğitim Güncelleme Başarılı','success'));
+        }
+    }
+}
