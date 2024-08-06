@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('kesin_kayit_forms', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('kurs_id');
+            $table->string('kurs_adi');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('tc');
+            $table->string('kimlik')->nullable();
+            $table->string('diploma')->nullable();
+            $table->string('kurumkarti')->nullable();
+            $table->string('kvkk');
+
+            $table->integer('status')->default(0);
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('kesin_kayit_forms');
+    }
+};
