@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kesin_kayit_forms', function (Blueprint $table) {
             $table->id();
+
             $table->bigInteger('kurs_id');
             $table->string('kurs_adi');
             $table->string('name');
@@ -25,6 +26,11 @@ return new class extends Migration
             $table->string('kvkk');
 
             $table->integer('status')->default(0);
+            $table->integer('mezun_durumu')->default(0);
+
+            $table->unsignedBigInteger('sinif_id')->nullable();
+            $table->foreign('sinif_id')->references('id')->on('siniflars')->onDelete('cascade');
+
 
             $table->timestamps();
         });

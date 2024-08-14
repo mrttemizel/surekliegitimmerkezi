@@ -1,21 +1,28 @@
 @extends('backend.components.master')
 @section('title')
-    Kesin Kayıt Listesi
+    Sınıflara Ait Öğrenciler Listesi
 @endsection
 @section('css')
     <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+
     <link href="{{asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 @section('content')
     @component('backend.components.breadcrumb')
         @slot('li_1')
-            Kesin Kayıt
+            Sınıflar
         @endslot
         @slot('title')
-            Kesin Kayıt Listesi
+            Sınıflara Ait Öğrenciler Listesi
         @endslot
     @endcomponent
 
@@ -41,53 +48,55 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">Kesin Kayıt Olanların Listesi</h5><div class="buttons">
-                                <a href="#" class="btn btn-success me-2" id="excelBtn">
-                                    <i class="ri-file-excel-2-line me-1"></i> Excel İndir
-                                </a>
-
-
-                            </div>
+                            <h5 class="card-title mb-0">Sınıflara Ait Öğrenciler Listesi</h5>
+                            <form action="{{ route('class.filter') }}" method="GET" class="d-flex">
+                                @csrf
+                                <select class="form-select" name="sinif_select" aria-label="Default select example">
+                                    <option selected disabled>Sınıf Seçiniz</option>
+                                    @foreach($data as $datas)
+                                        <option value="{{$datas->id}}">{{$datas->sinif_adi}}</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary">Getir</button>
+                            </form>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex justify-content-center flex-column">
                             <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-
-                                    <th>Ad Soyad</th>
-                                    <th>Kurs Adı</th>
-                                    <th>E-Posta</th>
-                                    <th>Telefon</th>
-                                    <th>Başvuru Tarihi</th>
-                                    <th>Sınıfa Ata</th>
+                                    <th>ID</th>
+                                    <th>Adı Soyadı</th>
+                                    <th>TC</th>
+                                    <th>Sınıf</th>
+                                    <th>Eğitim</th>
+                                    <th>Başarı Durumu</th>
                                     <th>Düzenle</th>
                                 </tr>
                                 </thead>
-                                <tbody
-
-                                @foreach($data as $datas)
+                                <tbody>
+                                @foreach($classLists as $classList)
                                     <tr>
-
-                                        <td>{{$datas->name}}</td>
-                                        <td>{{$datas->kurs_adi}}</td>
-                                        <td>{{$datas->email}}</td>
-                                        <td>{{$datas->phone}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('d-m-Y') }}</td>
-                                        <td style="width: 3%!important;">
-                                            <a data-id="{{ $datas->id }}" class="btn btn-sm btn-danger class-click d-flex justify-content-between"><i class="ri-arrow-up-circle-fill"></i> Sınıfa Ata</a>
-                                        </td>
+                                        <td>{{$classList->id}}</td>
+                                        <td>{{$classList->name}}</td>
+                                        <td>{{$classList->tc}}</td>
+                                        <td>{{ $classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
+                                        <td>{{ $classList->kurs_adi}}</td>
+                                        <td><input class="switchStatus" data-id={{ $classList->id }} type="checkbox" {{$classList->status == 0 ? '' : 'checked' }} data-toggle="toggle" data-on="Başarılı" data-off="Başarısız" data-onstyle="success" data-offstyle="danger"></td>
 
                                         <td>
                                             <div class="hstack gap-3 fs-15">
-                                                <a data-id="{{ $datas->id }}" class="btn btn-sm btn-success edit-click"><i class="ri-eye-2-line"></i></a>
-                                                <a href="{{route('kesin-kayit-basvurulari.edit', ['id' => $datas->id])}}" class="btn btn-sm btn-info"><i class="ri-settings-2-fill"></i></a>
-                                                <a href="javascript:void(0)"  class="btn btn-sm btn-danger" data-url={{route('kesin-kayit-basvurulari.delete', ['id'=>$datas->id]) }} data-id={{ $datas->id }} class="link-danger" id="delete_kesin_kayit"><i class="ri-delete-bin-5-line"></i></a>                                                </div>
+                                                <a href="{{ route('class.down', ['id' => $classList->id]) }}" class="btn btn-sm btn-info class-down" data-id="{{ $classList->id }}">
+                                                    <i class="ri-arrow-down-circle-line"></i>
+                                                </a>
+                                                <a data-id="{{ $classList->id }}" class="btn btn-sm btn-success edit-click"><i class="ri-eye-2-line"></i></a>
+                                            </div>
                                         </td>
                                     </tr>
-                                    @endforeach
 
-                                    </tbody>
+                                @endforeach
+                                </tbody>
                             </table>
+                            <button class="btn-info btn mt-2">Kursu Bitir - Sertifikaları Gönder</button>
                         </div>
                     </div>
                 </div><!--end col-->
@@ -96,7 +105,7 @@
     </div>
 
 
-    <!-- Default Modals -->
+
 
     <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -192,64 +201,29 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div id="classModal" class="modal fade" tabindex="-1" aria-labelledby="classModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Form -->
-                <form action="{{ route('kesin-kayit-basvurulari.sinifAta') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="classModalLabel">Başvuruyu Sınıfa Ata</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="card-body">
-                            <div class="live-preview">
-                                <div class="row gy-3">
-                                    <input type="hidden" name="id" id="form_id">
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Aktarmak İstediğiniz Sınıfı Seçiniz</label>
-                                            <select id="sinif_id" class="form-select" name="sinif_id" aria-label="Default select example">
-                                                <option selected disabled>Sınıf Seçiniz</option>
-                                            </select>
-                                            <span class="text-danger">
-                                @error('sinif_id')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Kaydet</button>
-                    </div>
-                </form>
-
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 @endsection
+
+
 
 @section('addjs')
 
-    <script src="{{ asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.js') }}"></script>
+
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
 
+    <!--datatable js-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <!--datatable js-->
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+    <script src="{{asset('backend/assets/js/pages/datatables.init.js')}}"></script>
+
+
+    <script src="{{ asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.js') }}"></script>
 
     <script>
-
         $(function (){
             $('.edit-click').click(function (){
                 var id = $(this).attr('data-id');
@@ -286,34 +260,59 @@
             });
         });
 
-        <!-- AJAX ve Modal Kısmı -->
 
-    $(function() {
-            $('.class-click').click(function() {
-                var id = $(this).data('id'); // Data-id özelliğini al
-                $.ajax({
-                    type: 'GET',
-                    url: '{{ route('kesin-kayit-basvurulari.getSinif') }}',
-                    data: { id: id },
-                    success: function(data) {
-                        if(data.length > 0) {
-                            $('#form_id').val(id);
-                            var sinifSelect = $('#sinif_id');
-                            sinifSelect.empty(); // Mevcut seçenekleri temizle
+            $(document).ready(function() {
+            $('.class-down').on('click', function(e) {
+                e.preventDefault(); // Sayfa yenilenmesini engelle
+                var classId = $(this).data('id'); // İlgili class ID'yi al
+                var url = $(this).attr('href'); // class.down rotasını al
 
-                            sinifSelect.append('<option selected disabled>Sınıf Seçiniz</option>');
-
-                            data.forEach(function(item) {
-                                sinifSelect.append('<option value="' + item.id + '">' + item.sinif_adi + '</option>');
-                            });
-
-                            $('#classModal').modal('show');
-                        } else {
-                            console.error('Veri bulunamadı');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error: ', status, error);
+                // SweetAlert ile onay penceresi
+                Swal.fire({
+                    title: 'Emin misiniz?',
+                    text: "Bu Kişiyi Sınıftan Çıkarmak İstediğinize Emin misiniz?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, Çıkar!',
+                    cancelButtonText: 'Hayır, iptal et'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Eğer onaylandıysa AJAX isteğini gönder
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}', // CSRF token'ı ekleyin
+                                id: classId,
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Başarılı!',
+                                        'Sınıftan Başarılı Bir Şekilde Çıkarıldı.',
+                                        'success'
+                                    ).then(() => {
+                                        location.reload(); // Sayfayı yenile
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Hata!',
+                                        'Bir hata oluştu.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                                Swal.fire(
+                                    'Hata!',
+                                    'Bir hata oluştu.',
+                                    'error'
+                                );
+                            }
+                        });
                     }
                 });
             });
@@ -321,45 +320,26 @@
 
 
 
-    </script>
 
+        $(function (){
+            $('.switchStatus').change(function (){
+                var status = $(this).prop('checked');
+                var id=$(this).attr('data-id');
 
-    <script>
-        $(document).ready(function() {
-            $('#alternative-pagination').DataTable({
+                $.get("{{route('class.switch')}}",{id:id,status:status}, function (data,status){
 
-
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel İndir',
-                        exportOptions: {
-                            selected: true,
-                            columns: [0, 1, 2, 3, 4] // Sadece belirtilen sütunları dahil et
-
-                        }
-                    },
-
-
-                ],
-                responsive: true, // Duyarlılık özelliğini etkinleştir
-                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tümü"]], // Gösterilen öğe sayısı seçenekleri
-                paging: true // Sayfalama etkin
+                });
             });
-        });
-        // Excel İndir butonunu düzenleme
-        $('#excelBtn').on('click', function() {
-            $('#alternative-pagination').DataTable().button('.buttons-excel').trigger();
-        });
-    </script>
 
-    <script>
-        $(document).on('click', '#delete_kesin_kayit', function () {
+        })
+
+
+        $(document).on('click', '#delete_class', function () {
             var user_id = $(this).attr('data-id');
             const url = $(this).attr('data-url');
             Swal.fire({
                 title: 'Emin misiniz?',
-                text: "Bu başvuruyu silmek istediğinize emin misiniz?",
+                text: "Bu sınıfı silmek istediğinize emin misiniz?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

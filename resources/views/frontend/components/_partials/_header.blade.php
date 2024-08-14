@@ -35,7 +35,7 @@
                 <nav>
                     <!--================= Menu Toggle btn =================-->
                     <div class="menu-toggle">
-                        <div class="logo"><a href="{{route('home.index')}}" class="logo-text"> <img src="{{asset('frontend/assets/images/logo/sem-logo.png')}}" alt="logo"> </a></div>
+                        <div class="logo"><a href="{{route('home.index')}}" class="logo-text"> <img src="{{asset('backend/my-image/sem-ana.png')}}" alt="logo"> </a></div>
                         <button type="button" id="menu-btn">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>

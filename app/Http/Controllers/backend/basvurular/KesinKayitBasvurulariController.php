@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\KesinKayitForm;
 use App\Models\OnBasvuruForm;
+use App\Models\Siniflar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,7 +25,10 @@ class KesinKayitBasvurulariController extends Controller
 
     public function index()
     {
-        $data = KesinKayitForm::where('status', '!=', 1)->get();
+        $data = KesinKayitForm::where(function ($query) {
+            $query->whereNull('sinif_id')
+                ->orWhere('sinif_id', '');
+        })->get();
 
         $courses = Courses::all();
         return view('backend.kesin-kayit.index',compact('data','courses'));
@@ -35,12 +39,10 @@ class KesinKayitBasvurulariController extends Controller
         $data = KesinKayitForm::findOrFail($request->id);
         return response()->json($data);
     }
-
-    public function switch(Request $request)
+    public function getSinif(Request $request)
     {
-        $data = KesinKayitForm::findOrFail($request->id);
-        $data->status = $request->status=="true" ? 1 : 0;
-        $data->save();
+        $data = Siniflar::all();
+        return response()->json($data);
     }
 
     public function delete($id)
@@ -150,5 +152,23 @@ class KesinKayitBasvurulariController extends Controller
             return back()->with($this->toastr('Kişi Güncelleme Başarılı','success'));
         }
     }
+
+    public function sinifAta(Request $request)
+    {
+        $data = KesinKayitForm::findOrFail($request->id);
+        $data->sinif_id =  $request->sinif_id;
+
+        $query = $data->update();
+
+        if (!$query) {
+            return back()->with($this->toastr('Kişi Sınıfa Atanması Başarısız','error'));
+        } else {
+            return back()->with($this->toastr('Kişi Sınıfa Atanması Başarılı','success'));
+        }
+    }
+
+
+
+
 
 }

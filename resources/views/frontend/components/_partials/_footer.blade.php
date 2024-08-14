@@ -5,7 +5,7 @@
                 <div class="col-lg-3 md-mb-30">
                     <div class="footer-widget footer-widget-1">
                         <div class="footer-logo white">
-                            <a href="{{route('home.index')}}" class="logo-text"> <img src="{{asset('frontend/assets/images/logo/sem-logo.png')}}" alt="logo"></a>
+                            <a href="{{route('home.index')}}" class="logo-text"> <img src="{{asset('backend/my-image/sem-beyaz.svg.svg')}}" width="250px" alt="logo"></a>
                         </div>
                         <h5 class="footer-subtitle">Tahılpazarı Mah. Adnan Menderes Bulvarı No:84 Muratpaşa / ANTALYA</h5>
                         <ul class="footer-address">

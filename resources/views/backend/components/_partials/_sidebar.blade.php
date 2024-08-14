@@ -35,6 +35,56 @@
                     </a>
                 </li> <!-- end Dashboard Menu -->
 
+
+                <li class="nav-item">
+                    @php
+                        $coursesRoutes = ['class.list','class.old-list'];
+                    @endphp
+                    <a class="nav-link menu-link {{ in_array($currentRoute, $coursesRoutes) ? 'active' : '' }}" href="#sidebarSiniflar" data-bs-toggle="collapse" role="button" aria-expanded="{{ in_array($currentRoute, $coursesRoutes) ? 'true' : 'false' }}" aria-controls="sidebarEgitimler">
+                        <i class="ri-book-fill"></i> <span data-key="t-dashboards">Sınıf Listeleri</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ in_array($currentRoute, $coursesRoutes) ? 'show' : '' }}" id="sidebarSiniflar">
+                        <ul class="nav nav-sm flex-column">
+
+                            <li class="nav-item">
+                                <a href="{{ route('class.list') }}" class="nav-link {{ $currentRoute == 'class.list' ? 'active' : '' }}">
+                                    <span data-key="t-analytics">Mevcut Sınıflara Ait Öğrenciler </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('class.old-list') }}" class="nav-link {{ $currentRoute == 'class.old-list' ? 'active' : '' }}">
+                                    <span data-key="t-analytics">Geçmiş Dönem Sınıflara Ait Öğrenciler </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Dashboard Menu -->
+
+
+                <li class="nav-item">
+                    @php
+                        $coursesRoutes = ['class.create', 'class.index'];
+                    @endphp
+                    <a class="nav-link menu-link {{ in_array($currentRoute, $coursesRoutes) ? 'active' : '' }}" href="#sidebarSiniflarDuzenle" data-bs-toggle="collapse" role="button" aria-expanded="{{ in_array($currentRoute, $coursesRoutes) ? 'true' : 'false' }}" aria-controls="sidebarEgitimler">
+                        <i class="ri-book-fill"></i> <span data-key="t-dashboards">Sınıflar Düzenle</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ in_array($currentRoute, $coursesRoutes) ? 'show' : '' }}" id="sidebarSiniflarDuzenle">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('class.create') }}" class="nav-link {{ $currentRoute == 'class.create' ? 'active' : '' }}">
+                                    <span data-key="t-job">Yeni Sınıf Ekle</span> <span class="badge badge-pill bg-success" data-key="t-new">+</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('class.index') }}" class="nav-link {{ $currentRoute == 'class.index' ? 'active' : '' }}">
+                                    <span data-key="t-analytics"> Sınıfları Listele </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Dashboard Menu -->
+
+
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ $currentRoute == 'on-kayit-basvurulari.index' ? 'active' : '' }}" href="{{ route('on-kayit-basvurulari.index') }}">
                         <i class="ri-inbox-archive-line"></i> <span data-key="t-dashboards">Ön Kayit Başvuruları</span>

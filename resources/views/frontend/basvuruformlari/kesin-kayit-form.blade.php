@@ -45,11 +45,48 @@
                                     @if(session('success'))
                                         <div class="alert alert-success">
                                             <b>{{ session('success') }}</b>
-                                            <a href="https://payment.antalya.edu.tr/Payment/UnAuthenticatedPayment?notAut=True"><b>Hemen Kredi Karı İle Ödeme Yap</b></a>
+                                            <div class="mt-2">
+                                                <a href="https://payment.antalya.edu.tr/Payment/UnAuthenticatedPayment?notAut=True">
+                                                    <b>Kredi Kartı İle Ödeme Yap</b>
+                                                </a>
+                                            </div>
+                                            <div class="alert alert-info mt-3">
+                                                <b>HAVALE İLE ÖDEME YAPMAK İÇİN TL HESAP BİLGİLERİ (SEM)</b>
+                                                <table class="table table-bordered mt-2">
+                                                    <tbody>
+                                                    <tr>
+                                                        <th>HESAP ADI (ACCOUNT NAME)</th>
+                                                        <td>ANTALYA BİLİM ÜNİVERSİTESİ</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>BANKA (BANK)</th>
+                                                        <td>VAKIFLAR BANKASI</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ŞUBE (BRANCH)</th>
+                                                        <td>ANTALYA ŞUBE</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>HESAP TİPİ</th>
+                                                        <td>VADESİZ TL HESAP</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>HESAP NO (ACCOUNT NO.)</th>
+                                                        <td>445000266714</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>IBAN</th>
+                                                        <td>TR440001500158007317484665</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     @endif
 
-                                    @if(session('error'))
+
+
+                                @if(session('error'))
                                         <div class="alert alert-danger">
                                             <b>{{ session('error') }}</b>
                                         </div>

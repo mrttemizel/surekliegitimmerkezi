@@ -12,6 +12,7 @@ use App\Http\Controllers\backend\basvurular\OnKayitBasvurulariController;
 use App\Http\Controllers\backend\categories\CategoriesController;
 use App\Http\Controllers\backend\courses\CoursesController;
 use App\Http\Controllers\backend\settings\SettingsController;
+use App\Http\Controllers\backend\siniflar\SiniflarController;
 use App\Http\Controllers\backend\slider\SliderController;
 use App\Http\Controllers\backend\user\UserController;
 use Illuminate\Support\Facades\Route;
@@ -135,12 +136,28 @@ Route::middleware('auth')->group(function (){
         Route::get('/kesin-kayit-basvurulari',[KesinKayitBasvurulariController::class,'index'])->name('kesin-kayit-basvurulari.index');
         Route::get('/kesin-kayit-basvurulari/delete/{id}',[KesinKayitBasvurulariController::class,'delete'])->name('kesin-kayit-basvurulari.delete');
         Route::get('/kesin-kayit-basvurulari/getData',[KesinKayitBasvurulariController::class,'getData'])->name('kesin-kayit-basvurulari.getData');
-        Route::get('/kesin-kayit-basvurulari/switch',[KesinKayitBasvurulariController::class,'switch'])->name('kesin-kayit-basvurulari.switch');
         Route::get('/kesin-kayit-basvurulari/edit/{id}',[KesinKayitBasvurulariController::class,'edit'])->name('kesin-kayit-basvurulari.edit');
         Route::post('/kesin-kayit-basvurulari/update',[KesinKayitBasvurulariController::class,'update'])->name('kesin-kayit-basvurulari.update');
+        Route::get('/kesin-kayit-basvurulari/getSinif',[KesinKayitBasvurulariController::class,'getSinif'])->name('kesin-kayit-basvurulari.getSinif');
+        Route::post('/kesin-kayit-basvurulari/sinifAta',[KesinKayitBasvurulariController::class,'sinifAta'])->name('kesin-kayit-basvurulari.sinifAta');
 
 
 
+        // Sınıflar routes
+        Route::get('/class',[SiniflarController::class,'index'])->name('class.index');
+        Route::get('/class/create',[SiniflarController::class,'create'])->name('class.create');
+        Route::post('/class/create',[SiniflarController::class,'store'])->name('class.store');
+        Route::get('/class/edit/{id}',[SiniflarController::class,'edit'])->name('class.edit');
+        Route::post('/class/update',[SiniflarController::class,'update'])->name('class.update');
+        Route::get('/class/delete/{id}',[SiniflarController::class,'delete'])->name('class.delete');
 
+
+        Route::get('/class/students',[SiniflarController::class,'list'])->name('class.list');
+        Route::get('/class/old-students',[SiniflarController::class,'oldList'])->name('class.old-list');
+        Route::get('/class/filter', [SiniflarController::class, 'filter'])->name('class.filter');
+        Route::get('/class/students/switch', [SiniflarController::class, 'switch'])->name('class.switch');
+        Route::post('/class/down/{id}',[SiniflarController::class,'down'])->name('class.down');
+
+        // Sınıflar routes
     });
 });
