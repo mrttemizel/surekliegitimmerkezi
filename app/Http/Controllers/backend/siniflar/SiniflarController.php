@@ -61,21 +61,8 @@ class SiniflarController extends Controller
         $data->egitim_id = $request->input('egitim_id');
         $data->sertifika_tipi = $request->input('sertifika_tipi');
         $data->sertifika_dili = $request->input('sertifika_dili');
-
+        $data->sertifika= $request->input('sertifika');
         $data->slug = Str::slug($request->input('sinif_adi'));
-
-        if ($request->hasFile('sertifika')) {
-            $request->validate([
-                'sertifika' => 'file|mimes:pdf|max:2048',
-            ]);
-
-            $timestamp = Carbon::now()->format('YmdHis'); // YılAyGünSaatDakikaSaniye formatında zaman damgası
-
-
-            $file = $request->file('sertifika');
-            $sertifikakname = Str::slug($request->input('sinif_adi')) . '-' . 'sertifika' . '-' . $timestamp . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('sertifika_template'), $sertifikakname);
-            $data->sertifika = $sertifikakname;
 
             $query = $data->save();
 
@@ -84,7 +71,6 @@ class SiniflarController extends Controller
             } else {
                 return back()->with($this->toastr('Sınıf Ekleme Başarılı', 'success'));
             }
-        }
     }
 
     public function delete($id)
@@ -178,6 +164,13 @@ class SiniflarController extends Controller
         return view('backend.class.list', compact('classLists', 'data'));
     }
 
+    public function oldList()
+    {
+        $data = Siniflar::where('status', 1)->where('sinif_durumu', 2)->get();
+        $classLists = collect(); // Boş bir koleksiyon
+        return view('backend.class.old-list', compact('classLists', 'data'));
+    }
+
     public function filter(Request $request)
     {
         $selectedClassId = $request->input('sinif_select');
@@ -190,6 +183,20 @@ class SiniflarController extends Controller
         }
 
         return view('backend.class.list', compact('classLists', 'data'));
+    }
+
+    public function filterold(Request $request)
+    {
+        $selectedClassId = $request->input('sinif_select');
+        $data = Siniflar::where('status', 1)->where('sinif_durumu', 2)->get();
+
+        if ($selectedClassId) {
+            $classLists = KesinKayitForm::where('sinif_id', $selectedClassId)->get();
+        } else {
+            $classLists = collect(); // Boş bir koleksiyon
+        }
+
+        return view('backend.class.old-list', compact('classLists', 'data'));
     }
 
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\basvurular\KesinKayitBasvurulariController;
 use App\Http\Controllers\backend\basvurular\OnKayitBasvurulariController;
 use App\Http\Controllers\backend\categories\CategoriesController;
 use App\Http\Controllers\backend\courses\CoursesController;
+use App\Http\Controllers\backend\sertifika\SertifikaController;
 use App\Http\Controllers\backend\settings\SettingsController;
 use App\Http\Controllers\backend\siniflar\SiniflarController;
 use App\Http\Controllers\backend\slider\SliderController;
@@ -155,8 +156,12 @@ Route::middleware('auth')->group(function (){
         Route::get('/class/students',[SiniflarController::class,'list'])->name('class.list');
         Route::get('/class/old-students',[SiniflarController::class,'oldList'])->name('class.old-list');
         Route::get('/class/filter', [SiniflarController::class, 'filter'])->name('class.filter');
+        Route::get('/class/filterold', [SiniflarController::class, 'filterold'])->name('class.filterold');
         Route::get('/class/students/switch', [SiniflarController::class, 'switch'])->name('class.switch');
         Route::post('/class/down/{id}',[SiniflarController::class,'down'])->name('class.down');
+
+        Route::post('/generate-certificates', [SertifikaController::class, 'generateCertificates'])->name('certificates.generate');
+
 
         // Sınıflar routes
     });

@@ -101,8 +101,12 @@
                                 <div class="col-md-12">
                                     <div>
                                         <label for="image" class="form-label">Sertifika - Katılım Belgesi Template <span class="text-danger"> *</span></label>
-                                        <input type="file" name="sertifika" class="form-control">
-                                        <small class="form-text text-muted">Lütfen belgeyi "pdf" formatında yükleyiniz. Yükleyebileceğiniz dosya boyutu maksimum 2 MB'dır. Hata almanız durumunda belgeleri tekrar yüklemelisiniz.</small>
+                                        <select class="form-select" name="sertifika" aria-label="Default select example">
+                                            <option selected disabled>Sertifika Templatini Seçiniz</option>
+                                            <option value="katilim.pdf" {{ old('sertifika', $data->sertifika) == "katilim.pdf" ? 'selected' : '' }}>Katılım Belgesi</option>
+                                            <option value="temel.pdf" {{ old('sertifika', $data->sertifika) == "temel.pdf" ? 'selected' : '' }}>Temel Sertifika</option>
+                                            <option value="tr-eng.pdf" {{ old('sertifika', $data->sertifika) == "tr-eng.pdf" ? 'selected' : '' }}>TR-ENG Sertifika Belgesi</option>
+                                        </select>
                                         <span class="text-danger">
                             @error('sertifika')
                                             {{ $message }}

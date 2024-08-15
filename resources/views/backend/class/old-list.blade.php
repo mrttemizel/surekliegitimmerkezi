@@ -48,7 +48,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">Sınıflara Ait Öğrenciler Listesi</h5>
-                            <form action="{{ route('class.filter') }}" method="GET" class="d-flex">
+                            <form action="{{ route('class.filterold') }}" method="GET" class="d-flex">
                                 @csrf
                                 <select class="form-select" name="sinif_select" aria-label="Default select example">
                                     <option selected disabled>Sınıf Seçiniz</option>
@@ -70,9 +70,11 @@
                                     <th>Eğitim</th>
                                     <th>Başarı Durumu</th>
                                     <th>Düzenle</th>
+                                    <th>İndir</th>
                                 </tr>
                                 </thead>
-                                <tbody>@php
+                                <tbody>
+                                @php
                                     $sinif_id = $classLists->first()->sinif_id ?? null;
                                     $kurs_id = $classLists->first()->kurs_id ?? null;
                                 @endphp
@@ -88,18 +90,24 @@
 
                                         <td>
                                             <div class="hstack gap-3 fs-15">
-                                                <a href="{{ route('class.down', ['id' => $classList->id]) }}" class="btn btn-sm btn-info class-down" data-id="{{ $classList->id }}">
-                                                    <i class="ri-arrow-down-circle-line"></i>
-                                                </a>
                                                 <a data-id="{{ $classList->id }}" class="btn btn-sm btn-success edit-click"><i class="ri-eye-2-line"></i></a>
                                             </div>
+                                        </td>
+                                        <td>
+                                            @if(!empty($classList->sertificate))
+                                                <a href="{{ asset($classList->sertificate) }}" class="btn btn-sm btn-primary" target="_blank">
+                                                    <i class="ri-file-download-line"></i> İndir
+                                                </a>
+                                            @else
+                                                Sertifika Yok
+                                            @endif
                                         </td>
                                     </tr>
 
                                 @endforeach
                                 </tbody>
                             </table>
-                            <button id="generate-certificates-btn" class="btn-info btn mt-2">Kursu Bitir - Sertifikaları Gönder</button>
+                           <!-- <button id="generate-certificates-btn" class="btn-info btn mt-2">Kursu Bitir - Sertifikaları Gönder</button>-->
                         </div>
                     </div>
                 </div><!--end col-->
