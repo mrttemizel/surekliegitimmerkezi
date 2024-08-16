@@ -32,8 +32,8 @@ class OnKayitFormController extends Controller
 
         $data = new OnBasvuruForm();
 
-        $data->name = $request->input('name');
-        $data->surname = $request->input('surname');
+        $data->name = mb_strtoupper($request->input('name'), 'UTF-8');
+        $data->surname = mb_strtoupper($request->input('surname'), 'UTF-8');
         $data->email = $request->input('email');
         $data->phone = $request->input('phone');
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
