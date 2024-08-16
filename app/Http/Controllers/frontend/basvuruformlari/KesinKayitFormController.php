@@ -25,6 +25,7 @@ class KesinKayitFormController extends Controller
 
         $request->validate([
             'name' => 'required',
+            'surname' => 'required',
             'email' => 'required',
             'phone' => 'required',
             'kvkk' => 'required',
@@ -36,6 +37,7 @@ class KesinKayitFormController extends Controller
 
 
         $data->name = $request->input('name');
+        $data->surname = $request->input('surname');
         $data->email = $request->input('email');
         $data->phone = $request->input('phone');
         $data->tc = $request->input('tc');

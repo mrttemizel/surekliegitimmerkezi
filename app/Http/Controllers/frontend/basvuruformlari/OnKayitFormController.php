@@ -22,6 +22,7 @@ class OnKayitFormController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'surname' => 'required',
             'email' => 'required',
             'phone' => 'required',
             'kvkk' => 'required',
@@ -32,6 +33,7 @@ class OnKayitFormController extends Controller
         $data = new OnBasvuruForm();
 
         $data->name = $request->input('name');
+        $data->surname = $request->input('surname');
         $data->email = $request->input('email');
         $data->phone = $request->input('phone');
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';

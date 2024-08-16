@@ -52,6 +52,7 @@ class SertifikaController extends Controller
             if ($filePath) {
                 $data = KesinKayitForm::where('id', $classList->id)->first();
                 $data->sertificate = $filePath;
+                $data->status = 2;
                 $data->update();
             } else {
                 return response()->json(['message' => 'Sertifikaların Oluşturulma Aşamasında Sorun Oluştu']);
@@ -96,7 +97,7 @@ class SertifikaController extends Controller
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetXY(130, 95);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name) );
+        $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name . ' '. $classList->surname) );
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetFontSize(12);
@@ -124,8 +125,6 @@ class SertifikaController extends Controller
         $fileName = $qr . '_' . $classList->tc . '_certificate.pdf';
         $pdf->Output($outputDir . '/' . $fileName, 'F');
 
-        //$pdf->Output($outputDir . '/' . $qr .'_'. $classList->tc . '_certificate.pdf', 'F');
-       // $pdf->Output($outputDir . '/' . $classList->tc . '-' .$qr. '/' .'_certificate.pdf', 'F');
         return $outputDir . '/' . $fileName;
     }
     private function createKatilimPdf($classList, $sinifId, $kursId , $class_data)
@@ -153,7 +152,7 @@ class SertifikaController extends Controller
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetXY(139, 100);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name) );
+        $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name. ' '. $classList->surname) );
 
         $pdf->SetFontSize(12);
         $pdf->SetXY(87, 121);
@@ -216,7 +215,7 @@ class SertifikaController extends Controller
 
     $pdf->SetTextColor(0, 10, 0);
     $pdf->SetXY(130, 105);
-    $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name) );
+    $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name . ' '. $classList->surname) );
 
     $pdf->SetFontSize(12);
     $pdf->SetXY(95, 130);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('kurs_id');
             $table->string('kurs_adi');
             $table->string('name');
+            $table->string('surname');
             $table->string('email');
             $table->string('phone');
             $table->string('tc');

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\backend\sertifika\EDevletController;
+use App\Services\SertifikaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::any('/soap', function () {
+    $options = [
+        'uri' => 'http://127.0.0.1:8000/soap',
+        'location' => 'http://127.0.0.1:8000/soap'
+    ];
+
+    $server = new \SoapServer(public_path('wsdl\universite.wsdl'), $options);
+    $server->setClass(SertifikaService::class);
+    $server->handle();
+});
+
+Route::get('/test', function () {
+    return 'fgdsfTest route is working!';
+});
+Route::get('/certificates/{tc}', [EDevletController::class, 'getCertificatesByTcKimlikNo']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

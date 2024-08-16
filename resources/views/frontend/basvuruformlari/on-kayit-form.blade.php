@@ -55,9 +55,18 @@
                                     @endif
                                     <p>
                                         <label><span class="text-danger">*</span> Ad Soyad</label>
-                                        <input placeholder="Ad Soyad" type="text"  name="name" value="{{old('name')}}"  >
+                                        <input placeholder="Adınız" type="text"  name="name" value="{{old('name')}}"  >
                                         <span class="text-danger">
                                     @error('name')
+                                            {{ $message }}
+                                            @enderror
+                            </span>
+                                    </p>
+                                    <p>
+                                        <label><span class="text-danger">*</span> Soyadınız</label>
+                                        <input placeholder="Soyadınız" type="text"  name="surname" value="{{old('surname')}}"  >
+                                        <span class="text-danger">
+                                    @error('surname')
                                             {{ $message }}
                                             @enderror
                             </span>

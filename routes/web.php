@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\basvurular\KesinKayitBasvurulariController;
 use App\Http\Controllers\backend\basvurular\OnKayitBasvurulariController;
 use App\Http\Controllers\backend\categories\CategoriesController;
 use App\Http\Controllers\backend\courses\CoursesController;
+use App\Http\Controllers\backend\sertifika\EDevletController;
 use App\Http\Controllers\backend\sertifika\SertifikaController;
 use App\Http\Controllers\backend\settings\SettingsController;
 use App\Http\Controllers\backend\siniflar\SiniflarController;
@@ -162,6 +163,7 @@ Route::middleware('auth')->group(function (){
 
         Route::post('/generate-certificates', [SertifikaController::class, 'generateCertificates'])->name('certificates.generate');
 
+        Route::get('/certificates/{tc}', [EDevletController::class, 'getCertificatesByTcKimlikNo']);
 
         // Sınıflar routes
     });
