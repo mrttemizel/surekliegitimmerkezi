@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\backend\auth;
-
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Mail\UserRegisterMail;
+use App\Models\KesinKayitForm;
+use App\Models\OnBasvuruForm;
+use App\Models\Siniflar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +26,27 @@ class AuthController extends Controller
 
 
     public function index(){
-        return view('backend.index');
+        $data = Siniflar::all();
+        $on_data = OnBasvuruForm::all();
+        $statusCounts = [
+            'tamamlanan' => $data->where('sinif_durumu', 2)->count(),
+            'devam_eden' => $data->where('sinif_durumu', 1)->count(),
+        ];
+
+        $ksn_data = KesinKayitForm::all()->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->format('Y-m'); // grouping by year and month
+        });
+
+        // Initialize an array to store the counts per month
+        $monthlyCounts = [];
+
+        // Iterate through the grouped data to get the counts
+        foreach ($ksn_data as $month => $data) {
+            $monthlyCounts[$month] = $data->count();
+        }
+
+
+        return view('backend.index', compact('statusCounts','monthlyCounts'));
     }
 
     public function reset_password_page(){

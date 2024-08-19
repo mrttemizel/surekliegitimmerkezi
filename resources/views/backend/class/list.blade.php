@@ -80,7 +80,7 @@
                                 @foreach($classLists as $classList)
                                     <tr>
                                         <td>{{$classList->id}}</td>
-                                        <td>{{$classList->name}}</td>
+                                        <td>{{$classList->name. ' '. $classList->surname}}</td>
                                         <td>{{$classList->tc}}</td>
                                         <td>{{ $classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{ $classList->kurs_adi}}</td>
