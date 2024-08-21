@@ -73,19 +73,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>@php
+                                    //$classLists = collect();
                                     $sinif_id = $classLists->first()->sinif_id ?? null;
                                     $kurs_id = $classLists->first()->kurs_id ?? null;
+                                    $isAnyActive = false;
                                 @endphp
 
                                 @foreach($classLists as $classList)
+                                    @if($classList->status == 1)
+                                        @php $isAnyActive = true; @endphp
+                                    @endif
                                     <tr>
                                         <td>{{$classList->id}}</td>
                                         <td>{{$classList->name. ' '. $classList->surname}}</td>
                                         <td>{{$classList->tc}}</td>
-                                        <td>{{ $classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
-                                        <td>{{ $classList->kurs_adi}}</td>
-                                        <td><input class="switchStatus" data-id={{ $classList->id }} type="checkbox" {{$classList->status == 0 ? '' : 'checked' }} data-toggle="toggle" data-on="Başarılı" data-off="Başarısız" data-onstyle="success" data-offstyle="danger"></td>
-
+                                        <td>{{$classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
+                                        <td>{{$classList->kurs_adi}}</td>
+                                        <td><input onchange="window.location.reload();" class="switchStatus" data-id={{ $classList->id }} type="checkbox" {{$classList->status == 0 ? '' : 'checked' }} data-toggle="toggle" data-on="Başarılı" data-off="Başarısız" data-onstyle="success" data-offstyle="danger"></td>
                                         <td>
                                             <div class="hstack gap-3 fs-15">
                                                 <a href="{{ route('class.down', ['id' => $classList->id]) }}" class="btn btn-sm btn-info class-down" data-id="{{ $classList->id }}">
@@ -95,20 +99,20 @@
                                             </div>
                                         </td>
                                     </tr>
-
                                 @endforeach
                                 </tbody>
                             </table>
-                            <button id="generate-certificates-btn" class="btn-info btn mt-2">Kursu Bitir - Sertifikaları Gönder</button>
+                            <button id="generate-certificates-btn" class="btn-info btn mt-2"
+                                    onclick="if (!this.disabled) window.location.href = '{{ route('class.list') }}';"
+                                {{ $isAnyActive ? '' : 'disabled' }}>
+                                Kursu Bitir - Sertifikaları Gönder
+                            </button>
                         </div>
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
         </div>
     </div>
-
-
-
 
     <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -206,10 +210,7 @@
 
 @endsection
 
-
-
 @section('addjs')
-
 
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>

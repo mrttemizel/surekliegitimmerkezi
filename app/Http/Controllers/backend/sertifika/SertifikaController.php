@@ -71,6 +71,8 @@ class SertifikaController extends Controller
             } else {
                 return back()->with($this->toastr('Sertifika Oluşturma Başarılı', 'success'));
             }
+        }else{
+            return back()->with($this->toastr('Sertifikanız Oluşturulamadı', 'error'));
         }
     }
     private function createTrPdf($classList, $sinifId, $kursId , $class_data)

@@ -296,6 +296,7 @@
                     url: '{{ route('kesin-kayit-basvurulari.getSinif') }}',
                     data: { id: id },
                     success: function(data) {
+                        console.log(data);
                         if(data.length > 0) {
                             $('#form_id').val(id);
                             var sinifSelect = $('#sinif_id');
@@ -309,6 +310,11 @@
 
                             $('#classModal').modal('show');
                         } else {
+                            Swal.fire(
+                                'Hata!',
+                                'Sınıf Verisi Bulunamadı....',
+                                'error'
+                            );
                             console.error('Veri bulunamadı');
                         }
                     },

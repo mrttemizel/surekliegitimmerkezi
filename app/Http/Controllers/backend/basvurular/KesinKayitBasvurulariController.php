@@ -29,9 +29,9 @@ class KesinKayitBasvurulariController extends Controller
             $query->whereNull('sinif_id')
                 ->orWhere('sinif_id', '');
         })->get();
-
+        $sinif = Siniflar::where('sinif_durumu', 1)->count();
         $courses = Courses::all();
-        return view('backend.kesin-kayit.index',compact('data','courses'));
+        return view('backend.kesin-kayit.index',compact('data','courses','sinif'));
     }
 
     public function getData(Request $request)
@@ -41,7 +41,7 @@ class KesinKayitBasvurulariController extends Controller
     }
     public function getSinif(Request $request)
     {
-        $data = Siniflar::all();
+        $data = Siniflar::where('sinif_durumu', 1)->get();
         return response()->json($data);
     }
 
