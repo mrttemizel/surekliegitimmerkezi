@@ -37,16 +37,17 @@ class SertifikaController extends Controller
             ->where('sinif_id', $sinifId)
             ->get();
         $class_data = Siniflar::where('id', $sinifId)->first();
+        $courses_data = Courses::where('id', $kursId)->first();
 
         $filePath = null; // Initialize $filePath
 
         foreach ($classLists as $classList) {
             if ($class_data->sertifika == 'tr-eng.pdf') {
-                $filePath = $this->createTrPdf($classList, $sinifId, $kursId, $class_data);
+                $filePath = $this->createTrPdf($classList, $sinifId, $kursId, $class_data, $courses_data);
             } elseif ($class_data->sertifika == 'katilim.pdf') {
-                $filePath = $this->createKatilimPdf($classList, $sinifId, $kursId, $class_data);
+                $filePath = $this->createKatilimPdf($classList, $sinifId, $kursId, $class_data, $courses_data);
             } elseif ($class_data->sertifika == 'temel.pdf') {
-                $filePath =$this->createTemelPdf($classList, $sinifId, $kursId, $class_data);
+                $filePath =$this->createTemelPdf($classList, $sinifId, $kursId, $class_data, $courses_data);
             }
 
             if ($filePath) {
@@ -75,18 +76,30 @@ class SertifikaController extends Controller
             return back()->with($this->toastr('Sertifikanız Oluşturulamadı', 'error'));
         }
     }
-    private function createTrPdf($classList, $sinifId, $kursId , $class_data)
+    private function createTrPdf($classList, $sinifId, $kursId, $class_data ,$courses_data)
     {
-        $pdf = new  Fpdi();
-
+        $pdf = new Fpdi();
         $pdf->AddFont('arial', '', 'arial.php');
         $pdf->SetFont('arial', '', 22);
+        $fullName = $classList->name . ' ' . $classList->surname;
+        $nameLength = strlen($fullName);
 
-        $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
+        $fontSize = 22;
 
-        $qr='UN_0410610'.$classList->tc;
+        if ($nameLength > 20) {
+            $fontSize = 12;
+        } elseif ($nameLength > 15) {
+            $fontSize = 16;
+        } elseif ($nameLength > 11) {
+            $fontSize = 18;
+        }
+
+        $pdf->SetFontSize($fontSize);
+        $pagesCount = $pdf->setSourceFile('sertifika_template/' . $class_data->sertifika);
+
+        $qr = 'UN_041061' . $classList->tc . $sinifId;
+        $qr = substr($qr, 0, 15);
         $qrCode = new QrCode($qr);
-
 
         $writer = new PngWriter();
         $result = $writer->write($qrCode);
@@ -99,7 +112,9 @@ class SertifikaController extends Controller
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetXY(130, 95);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name . ' '. $classList->surname) );
+
+        // İsim ve soyismi yazdır
+        $pdf->Write(0, iconv('utf-8', 'windows-1254', $fullName));
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetFontSize(12);
@@ -129,16 +144,31 @@ class SertifikaController extends Controller
 
         return $outputDir . '/' . $fileName;
     }
-    private function createKatilimPdf($classList, $sinifId, $kursId , $class_data)
+    private function createKatilimPdf($classList, $sinifId, $kursId , $class_data ,$courses_data)
     {
         $pdf = new  Fpdi();
 
         $pdf->AddFont('arial', '', 'arial.php');
         $pdf->SetFont('arial', '', 22);
+        $fullName = $classList->name . ' ' . $classList->surname;
+        $nameLength = strlen($fullName);
+
+        $fontSize = 22;
+
+        if ($nameLength > 20) {
+            $fontSize = 12;
+        } elseif ($nameLength > 15) {
+            $fontSize = 16;
+        } elseif ($nameLength > 11) {
+            $fontSize = 18;
+        }
+
+        $pdf->SetFontSize($fontSize);
 
         $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
-        $qr='UN_0410610'.$classList->tc;
+        $qr = 'UN_041061' . $classList->tc . $sinifId;
+        $qr = substr($qr, 0, 15);
         $createdTime = date('Y/m/d', strtotime($classList->created_at));
         $qrCode = new QrCode($qr);
 
@@ -154,14 +184,14 @@ class SertifikaController extends Controller
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetXY(139, 100);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name. ' '. $classList->surname) );
+        $pdf->Write(0,iconv('utf-8','windows-1254', $classList->name . ' ' . $classList->surnamee) );
 
         $pdf->SetFontSize(12);
         $pdf->SetXY(87, 121);
         $pdf->Write(0,iconv('utf-8','windows-1254',$createdTime) );
 
         $pdf->SetXY(35, 135);
-        $pdf->Write(0,iconv('utf-8','windows-1254','48') );
+        $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_saati) );
 
         $pdf->SetXY(67, 135);
         $pdf->Write(0,iconv('utf-8','windows-1254',$class_data->sinif_adi) );
@@ -192,16 +222,30 @@ class SertifikaController extends Controller
         $pdf->Output($outputDir . '/' . $fileName, 'F');
         return $outputDir . '/' . $fileName;
     }
-    private function createTemelPdf($classList, $sinifId, $kursId , $class_data)
+    private function createTemelPdf($classList, $sinifId, $kursId , $class_data ,$courses_data)
 {
     $pdf = new  Fpdi();
 
     $pdf->AddFont('arial', '', 'arial.php');
     $pdf->SetFont('arial', '', 22);
+    $fullName = $classList->name . ' ' . $classList->surname;
+    $nameLength = strlen($fullName);
 
+    $fontSize = 22;
+
+    if ($nameLength > 20) {
+        $fontSize = 12;
+    } elseif ($nameLength > 15) {
+        $fontSize = 16;
+    } elseif ($nameLength > 11) {
+        $fontSize = 18;
+    }
+
+    $pdf->SetFontSize($fontSize);
     $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
-    $qr='UN_0410610'.$classList->tc;
+    $qr = 'UN_041061' . $classList->tc . $sinifId;
+    $qr = substr($qr, 0, 15);
     $createdTime = date('Y/m/d', strtotime($classList->created_at));
     $qrCode = new QrCode($qr);
 
@@ -217,14 +261,14 @@ class SertifikaController extends Controller
 
     $pdf->SetTextColor(0, 10, 0);
     $pdf->SetXY(130, 105);
-    $pdf->Write(0,iconv('utf-8','windows-1254',$classList->name . ' '. $classList->surname) );
+    $pdf->Write(0,iconv('utf-8','windows-1254', $classList->name . ' ' . $classList->surname) );
 
     $pdf->SetFontSize(12);
     $pdf->SetXY(95, 130);
     $pdf->Write(0,iconv('utf-8','windows-1254',$createdTime) );
 
     $pdf->SetXY(62, 143);
-    $pdf->Write(0,iconv('utf-8','windows-1254','48') );
+    $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_saati) );
 
     $pdf->SetXY(90, 143);
     $pdf->Write(0,iconv('utf-8','windows-1254',$class_data->sinif_adi) );
