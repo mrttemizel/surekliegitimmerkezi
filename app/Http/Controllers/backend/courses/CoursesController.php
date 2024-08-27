@@ -55,6 +55,7 @@ class CoursesController extends Controller
 
         $data = new Courses();
         $data->egitim_adi = $request->input('egitim_adi');
+        $data->egitim_adi_ing = $request->input('egitim_adi_ing');
         $data->category_id = $request->input('category_id');
         $data->egitim_kordinatorleri = $request->input('egitim_kordinatorleri');
         $data->egitim_saati = $request->input('egitim_saati');
@@ -136,6 +137,7 @@ class CoursesController extends Controller
         ]);
 
         $data->egitim_adi = $request->input('egitim_adi');
+        $data->egitim_adi_ing = $request->input('egitim_adi_ing');
         $data->category_id = $request->input('category_id');
         $data->egitim_kordinatorleri = $request->input('egitim_kordinatorleri');
         $data->egitim_saati = $request->input('egitim_saati');

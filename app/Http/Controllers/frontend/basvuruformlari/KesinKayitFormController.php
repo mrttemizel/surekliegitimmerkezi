@@ -76,7 +76,9 @@ class KesinKayitFormController extends Controller
 
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
+        $data->sinif_id=$request->input('id');
         $query = $data->save();
+
         if (!$query) {
             return back()->with('error', 'Eklenirken bir hata oluştu!');
         } else {

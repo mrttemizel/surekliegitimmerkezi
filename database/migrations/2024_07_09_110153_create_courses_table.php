@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('egitim_adi')->nullable();
+            $table->string('egitim_adi_ing')->nullable();
             $table->string('egitim_kordinatorleri')->nullable();
             $table->date('egitim_baslangic_tarihi')->nullable();
             $table->date('egitim_bitis_tarihi')->nullable();

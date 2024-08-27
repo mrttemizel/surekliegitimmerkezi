@@ -111,7 +111,7 @@ class SertifikaController extends Controller
         $pdf->useTemplate($tplIdx, 0, 0);
 
         $pdf->SetTextColor(0, 10, 0);
-        $pdf->SetXY(130, 95);
+        $pdf->SetXY(125, 95);
 
         // İsim ve soyismi yazdır
         $pdf->Write(0, iconv('utf-8', 'windows-1254', $fullName));
@@ -119,7 +119,12 @@ class SertifikaController extends Controller
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetFontSize(12);
         $pdf->SetXY(47, 135);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$class_data->sinif_adi) );
+        $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi) );
+
+        $pdf->SetTextColor(0, 10, 0);
+        $pdf->SetFontSize(12);
+        $pdf->SetXY(170, 130);
+        $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi_ing) );
 
         $pdf->Image($qrCodePath, 250, 165, 25, 25);
         $pdf->AddPage('O');

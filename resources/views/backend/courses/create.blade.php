@@ -33,12 +33,23 @@
                         <div class="live-preview">
                             <div class="row gy-3">
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Adı <span class="text-danger">*</span></label>
                                         <input type="text" name="egitim_adi" placeholder="Eğitim Adı" class="form-control" value="{{ old('egitim_adi') }}">
                                         <span class="text-danger">
                                     @error('egitim_adi')
+                                            {{ $message }}
+                                            @enderror
+                            </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="form-label">Eğitim Adı İngilizce <span class="text-danger">*</span></label>
+                                        <input type="text" name="egitim_adi_ing" placeholder="Eğitim Adı İngilizce" class="form-control" value="{{ old('egitim_adi_ing') }}">
+                                        <span class="text-danger">
+                                    @error('egitim_adi_ing')
                                             {{ $message }}
                                             @enderror
                             </span>
