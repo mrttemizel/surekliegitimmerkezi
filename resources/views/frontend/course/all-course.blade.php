@@ -101,7 +101,7 @@
                                 <div class="single-studies col-lg-6 grid-item">
                                     <div class="inner-course">
                                         <div class="case-img">
-                                            <img src="{{asset('courses/'.$datas->image)}}" alt="Course Image">
+                                            <img src="{{ $datas->image ? asset('courses/'.$datas->image) : asset('courses/no_name.jpg') }}" alt="Course Image">
                                         </div>
                                         <div class="case-content">
                                             <h4 class="case-title"> <a href="{{route('egitim_detay.index', ['slug' => $datas->slug])}}">{{$datas->egitim_adi}}</a></h4>
