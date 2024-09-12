@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="course__thumb">
                                         <a href="{{route('egitim_detay.index', ['slug' => $course->slug])}}"><img
-                                                src="{{asset('courses/'.$course->image)}}"
+                                                src="{{ $course->image ? asset('courses/'.$course->image) : asset('courses/no_name.jpg') }}"
                                                 style="width: 300px; height: 300px" alt="image"></a>
                                     </div>
 

@@ -20,11 +20,18 @@ class OnKayitBasvurulariController extends Controller
         return $notification;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = OnBasvuruForm::all();
+        $courseId = $request->get('course_id');
+
+        if ($courseId) {
+            $data = OnBasvuruForm::where('kurs_id', $courseId)->get();
+        } else {
+            $data = OnBasvuruForm::all();
+        }
+
         $courses = Courses::all();
-        return view('backend.on-kayit.index',compact('data','courses'));
+        return view('backend.on-kayit.index', compact('data', 'courses'));
     }
 
 

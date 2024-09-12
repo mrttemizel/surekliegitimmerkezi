@@ -57,7 +57,7 @@
                                 @foreach($data as $datas)
 
                                     <tr>
-                                        <td style="width: 10%"><img src="{{ asset('courses/'.$datas->image)}}" alt="" class="rounded-circle avatar-xs"></td>
+                                        <td style="width: 10%"><img src="{{ $datas->image ? asset('courses/'.$datas->image) : asset('courses/no_name.jpg') }}" alt="" class="rounded-circle avatar-xs"></td>
                                         <td>{{ $datas->egitim_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{ $datas->getCategory->name ?? 'Değer girişmemiş' }}</td>
                                         <td><input class="switchStatus" data-id={{ $datas->id }} type="checkbox" {{$datas->status == 0 ? '' : 'checked' }} data-toggle="toggle" data-on="Aktif" data-off="Pasif" data-onstyle="success" data-offstyle="danger"></td>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\frontend\egitim;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\frontend\basvuruformlari\KesinKayitFormController;
 use App\Models\Categories;
 use App\Models\Courses;
+use App\Models\KesinKayitForm;
 use Illuminate\Http\Request;
 
 class EgitimController extends Controller
@@ -12,7 +14,8 @@ class EgitimController extends Controller
     public function egitim_detay($slug)
     {
         // Slug'a göre kursu bulun
-         $data = Courses::where('slug', $slug)->firstOrFail();
+        $data = Courses::where('slug', $slug)->firstOrFail();
+        $studentCount = KesinKayitForm::where('kurs_adi', $data->egitim_adi)->count();
         $category = Categories::where('status', 1)
             ->orderBy('name', 'asc')
             ->get();
@@ -20,7 +23,7 @@ class EgitimController extends Controller
 
 
         // Kurs detaylarını bir görünüme (view) aktarın
-        return view('frontend.course.course-detail', compact('data','category'));
+        return view('frontend.course.course-detail', compact('data','category','studentCount'));
     }
 
 

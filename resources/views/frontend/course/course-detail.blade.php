@@ -49,17 +49,9 @@
                                         {!! $data -> detay !!}
 
                                     </div>
-
-
-
                                 </div>
                             </div>
-
-
                         </div>
-
-
-
                         <div class="col-lg-5 md-mt-60">
                             <div class="react-sidebar react-back-course2 ml----30">
                                 <div class="widget get-back-course">
@@ -67,22 +59,31 @@
                                         <li>{{$data -> egitim_ücreti }}</li>
                                     </ul>
                                     <ul class="price__course">
-
                                         <li> <i class="icon_profile"></i> Eğitici Adı <b>{{$data -> egitici_adi }}</b></li>
                                         <li><i class="icon_tag_alt"></i> Eğitim Platformu <b>{{$data -> egitim_platformu }}</b></li>
                                         <li> <i class="icon_clock_alt"></i> Eğitim Saati <b>{{$data -> egitim_saati }}</b></li>
                                         <li><i class="icon_clock_alt"></i> Eğitim Kontejyanı <b>{{$data -> egitim_kontejyani }}</b></li>
                                         <li><i class="icon_map_alt"></i> Eğitim Yeri <b> {{$data -> egitim_yeri }}</b></li>
                                     </ul>
-
                                     <div class="d-flex flex-column justify-content-between">
                                         @if($data->kesin_kayit == 'on')
-                                            <a href="{{route('form.kesin-kayit-form',['slug' => $data->slug])}}" class="start-btn" style="background: #d2093c">Kesin Kayıt
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
-                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                                </svg>
-                                            </a>
+                                            @if($studentCount >= $data->egitim_kontejyani)
+                                                <a href="javascript:void(0)" class="start-btn disabled" style="background: gray; cursor: not-allowed;">
+                                                    Kontenjan Dolu
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                                    </svg>
+                                                </a>
+                                            @else
+                                                <a href="{{route('form.kesin-kayit-form',['slug' => $data->slug])}}" class="start-btn" style="background: #d2093c">
+                                                    Kesin Kayıt
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                                    </svg>
+                                                </a>
+                                            @endif
                                         @endif
                                             @if($data->on_basvuru == 'on')
                                                 <a href="{{route('form-kayit-on.form-kayit-form',['slug' => $data->slug])}}" class="start-btn">Ön Başvuru
@@ -92,10 +93,7 @@
                                                     </svg>
                                                 </a>
                                             @endif
-
-
                                     </div>
-
                                 </div>
                                 <div class="widget react-categories-course">
                                     <h3 class="widget-title">Kurs Kategorileri</h3>

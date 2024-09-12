@@ -3,7 +3,7 @@
     Ön Kayıt Listesi
 @endsection
 @section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 
@@ -36,67 +36,64 @@
                             aria-label="Close"></button>
                 </div>
             @endif
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="card-title mb-0">Ön Kayıt Olanların Listesi</h5><div class="buttons">
-                                    <a href="#" class="btn btn-success me-2" id="excelBtn">
-                                        <i class="ri-file-excel-2-line me-1"></i> Excel İndir
-                                    </a>
-
-
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
-                                    <thead>
-                                    <tr>
-
-                                        <th>Ad Soyad</th>
-                                        <th>Kurs Adı</th>
-                                        <th>E-Posta</th>
-                                        <th>Telefon</th>
-                                        <th>Başvuru Tarihi</th>
-                                        <th>Düzenle</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody
-
-                                    @foreach($data as $datas)
-                                        <tr>
-
-                                            <td>{{$datas->name}}</td>
-                                            <td>{{$datas->kurs_adi}}</td>
-
-                                            <td>{{$datas->email}}</td>
-                                            <td>{{$datas->phone}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('d-m-Y') }}</td>
-                                            @if ($datas->status == 1 )
-                                                <td><h6 class="text-success fs-13 mb-0">Yönetici</h6></td>
-                                            @elseif($datas->status == 2 )
-                                                <td><h6 class="text-success fs-13 mb-0">Kullanıcı</h6></td>
-                                            @endif
-                                            <td>
-                                                <div class="hstack gap-3 fs-15">
-                                                    <a href="javascript:void(0)" data-url={{route('on-kayit-basvurulari.delete', ['id'=>$datas->id]) }} data-id={{ $datas->id }} class="link-danger" id="delete_on_basvuru"><i class="ri-delete-bin-5-line"></i></a>                                                </div>
-                                            </td>
-                                        </tr>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Ön Kayıt Olanların Listesi</h5>
+                            <div>
+                                <select class="form-select me-2" id="egitimSec" aria-label="Eğitim Seç">
+                                    <option selected="" disabled="">Eğitim Seç</option>
+                                    @foreach($courses as $course)
+                                        <option value="{{ $course->id }}">{{ $course->egitim_adi }}</option>
                                     @endforeach
-
-                                    </tbody>
-                                </table>
+                                </select>
+                            </div>
+                            <div class="buttons d-flex align-items-center">
+                                <a href="#" class="btn btn-success me-2" id="excelBtn">
+                                    <i class="ri-file-excel-2-line me-1"></i> Excel İndir
+                                </a>
                             </div>
                         </div>
-                    </div><!--end col-->
-                </div><!--end row-->
+                        <div class="card-body">
+                            <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Ad Soyad</th>
+                                    <th>Kurs Adı</th>
+                                    <th>E-Posta</th>
+                                    <th>Telefon</th>
+                                    <th>Başvuru Tarihi</th>
+                                    <th>Durum</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($data as $datas)
+                                    <tr>
+                                        <td>{{ $datas->name }}</td>
+                                        <td>{{ $datas->kurs_adi }}</td>
+                                        <td>{{ $datas->email }}</td>
+                                        <td>{{ $datas->phone }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('d-m-Y') }}</td>
+                                        @if ($datas->status == 1)
+                                            <td><h6 class="text-success fs-13 mb-0">Yönetici</h6></td>
+                                        @elseif ($datas->status == 2)
+                                            <td><h6 class="text-success fs-13 mb-0">Kullanıcı</h6></td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end row-->
         </div>
     </div>
 
 @endsection
 
 @section('addjs')
-
 
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
@@ -108,7 +105,22 @@
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script>
-        $(document).ready(function() {
+        document.getElementById('egitimSec').addEventListener('change', function () {
+            var courseId = this.value;
+            var url = "{{ route('on-kayit-basvurulari.index') }}";
+
+            fetch(url + '?course_id=' + courseId)
+                .then(response => response.text())
+                .then(html => {
+                    document.querySelector('tbody').innerHTML = new DOMParser()
+                        .parseFromString(html, 'text/html')
+                        .querySelector('tbody').innerHTML;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
             $('#alternative-pagination').DataTable({
 
 
@@ -131,10 +143,9 @@
             });
         });
         // Excel İndir butonunu düzenleme
-        $('#excelBtn').on('click', function() {
+        $('#excelBtn').on('click', function () {
             $('#alternative-pagination').DataTable().button('.buttons-excel').trigger();
         });
-
 
 
     </script>

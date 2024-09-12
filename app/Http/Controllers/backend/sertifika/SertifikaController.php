@@ -98,7 +98,7 @@ class SertifikaController extends Controller
         $pagesCount = $pdf->setSourceFile('sertifika_template/' . $class_data->sertifika);
 
         $qr = 'UN_041061' . $classList->tc . $sinifId;
-        $qr = substr($qr, 0, 15);
+        $qr = substr($qr, 0, 22);
         $qrCode = new QrCode($qr);
 
         $writer = new PngWriter();
@@ -173,7 +173,7 @@ class SertifikaController extends Controller
         $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
         $qr = 'UN_041061' . $classList->tc . $sinifId;
-        $qr = substr($qr, 0, 15);
+        $qr = substr($qr, 0, 22);
         $createdTime = date('Y/m/d', strtotime($classList->created_at));
         $qrCode = new QrCode($qr);
 
@@ -250,7 +250,7 @@ class SertifikaController extends Controller
     $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
     $qr = 'UN_041061' . $classList->tc . $sinifId;
-    $qr = substr($qr, 0, 15);
+    $qr = substr($qr, 0, 22);
     $createdTime = date('Y/m/d', strtotime($classList->created_at));
     $qrCode = new QrCode($qr);
 
