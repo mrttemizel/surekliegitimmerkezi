@@ -31,7 +31,7 @@ class SiniflarController extends Controller
 
     public function create()
     {
-        $data = Courses::where('status', 1)->get();
+        $data = Courses::all();
         return view('backend.class.create', compact('data'));
     }
 

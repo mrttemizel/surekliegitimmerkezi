@@ -89,8 +89,8 @@
 
                                 <div class="col-md-6">
                                     <div>
-                                        <label class="form-label">Eğitim Saati</label>
-                                        <input type="text" name="egitim_saati" placeholder="Eğitim Saati" class="form-control" value="{{ old('egitim_kordinatorleri') }}">
+                                        <label class="form-label">Eğitim Saati<span class="text-danger">*</span></label>
+                                        <input type="text" name="egitim_saati" required placeholder="Eğitim Saati" class="form-control" value="{{ old('egitim_kordinatorleri') }}">
                                         <span class="text-danger">
                                     @error('egitim_saati')
                                             {{ $message }}
@@ -304,11 +304,6 @@
                                     {{ $message }}
                                     @enderror
                             </span>
-
-
-
-
-
                                 <div class="col-lg-12">
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="submit" class="btn btn-primary">Ekle</button>

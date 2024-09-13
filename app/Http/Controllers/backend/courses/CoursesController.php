@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend\courses;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\Courses;
+use App\Models\Siniflar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -24,10 +25,17 @@ class CoursesController extends Controller
     public function switch(Request $request)
     {
         $data = Courses::findOrFail($request->id);
-        $data->status = $request->status=="true" ? 1 : 0;
-        $data->save();
-    }
+        $class = Siniflar::where('egitim_id', $data->id)->get();
 
+        if (!$class->isEmpty()) {
+            $data->status = $request->status == "true" ? 1 : 0;
+            $data->save();
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Sınıfınız yoktur']);
+        }
+    }
     public function index()
     {
         $data = Courses::all();
@@ -69,7 +77,7 @@ class CoursesController extends Controller
         $data->egitim_kontejyani = $request->input('egitim_kontejyani');
 
         $data->detay = $request->input('detay');
-
+        $data->status = 0;
         $data->on_basvuru = $request->input('on_basvuru') === 'on' ? 'on' : 'off';
         $data->kesin_kayit = $request->input('kesin_kayit') === 'on' ? 'on' : 'off';
         $data->kimlik = $request->input('kimlik') === 'on' ? 'on' : 'off';
