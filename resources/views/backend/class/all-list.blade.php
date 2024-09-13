@@ -108,6 +108,7 @@
                             <th>Sınıf</th>
                             <th>Eğitim</th>
                             <th>Başarı Durumu</th>
+                            <th>İndir</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -121,6 +122,15 @@
                                 <td>
                                     <input type="checkbox" class="switchStatus"
                                            data-id="{{ $classList->id }}" {{ $classList->status ? 'checked' : '' }}>
+                                </td>
+                                <td>
+                                    @if(!empty($classList->sertificate))
+                                        <a href="{{ asset($classList->sertificate) }}" class="btn btn-sm btn-primary" target="_blank">
+                                            <i class="ri-file-download-line"></i> İndir
+                                        </a>
+                                    @else
+                                        Sertifika Yok
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
