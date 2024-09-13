@@ -47,6 +47,11 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
+                                <a href="{{ route('class.all-list') }}" class="nav-link {{ $currentRoute == 'class.list' ? 'active' : '' }}">
+                                    <span data-key="t-analytics">Tüm Öğrenciler </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('class.list') }}" class="nav-link {{ $currentRoute == 'class.list' ? 'active' : '' }}">
                                     <span data-key="t-analytics">Mevcut Sınıflara Ait Öğrenciler </span>
                                 </a>

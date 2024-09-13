@@ -171,6 +171,8 @@ class SiniflarController extends Controller
         return view('backend.class.old-list', compact('classLists', 'data'));
     }
 
+
+
     public function filter(Request $request)
     {
         $selectedClassId = $request->input('sinif_select');
@@ -205,6 +207,33 @@ class SiniflarController extends Controller
         $data = KesinKayitForm::findOrFail($request->id);
         $data->status = $request->status=="true" ? 1 : 0;
         $data->save();
+    }
+
+    public function allList(Request $request)
+    {
+        $query = KesinKayitForm::query();
+
+        // Apply filters
+        if ($request->has('tc') && !empty($request->tc)) {
+            $query->where('tc', 'like', '%' . $request->tc . '%');
+        }
+        if ($request->has('name') && !empty($request->name)) {
+            $query->whereRaw("CONCAT(name, ' ', surname) LIKE ?", ['%' . $request->name . '%']);
+        }
+        if ($request->has('egitim') && !empty($request->egitim)) {
+            $query->where('kurs_adi', $request->egitim);
+        }
+        if ($request->has('sinif') && !empty($request->sinif)) {
+            $query->whereHas('getSinif', function ($q) use ($request) {
+                $q->where('sinif_adi', $request->sinif);
+            });
+        }
+
+        $classLists = $query->paginate(3);  // Pagination with 10 results per page
+        $coursesData = Courses::all();
+        $classData = Siniflar::all();
+
+        return view('backend.class.all-list', compact('classLists', 'coursesData', 'classData'));
     }
 
     public function down(Request $request, $id)

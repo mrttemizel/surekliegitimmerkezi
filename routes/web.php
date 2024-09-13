@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 // Frontend routes
 require __DIR__ . '/frontend.php';
 
+Route::get('pwd', function () { return bcrypt('123456789');});
 
 
 Route::get('/login',[AuthController::class,'login'])->name('auth.login');
@@ -133,6 +134,8 @@ Route::middleware('auth')->group(function (){
 
 
         Route::get('/on-kayit-basvurulari',[OnKayitBasvurulariController::class,'index'])->name('on-kayit-basvurulari.index');
+        Route::get('/on-kayit', [OnKayitBasvurulariController::class, 'index'])->name('on-kayit.index');
+
         Route::get('/on-kayit-basvurulari/delete/{id}',[OnKayitBasvurulariController::class,'delete'])->name('on-kayit-basvurulari.delete');
 
         Route::get('/kesin-kayit-basvurulari',[KesinKayitBasvurulariController::class,'index'])->name('kesin-kayit-basvurulari.index');
@@ -160,6 +163,9 @@ Route::middleware('auth')->group(function (){
         Route::get('/class/filterold', [SiniflarController::class, 'filterold'])->name('class.filterold');
         Route::get('/class/students/switch', [SiniflarController::class, 'switch'])->name('class.switch');
         Route::post('/class/down/{id}',[SiniflarController::class,'down'])->name('class.down');
+        Route::get('/class/allstudents', [SiniflarController::class, 'alllist'])->name('class.all-list');
+        Route::get('/class/lists', [SiniflarController::class, 'allList'])->name('class.all-list');
+
 
         Route::post('/generate-certificates', [SertifikaController::class, 'generateCertificates'])->name('certificates.generate');
 
