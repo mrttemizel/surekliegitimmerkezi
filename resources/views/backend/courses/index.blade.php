@@ -51,6 +51,7 @@
                                     <th>Eğitim Adı</th>
                                     <th>Eğitim Kategorisi</th>
                                     <th>Eğitim Durumu</th>
+                                    <th>Toplu Öğrenci Yükle</th>
                                     <th>Düzenle</th>
                                 </tr>
                                 </thead>
@@ -66,6 +67,11 @@
                                                    {{$datas->status == 0 ? '' : 'checked' }} data-toggle="toggle"
                                                    data-on="Aktif" data-off="Pasif" data-onstyle="success"
                                                    data-offstyle="danger"></td>
+                                        <td>
+                                            @if($datas->status == 1)
+                                                <a href="javascript:void(0)" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#uploadExcelModal" data-id="{{ $datas->id }}">Sınıf Seç & Excel Yükle</a>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="hstack gap-3 fs-15">
                                                 <a href="{{route('courses.edit', ['id' => $datas->id])}}"
@@ -88,7 +94,43 @@
     </div>
 
 @endsection
+<!-- Modal for Class Selection and Excel Upload -->
+<div class="modal fade" id="uploadExcelModal" tabindex="-1" aria-labelledby="uploadExcelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('courses.uploadExcel') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadExcelLabel">Sınıf Seç & Excel Yükle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hidden Course ID Field -->
+                    <input type="hidden" name="course_id" id="course_id" class="form-control">
 
+                    <!-- Class Selection -->
+                    <div class="mb-3">
+                        <label for="class" class="form-label">Sınıf Seç</label>
+                        <select name="class_id" id="class" class="form-select" required>
+                            @foreach($classes as $class)
+                                    <option value="{{ $class->id }}">{{ $class->sinif_adi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Excel File Upload -->
+                    <div class="mb-3">
+                        <label for="excel_file" class="form-label">Excel Yükle</label>
+                        <input type="file" name="excel_file" id="excel_file" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Yükle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @section('addjs')
 
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -114,10 +156,34 @@
                 $.get("{{route('courses.switch')}}", { id: id, status: status }, function (data) {
                     if (data.success) {
                         console.log('Status updated successfully');
+                        window.location.reload();
                     } else {
                         alert(data.message);
+                        window.location.reload();
                     }
                 });
+            });
+        });
+
+        $('#uploadExcelModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var courseId = button.data('id');
+
+            var modal = $(this);
+            modal.find('#course_id').val(courseId);
+
+            $.ajax({
+                url: "{{ route('courses.getClasses') }}",
+                type: 'GET',
+                data: { course_id: courseId },
+                success: function (response) {
+                    var classSelect = modal.find('#class');
+                    classSelect.empty();
+
+                    $.each(response.classes, function (key, value) {
+                        classSelect.append('<option value="' + value.id + '">' + value.sinif_adi + '</option>');
+                    });
+                }
             });
         });
 

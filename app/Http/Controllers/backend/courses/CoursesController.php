@@ -5,9 +5,13 @@ namespace App\Http\Controllers\backend\courses;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\Courses;
+use App\Models\KesinKayitForm;
 use App\Models\Siniflar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class CoursesController extends Controller
 {
@@ -39,7 +43,8 @@ class CoursesController extends Controller
     public function index()
     {
         $data = Courses::all();
-        return view('backend.courses.index', compact('data'));
+        $classes = Siniflar::all();
+        return view('backend.courses.index', compact('data','classes'));
     }
 
     public function create()
@@ -188,5 +193,44 @@ class CoursesController extends Controller
         } else {
             return redirect()->route('courses.index')->with($this->toastr('Eğitim Güncelleme Başarılı','success'));
         }
+    }
+
+    public function uploadExcel(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,csv',
+            'class_id' => 'required|integer',
+            'course_id' => 'required|integer',
+        ]);
+
+        $path = $request->file('excel_file')->getRealPath();
+        $course_data = Courses::where('id', $request->course_id)->first();
+
+        $data = Excel::toArray([], $request->file('excel_file'))[0];
+        $data = array_slice($data, 1);
+
+        foreach ($data as $row) {
+            $class = new KesinKayitForm();
+            $class->sinif_id = $request->class_id;
+            $class->kurs_id = $request->course_id;
+            $class->kurs_adi = $course_data->egitim_adi;
+            $class->kvkk = 'on';
+            $class->name = $row[0];
+            $class->surname = $row[1];
+            $class->email = $row[2];
+            $class->phone = $row[3];
+            $class->tc = $row[4];
+            $class->status = 0;
+            $class->save();
+        }
+
+        return redirect()->back()->with('success', 'Excel verileri başarıyla yüklendi.');
+    }
+    public function getClasses(Request $request)
+    {
+        $course_id = $request->course_id;
+        $classes = Siniflar::where('egitim_id', $course_id)->get();
+
+        return response()->json(['classes' => $classes]);
     }
 }

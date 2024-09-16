@@ -85,6 +85,9 @@ Route::middleware('auth')->group(function (){
         Route::post('/courses/update',[CoursesController::class,'update'])->name('courses.update');
         Route::get('/courses/delete/{id}',[CoursesController::class,'delete'])->name('courses.delete');
         Route::get('/courses/switch',[CoursesController::class,'switch'])->name('courses.switch');
+        Route::post('/courses/upload-excel', [CoursesController::class, 'uploadExcel'])->name('courses.uploadExcel');
+        Route::get('/courses/getClasses', [CoursesController::class, 'getClasses'])->name('courses.getClasses');
+
 
         // Categories routes
         Route::get('/categories',[CategoriesController::class,'index'])->name('categories.index');
