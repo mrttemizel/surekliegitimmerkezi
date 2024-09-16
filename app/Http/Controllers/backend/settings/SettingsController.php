@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\backend\settings;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TemplateSettingsController;
 use App\Models\Settings;
+use App\Models\TemplateSettings;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -22,7 +24,8 @@ class SettingsController extends Controller
     {
 
         $data = Settings::find(1);
-        return view('backend.settings.index', compact('data'));
+        $cert = TemplateSettings::all();
+        return view('backend.settings.index', compact('data','cert'));
 
     }
 

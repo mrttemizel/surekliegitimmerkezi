@@ -17,6 +17,7 @@ use App\Http\Controllers\backend\settings\SettingsController;
 use App\Http\Controllers\backend\siniflar\SiniflarController;
 use App\Http\Controllers\backend\slider\SliderController;
 use App\Http\Controllers\backend\user\UserController;
+use App\Http\Controllers\TemplateSettingsController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend routes
@@ -173,7 +174,9 @@ Route::middleware('auth')->group(function (){
         Route::post('/generate-certificates', [SertifikaController::class, 'generateCertificates'])->name('certificates.generate');
 
         Route::get('/certificates/{tc}', [EDevletController::class, 'getCertificatesByTcKimlikNo']);
-
+        Route::post('/settings/social/update', [TemplateSettingsController::class, 'update'])->name('settings.social.update');
+        Route::post('/settings/social/updatecus', [TemplateSettingsController::class, 'updatecus'])->name('settings.social.updatecus');
+        Route::post('/settings/social/updatetr', [TemplateSettingsController::class, 'updatetr'])->name('settings.social.updatetr');
         // Sınıflar routes
     });
 });

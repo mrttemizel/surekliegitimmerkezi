@@ -41,6 +41,22 @@
                                 <i class="far fa-user"></i> Sosyal Medya İşlemleri
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#changeKatilim" role="tab">
+                                <i class="far fa-user"></i> Katılım Sertifikası
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#changeCustomSert" role="tab">
+                                <i class="far fa-user"></i> Temel Sertifika
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#changemultilang" role="tab">
+                                <i class="far fa-user"></i> TR - ENG Sertifika
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="card-body p-4">
@@ -222,6 +238,169 @@
                                 <!--end row-->
                             </form>
                         </div>
+                        <!--end tab-pane-->
+                        <div class="tab-pane" id="changeKatilim" role="tabpanel">
+                            <form action="{{ route('settings.social.update') }}" method="POST" id="changeSocialForm">
+                                @csrf
+                                <div class="row g-2">
+                                    @foreach ($cert as $certificate)
+                                        @if ($certificate['certificate_value'] == 'kfullname')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="kfullname" class="form-label">Kullanıcı İsim - Soyisim</label>
+                                                    <input type="text" class="form-control" name="kfullname" id="kfullname"
+                                                           placeholder="{{ $certificate['certificate_coord'] }}"
+                                                           value="{{ old('kfullname', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text instagram_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'keducationtime')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="keducationtime" class="form-label">Eğitim Saati</label>
+                                                    <input type="text" class="form-control" name="keducationtime" id="keducationtime"
+                                                           placeholder="{{ $certificate['certificate_coord'] }}"
+                                                           value="{{ old('keducationtime', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text youtube_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'kcreatedtime')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="kcreatedtime" class="form-label">Oluşturulma Zamanı</label>
+                                                    <input type="text" class="form-control" name="kcreatedtime" id="kcreatedtime"
+                                                           placeholder="{{ $certificate['certificate_coord'] }}"
+                                                           value="{{ old('kcreatedtime', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text facebook_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'kclassname')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="kclassname" class="form-label">Sınıf Adı</label>
+                                                    <input type="text" class="form-control" name="kclassname" id="kclassname"
+                                                           placeholder="{{ $certificate['certificate_coord'] }}"
+                                                           value="{{ old('kclassname', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text twitter_error"></span>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                    <div class="col-lg-12 mt-3">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!--end tab-pane-->
+                        <div class="tab-pane" id="changeCustomSert" role="tabpanel">
+                            <form action="{{ route('settings.social.updatecus') }}" method="POST"  id="changeSocialForm">
+                                @csrf
+                                <div class="row g-2">
+                                    @foreach ($cert as $certificate)
+                                        @if ($certificate['certificate_value'] == 'tfullname')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="tfullname" class="form-label">Kullanıcı İsim - Soyisim</label>
+                                                    <input type="text" class="form-control" name="tfullname" id="tfullname"
+                                                           placeholder="130,105"
+                                                           value="{{ old('tfullname', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text instagram_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'teducationtime')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="teducationtime" class="form-label">Eğitim Saati</label>
+                                                    <input type="text" class="form-control" name="teducationtime" id="teducationtime"
+                                                           placeholder="62,143"
+                                                           value="{{ old('teducationtime', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text youtube_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'tcreatedtime')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="tcreatedtime" class="form-label">Oluşturulma Zamanı</label>
+                                                    <input type="text" class="form-control" name="tcreatedtime" id="tcreatedtime"
+                                                           placeholder="95,130"
+                                                           value="{{ old('tcreatedtime', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text facebook_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'tclassname')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="tclassname" class="form-label">Sınıf Adı</label>
+                                                    <input type="text" class="form-control" name="tclassname" id="tclassname"
+                                                           placeholder="90,143"
+                                                           value="{{ old('tclassname', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text twitter_error"></span>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                    <div class="col-lg-12 mt-3">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--end tab-pane-->
+                        <div class="tab-pane" id="changemultilang" role="tabpanel">
+                            <form action="{{ route('settings.social.updatetr') }}" method="POST"  id="changeSocialForm">
+                                @csrf
+                                <div class="row g-2">
+                                    @foreach ($cert as $certificate)
+                                        @if ($certificate['certificate_value'] == 'trfullname')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="trfullname" class="form-label">Kullanıcı İsim - Soyisim</label>
+                                                    <input type="text" class="form-control" name="trfullname" id="trfullname"
+                                                           placeholder="125,95"
+                                                           value="{{ old('trfullname', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text instagram_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'trclassname')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="trclassname" class="form-label">Sınıf Adı</label>
+                                                    <input type="text" class="form-control" name="trclassname" id="trclassname"
+                                                           placeholder="47,135"
+                                                           value="{{ old('trclassname', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text twitter_error"></span>
+                                                </div>
+                                            </div>
+                                        @elseif ($certificate['certificate_value'] == 'trclassnameeng')
+                                            <div class="col-lg-12">
+                                                <div>
+                                                    <label for="trclassnameeng" class="form-label">Sınıf Adı İngilizce</label>
+                                                    <input type="text" class="form-control" name="trclassnameeng" id="trclassnameeng"
+                                                           placeholder="170,130"
+                                                           value="{{ old('trclassnameeng', $certificate['certificate_coord']) }}">
+                                                    <span class="text-danger error_text facebook_error"></span>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                    <div class="col-lg-12 mt-3">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\KesinKayitForm;
 use App\Models\Siniflar;
+use App\Models\TemplateSettings;
 use Illuminate\Support\Str;
 use setasign\Fpdi\Fpdi;
 use Endroid\QrCode\QrCode;
@@ -96,6 +97,17 @@ class SertifikaController extends Controller
 
         $pdf->SetFontSize($fontSize);
         $pagesCount = $pdf->setSourceFile('sertifika_template/' . $class_data->sertifika);
+        $trfullnameCoord = TemplateSettings::where('certificate_value', 'trfullname')
+            ->first()->certificate_coord;
+
+        $trclassnameengCoord = TemplateSettings::where('certificate_value', 'trclassnameeng')
+            ->first()->certificate_coord;
+
+        $trcreatedtimeCoord = TemplateSettings::where('certificate_value', 'trcreatedtime')
+            ->first()->certificate_coord;
+
+        $trclassnameCoord = TemplateSettings::where('certificate_value', 'trclassname')
+            ->first()->certificate_coord;
 
         $qr = 'UN_041061' . $classList->tc . $sinifId;
         $qr = substr($qr, 0, 22);
@@ -111,19 +123,22 @@ class SertifikaController extends Controller
         $pdf->useTemplate($tplIdx, 0, 0);
 
         $pdf->SetTextColor(0, 10, 0);
-        $pdf->SetXY(125, 95);
+        list($x, $y) = explode(',', $trfullnameCoord);
+        $pdf->SetXY($x, $y);
 
         // İsim ve soyismi yazdır
         $pdf->Write(0, iconv('utf-8', 'windows-1254', $fullName));
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetFontSize(12);
-        $pdf->SetXY(47, 135);
+        list($x, $y) = explode(',', $trclassnameCoord);
+        $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi) );
 
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetFontSize(12);
-        $pdf->SetXY(170, 130);
+        list($x, $y) = explode(',', $trclassnameengCoord);
+        $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi_ing) );
 
         $pdf->Image($qrCodePath, 250, 165, 25, 25);
@@ -169,6 +184,17 @@ class SertifikaController extends Controller
         }
 
         $pdf->SetFontSize($fontSize);
+        $kfullnameCoord = TemplateSettings::where('certificate_value', 'kfullname')
+            ->first()->certificate_coord;
+
+        $keducationtimeCoord = TemplateSettings::where('certificate_value', 'keducationtime')
+            ->first()->certificate_coord;
+
+        $kcreatedtimeCoord = TemplateSettings::where('certificate_value', 'kcreatedtime')
+            ->first()->certificate_coord;
+
+        $kclassnameCoord = TemplateSettings::where('certificate_value', 'kclassname')
+            ->first()->certificate_coord;
 
         $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
@@ -186,19 +212,22 @@ class SertifikaController extends Controller
         $pdf->AddPage('O');
         $tplIdx = $pdf->importPage(1);
         $pdf->useTemplate($tplIdx, 0, 0);
-
+        list($x, $y) = explode(',', $kfullnameCoord);
         $pdf->SetTextColor(0, 10, 0);
-        $pdf->SetXY(139, 100);
+        $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254', $classList->name . ' ' . $classList->surnamee) );
 
+        list($x, $y) = explode(',', $kcreatedtimeCoord);
         $pdf->SetFontSize(12);
-        $pdf->SetXY(87, 121);
+        $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$createdTime) );
 
-        $pdf->SetXY(35, 135);
+        list($x, $y) = explode(',', $keducationtimeCoord);
+        $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_saati) );
 
-        $pdf->SetXY(67, 135);
+        list($x, $y) = explode(',', $kclassnameCoord);
+        $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$class_data->sinif_adi) );
 
         $pdf->Image($qrCodePath, 250, 165, 25, 25);
@@ -247,6 +276,18 @@ class SertifikaController extends Controller
     }
 
     $pdf->SetFontSize($fontSize);
+    $tfullnameCoord = TemplateSettings::where('certificate_value', 'tfullname')
+        ->first()->certificate_coord;
+
+    $teducationtimeCoord = TemplateSettings::where('certificate_value', 'teducationtime')
+        ->first()->certificate_coord;
+
+    $tcreatedtimeCoord = TemplateSettings::where('certificate_value', 'tcreatedtime')
+        ->first()->certificate_coord;
+
+    $tclassnameCoord = TemplateSettings::where('certificate_value', 'tclassname')
+        ->first()->certificate_coord;
+
     $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
     $qr = 'UN_041061' . $classList->tc . $sinifId;
@@ -265,17 +306,21 @@ class SertifikaController extends Controller
     $pdf->useTemplate($tplIdx, 0, 0);
 
     $pdf->SetTextColor(0, 10, 0);
-    $pdf->SetXY(130, 105);
+    list($x, $y) = explode(',', $tfullnameCoord);
+    $pdf->SetXY($x, $y);
     $pdf->Write(0,iconv('utf-8','windows-1254', $classList->name . ' ' . $classList->surname) );
 
     $pdf->SetFontSize(12);
-    $pdf->SetXY(95, 130);
+    list($x, $y) = explode(',', $tcreatedtimeCoord);
+    $pdf->SetXY($x, $y);
     $pdf->Write(0,iconv('utf-8','windows-1254',$createdTime) );
 
-    $pdf->SetXY(62, 143);
+    list($x, $y) = explode(',', $teducationtimeCoord);
+    $pdf->SetXY($x, $y);
     $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_saati) );
 
-    $pdf->SetXY(90, 143);
+    list($x, $y) = explode(',', $tclassnameCoord);
+    $pdf->SetXY($x, $y);
     $pdf->Write(0,iconv('utf-8','windows-1254',$class_data->sinif_adi) );
 
     $pdf->Image($qrCodePath, 250, 165, 25, 25);
