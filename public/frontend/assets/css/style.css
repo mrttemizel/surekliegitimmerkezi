@@ -12,8 +12,8 @@
 **/
 /* Table Of Content
 ---------------------------------------------------------
-01. General CSS Here 
-02. Common Class CSS Here 
+01. General CSS Here
+02. Common Class CSS Here
 03. Header Section CSS Here
 04. Banner Section CSS Here
 05. Course Filter CSS Here
@@ -23,27 +23,27 @@
 09. Popular Topics CSS Here
 10. About Section CSS Here
 11. Breadcrumbs Section CSS
-12. Featured Online Section CSS Here 
+12. Featured Online Section CSS Here
 13. FAQ Section CSS Here
 14. Instructor Section CSS Here
-15. Profile Section CSS Here 
+15. Profile Section CSS Here
 16. Clients Section CSS Here
-17. Blog Section CSS Here  
+17. Blog Section CSS Here
 18. Campus Section CSS Here
 19. Course Section CSS Here
 20. Counter CSS Here
 21. Upcoming Event Section CSS Here
 22. Blog Page CSS Here
 23. Blog Details Page CSS
-24. Contact Page CSS Here 
-25. Courses Section CSS Here  
+24. Contact Page CSS Here
+25. Courses Section CSS Here
 26. Sidebar Section CSS Here
-27. Student Satisfaction Section CSS Here  
-28. High Quality CSS Here  
+27. Student Satisfaction Section CSS Here
+28. High Quality CSS Here
 29. Footer CSS Here
 30. Preloader CSS Here
 31. ScrollUp CSS Here
-32. Login CSS Here 
+32. Login CSS Here
 
 
 --------------------------------------------------------*/
@@ -52,87 +52,87 @@
   font-style: italic;
   font-weight: 200;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZYokRdr.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZYokRdr.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: italic;
   font-weight: 300;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZMkhdr.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZMkhdr.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPa7g.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xK1dSBYKcSV-LCoeQqfX1RYOo3qPa7g.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: italic;
   font-weight: 600;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZY4lBdr.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZY4lBdr.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclRdr.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZclRdr.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: italic;
   font-weight: 900;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZklxdr.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKwdSBYKcSV-LCoeQqfX1RYOo3qPZZklxdr.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3i94_AkA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3i94_AkA.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3ik4zAkA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3ik4zAkA.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xK3dSBYKcSV-LCoeQqfX1RYOo3aPw.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xK3dSBYKcSV-LCoeQqfX1RYOo3aPw.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rAkA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rAkA.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vAkA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vAkA.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url(http://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3iu4nAkA.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v19/6xKydSBYKcSV-LCoeQqfX1RYOo3iu4nAkA.ttf) format('truetype');
 }
 /*****************************************************
-    01. General CSS Here 
+    01. General CSS Here
 ****************************/
 html,
 body {
@@ -205,7 +205,7 @@ ul {
   background: #f5f5f5;
 }
 /*****************************************************
-    02. Common Class CSS Here 
+    02. Common Class CSS Here
 ****************************/
 .text-center {
   text-align: center;
@@ -482,7 +482,7 @@ ul {
   border-color: #3270fc;
 }
 /*****************************************************
-    03. Header Section CSS Here  
+    03. Header Section CSS Here
 ****************************/
 .react-header {
   background: #ffffff;
@@ -1149,7 +1149,7 @@ ul {
   animation: slide-top 5000ms linear infinite alternate;
 }
 /*****************************************************
-    04. Banner Section CSS Here   
+    04. Banner Section CSS Here
 ****************************/
 .home-banner-part {
   position: relative;
@@ -4706,7 +4706,7 @@ ul {
   }
 }
 /*****************************************************
-    05. Course Filter CSS Here 
+    05. Course Filter CSS Here
 ****************************/
 .react-course-filter {
   background: #F5F5F5;
@@ -4874,7 +4874,7 @@ ul {
   display: none;
 }
 /*****************************************************
-    06. Slider Section CSS Here  
+    06. Slider Section CSS Here
 ****************************/
 .home-sliders {
   position: relative;
@@ -6282,7 +6282,7 @@ ul {
   padding: 0 40px;
 }
 /*****************************************************
-    07. Banner Two Section CSS Here 
+    07. Banner Two Section CSS Here
 ****************************/
 .hero3__area {
   overflow: hidden;
@@ -6517,7 +6517,7 @@ ul {
   }
 }
 /*****************************************************
-    08. Service CSS Here 
+    08. Service CSS Here
 ****************************/
 .react_populars_topics .container {
   max-width: 1200px;
@@ -6653,7 +6653,7 @@ ul {
   margin: 0 0 12px;
 }
 /*****************************************************
-    09. Popular Topics CSS Here 
+    09. Popular Topics CSS Here
 ****************************/
 .react_popular_topics .item__inner {
   position: relative;
@@ -6717,7 +6717,7 @@ ul {
   color: #b5b2b2;
 }
 /*****************************************************
-    10. About Section CSS Here 
+    10. About Section CSS Here
 ****************************/
 .about__area h2 {
   font-size: 50px;
@@ -6917,7 +6917,7 @@ ul {
   padding-top: 85px;
 }
 /*****************************************************
-    11. Breadcrumbs Section CSS 
+    11. Breadcrumbs Section CSS
 ****************************/
 .react-breadcrumbs .breadcrumbs-wrap {
   position: relative;
@@ -7018,7 +7018,7 @@ ul {
   display: none;
 }
 /*****************************************************
-    12. Featured Online Section CSS Here  
+    12. Featured Online Section CSS Here
 ****************************/
 .react_featured_online {
   background: #F5F5F5;
@@ -7106,7 +7106,7 @@ ul {
   box-shadow: 0px 30px 30px rgba(15, 18, 22, 0.1);
 }
 /*****************************************************
-    13. FAQ Section CSS Here  
+    13. FAQ Section CSS Here
 ****************************/
 .accordion__area {
   position: relative;
@@ -7232,7 +7232,7 @@ ul {
   padding: 0 15px 24px;
 }
 /*****************************************************
-    14. Instructor Section CSS Here  
+    14. Instructor Section CSS Here
 ****************************/
 .instructor__area .container {
   max-width: 1590px;
@@ -7438,7 +7438,7 @@ ul {
   opacity: 0;
 }
 /*****************************************************
-    15. Profile Section CSS Here  
+    15. Profile Section CSS Here
 ****************************/
 .profile-page .profile-top {
   background: #ffffff;
@@ -7562,7 +7562,7 @@ ul {
   color: #5B5F64;
 }
 /*****************************************************
-    16. Clients Section CSS Here  
+    16. Clients Section CSS Here
 ****************************/
 .react-clients {
   background: url(assets/images/testimonial/bg.jpg) no-repeat center top;
@@ -7723,7 +7723,7 @@ ul {
   border-color: #d2093c;
 }
 /*****************************************************
-    17. Blog Section CSS Here  
+    17. Blog Section CSS Here
 ****************************/
 .react-blog__area.graybg-home {
   background: #F5F5F5;
@@ -7865,7 +7865,7 @@ ul {
   vertical-align: middle;
 }
 /*****************************************************
-    18. Campus Section CSS Here 
+    18. Campus Section CSS Here
 ****************************/
 .campus_sec {
   background: url(assets/images/campus/cam.png) no-repeat center top;
@@ -7960,7 +7960,7 @@ ul {
   border-color: #D2093C;
 }
 /*****************************************************
-    19. Course Section CSS Here  
+    19. Course Section CSS Here
 ****************************/
 .popular__course__area {
   background: #fff;
@@ -8061,7 +8061,7 @@ ul {
   border-color: #D2093C;
 }
 /*****************************************************
-    20. Counter CSS Here 
+    20. Counter CSS Here
 ****************************/
 .count__area .count__width {
   background: #D2093C;
@@ -8103,7 +8103,7 @@ ul {
   text-transform: uppercase;
 }
 /*****************************************************
-    21. Upcoming Event Section CSS Here  
+    21. Upcoming Event Section CSS Here
 ****************************/
 .react-upcoming__event {
   background: #F5F5F5;
@@ -8670,7 +8670,7 @@ body.courses-grid-page .react-course-filter .single-studies .inner-course .case-
   top: -2px;
 }
 /*****************************************************
-    22. Blog Page CSS Here  
+    22. Blog Page CSS Here
 ****************************/
 .react-blog-page .single-blog {
   transition: all 0.5s ease 0s;
@@ -9495,7 +9495,7 @@ body.courses-grid-page .react-course-filter .single-studies .inner-course .case-
   top: 6px;
 }
 /*****************************************************
-    24. Contact Page CSS Here 
+    24. Contact Page CSS Here
 ****************************/
 .react-contact-page h2.contact-title {
   font-size: 34px;
@@ -9742,7 +9742,7 @@ body.courses-grid-page .react-course-filter .single-studies .inner-course .case-
   width: 0;
 }
 /*****************************************************
-    25. Courses Section CSS Here  
+    25. Courses Section CSS Here
 ****************************/
 body.course-single .react-breadcrumbs .breadcrumbs-wrap .breadcrumbs-inner .breadcrumbs-text {
   text-align: left;
@@ -10194,7 +10194,7 @@ body.course-single .user-section li.user span img {
   top: -1px;
 }
 /*****************************************************
-    26. Sidebar Section CSS Here  
+    26. Sidebar Section CSS Here
 ****************************/
 .react-sidebar {
   background: #fff;
@@ -10703,7 +10703,7 @@ body.event-page .react-upcoming__event .event__card .event_time {
   color: #3270fc;
 }
 /*****************************************************
-    27. Student Satisfaction Section CSS Here  
+    27. Student Satisfaction Section CSS Here
 ****************************/
 .student_satisfaction-section {
   background: url(assets/images/testimonial/bg.jpg) no-repeat center top;
@@ -10897,7 +10897,7 @@ body.event-page .react-upcoming__event .event__card .event_time {
   border-right: 0;
 }
 /*****************************************************
-    28. High Quality CSS Here 
+    28. High Quality CSS Here
 ****************************/
 .high_quality-section .react-tab-gird {
   position: relative;
@@ -10972,7 +10972,7 @@ body.event-page .react-upcoming__event .event__card .event_time {
   line-height: 0;
 }
 /*****************************************************
-    29. Footer CSS Here 
+    29. Footer CSS Here
 ****************************/
 .react-footer {
   position: relative;
@@ -11303,7 +11303,7 @@ body.event-page .react-upcoming__event .event__card .event_time {
   margin-right: 0;
 }
 /*****************************************************
-    30. Preloader CSS Here 
+    30. Preloader CSS Here
 ****************************/
 #react__preloader {
   display: -webkit-box;
@@ -11367,7 +11367,7 @@ body.event-page .react-upcoming__event .event__card .event_time {
   }
 }
 /*****************************************************
-    31. ScrollUp CSS Here 
+    31. ScrollUp CSS Here
 ****************************/
 #backscrollUp {
   position: fixed;
@@ -11408,7 +11408,7 @@ body.event-page .react-upcoming__event .event__card .event_time {
   display: block;
 }
 /*****************************************************
-    32. Login CSS Here 
+    32. Login CSS Here
 ****************************/
 .react-login-page {
   background: url(assets/images/login/1.jpg) no-repeat center top;

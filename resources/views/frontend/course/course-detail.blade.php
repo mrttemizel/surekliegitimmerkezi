@@ -65,7 +65,7 @@
                                         <li><i class="icon_clock_alt"></i> Eğitim Kontejyanı <b>{{$data -> egitim_kontejyani }}</b></li>
                                         <li><i class="icon_map_alt"></i> Eğitim Yeri <b> {{$data -> egitim_yeri }}</b></li>
                                     </ul>
-                                    <div class="d-flex flex-column justify-content-between">
+                                    <div class="d-flex flex-column justify-content-between" style="width: 100%">
                                         @if($data->kesin_kayit == 'on')
                                             @if($studentCount >= $data->egitim_kontejyani)
                                                 <a href="javascript:void(0)" class="start-btn disabled" style="background: gray; cursor: not-allowed;">
