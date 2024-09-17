@@ -58,6 +58,7 @@
                                         <th>Eğitim</th>
                                         <th>Başlama T.</th>
                                         <th>Bitiş T.</th>
+                                        <th>Sınıf Durumu</th>
                                         <th>Düzenle</th>
                                     </tr>
                                     </thead>
@@ -69,11 +70,19 @@
                                             <td>{{ $datas->getCourses->egitim_adi ?? 'Değer girişmemiş' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($datas->baslangic_tarihi)->format('d-m-Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($datas->bitis_tarihi)->format('d-m-Y') }}</td>
-
+                                            <td>
+                                                {{ $datas->sinif_durumu == 1 ? 'Aktif' : ($datas->sinif_durumu == 2 ? 'Tamamlanmış' : 'N/A') }}
+                                            </td>
                                             <td>
                                                 <div class="hstack gap-3 fs-15">
                                                     <a href="{{route('class.edit', ['id' => $datas->id])}}" class="link-primary"><i class="ri-settings-4-line"></i></a>
-                                                    <a href="javascript:void(0)" data-url={{route('class.delete', ['id'=>$datas->id]) }} data-id={{ $datas->id }} class="link-danger" id="delete_class"><i class="ri-delete-bin-5-line"></i></a>                                                </div>
+                                                    <a href="javascript:void(0)" data-url={{route('class.delete', ['id'=>$datas->id]) }} data-id={{ $datas->id }} class="link-danger" id="delete_class"><i class="ri-delete-bin-5-line"></i></a>
+                                                    @if($datas->sinif_durumu == 2)
+                                                        <a href="{{ route('class.makeactive', ['id' => $datas->id]) }}" class="link-primary">
+                                                            <i class="ri-outlet-2-fill"></i>
+                                                        </a>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

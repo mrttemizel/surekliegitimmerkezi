@@ -97,6 +97,24 @@ class SiniflarController extends Controller
         return view('backend.class.edit', compact('data', 'courses'));
     }
 
+    public function makeactive($id)
+    {
+        $data = Siniflar::where('id', $id)->first();
+        if ($data) {
+            $data->sinif_durumu = 1;
+            $data->save();
+        }
+
+        KesinKayitForm::where('sinif_id', $id)
+            ->update([
+                'status' => 1,
+                'sertificate' => null,
+            ]);
+        $data = Siniflar::all();
+
+        return view('backend.class.index', compact('data'));
+    }
+
     public function update(Request $request)
     {
 
