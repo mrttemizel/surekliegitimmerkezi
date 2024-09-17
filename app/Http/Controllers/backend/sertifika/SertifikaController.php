@@ -215,7 +215,7 @@ class SertifikaController extends Controller
         list($x, $y) = explode(',', $kfullnameCoord);
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetXY($x, $y);
-        $pdf->Write(0,iconv('utf-8','windows-1254', $classList->name . ' ' . $classList->surnamee) );
+        $pdf->Write(0,iconv('utf-8','windows-1254', $fullName) );
 
         list($x, $y) = explode(',', $kcreatedtimeCoord);
         $pdf->SetFontSize(12);
@@ -308,7 +308,7 @@ class SertifikaController extends Controller
     $pdf->SetTextColor(0, 10, 0);
     list($x, $y) = explode(',', $tfullnameCoord);
     $pdf->SetXY($x, $y);
-    $pdf->Write(0,iconv('utf-8','windows-1254', $classList->name . ' ' . $classList->surname) );
+    $pdf->Write(0,iconv('utf-8','windows-1254', $fullName) );
 
     $pdf->SetFontSize(12);
     list($x, $y) = explode(',', $tcreatedtimeCoord);
