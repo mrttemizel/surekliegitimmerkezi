@@ -129,14 +129,32 @@ class SertifikaController extends Controller
         // İsim ve soyismi yazdır
         $pdf->Write(0, iconv('utf-8', 'windows-1254', $fullName));
 
+        $trclaslenght = strlen($courses_data->egitim_adi);
+        if ($trclaslenght > 20) {
+            $fontSize = 12;
+        } elseif ($trclaslenght > 15) {
+            $fontSize = 16;
+        } elseif ($trclaslenght > 11) {
+            $fontSize = 18;
+        }
+
         $pdf->SetTextColor(0, 10, 0);
-        $pdf->SetFontSize(12);
+        $pdf->SetFontSize( $fontSize);
         list($x, $y) = explode(',', $trclassnameCoord);
         $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi) );
 
+        $engclaslenght = strlen($courses_data->egitim_adi_ing);
+        if ($engclaslenght > 20) {
+            $fontSize = 12;
+        } elseif ($engclaslenght > 15) {
+            $fontSize = 16;
+        } elseif ($engclaslenght > 11) {
+            $fontSize = 18;
+        }
+
         $pdf->SetTextColor(0, 10, 0);
-        $pdf->SetFontSize(12);
+        $pdf->SetFontSize($fontSize);
         list($x, $y) = explode(',', $trclassnameengCoord);
         $pdf->SetXY($x, $y);
         $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi_ing) );
