@@ -129,11 +129,11 @@ class SiniflarController extends Controller
 
         ]);
 
-        $isExist = Siniflar::where('slug', Str::slug($request->sinif_adi))->first();
+       /* $isExist = Siniflar::where('slug', Str::slug($request->sinif_adi))->first();
         if($isExist)
         {
             return back()->with($this->toastr('Sınıf Adı Mevcut','error'));
-        }
+        } */
         $data = Siniflar::where('id', $request->id)->first();
         $data->slug = Str::slug($request->input('sinif_adi'));
 
