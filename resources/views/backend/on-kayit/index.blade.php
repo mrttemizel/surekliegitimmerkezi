@@ -64,7 +64,7 @@
                                     <th>E-Posta</th>
                                     <th>Telefon</th>
                                     <th>Başvuru Tarihi</th>
-                                    <th>Durum</th>
+                                   <!-- <th>Durum</th> -->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -75,11 +75,7 @@
                                         <td>{{ $datas->email }}</td>
                                         <td>{{ $datas->phone }}</td>
                                         <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('d-m-Y') }}</td>
-                                        @if ($datas->status == 1)
-                                            <td><h6 class="text-success fs-13 mb-0">Yönetici</h6></td>
-                                        @elseif ($datas->status == 2)
-                                            <td><h6 class="text-success fs-13 mb-0">Kullanıcı</h6></td>
-                                        @endif
+
                                     </tr>
                                 @endforeach
                                 </tbody>
