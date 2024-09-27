@@ -40,21 +40,25 @@ class SertifikaController extends Controller
         $class_data = Siniflar::where('id', $sinifId)->first();
         $courses_data = Courses::where('id', $kursId)->first();
 
-        $filePath = null; // Initialize $filePath
+        $filePath = null;
+
+
 
         foreach ($classLists as $classList) {
+            $qr = 'UN_041061' . $classList->tc . substr($sinifId, 0, 1);
             if ($class_data->sertifika == 'tr-eng.pdf') {
-                $filePath = $this->createTrPdf($classList, $sinifId, $kursId, $class_data, $courses_data);
+                $filePath = $this->createTrPdf($classList, $sinifId, $kursId, $class_data, $courses_data , $qr);
             } elseif ($class_data->sertifika == 'katilim.pdf') {
-                $filePath = $this->createKatilimPdf($classList, $sinifId, $kursId, $class_data, $courses_data);
+                $filePath = $this->createKatilimPdf($classList, $sinifId, $kursId, $class_data, $courses_data , $qr);
             } elseif ($class_data->sertifika == 'temel.pdf') {
-                $filePath =$this->createTemelPdf($classList, $sinifId, $kursId, $class_data, $courses_data);
+                $filePath =$this->createTemelPdf($classList, $sinifId, $kursId, $class_data, $courses_data , $qr);
             }
 
             if ($filePath) {
                 $data = KesinKayitForm::where('id', $classList->id)->first();
                 $data->sertificate = $filePath;
                 $data->status = 2;
+                $data->barcode = $qr;
                 $data->update();
             } else {
                 return response()->json(['message' => 'Sertifikaların Oluşturulma Aşamasında Sorun Oluştu']);
@@ -77,7 +81,7 @@ class SertifikaController extends Controller
             return back()->with($this->toastr('Sertifikanız Oluşturulamadı', 'error'));
         }
     }
-    private function createTrPdf($classList, $sinifId, $kursId, $class_data ,$courses_data)
+    private function createTrPdf($classList, $sinifId, $kursId, $class_data ,$courses_data , $qr)
     {
         $pdf = new Fpdi();
         $pdf->AddFont('arial', '', 'arial.php');
@@ -109,8 +113,8 @@ class SertifikaController extends Controller
         $trclassnameCoord = TemplateSettings::where('certificate_value', 'trclassname')
             ->first()->certificate_coord;
 
-        $qr = 'UN_041061' . $classList->tc . $sinifId;
-        $qr = substr($qr, 0, 22);
+       // $qr = 'UN_041061' . $classList->tc . $sinifId;
+        //$qr = substr($qr, 0, 22);
         $qrCode = new QrCode($qr);
 
         $writer = new PngWriter();
@@ -131,7 +135,7 @@ class SertifikaController extends Controller
 
         $trclaslenght = strlen($courses_data->egitim_adi);
         if ($trclaslenght > 20) {
-            $fontSize = 12;
+            $fontSize = 8;
         } elseif ($trclaslenght > 15) {
             $fontSize = 16;
         } elseif ($trclaslenght > 11) {
@@ -146,7 +150,7 @@ class SertifikaController extends Controller
 
         $engclaslenght = strlen($courses_data->egitim_adi_ing);
         if ($engclaslenght > 20) {
-            $fontSize = 12;
+            $fontSize = 8;
         } elseif ($engclaslenght > 15) {
             $fontSize = 16;
         } elseif ($engclaslenght > 11) {
@@ -177,12 +181,12 @@ class SertifikaController extends Controller
         if (!file_exists($outputDir)) {
             mkdir($outputDir, 0777, true);
         }
-        $fileName = $qr . '_' . $classList->tc . '_certificate.pdf';
+        $fileName = $qr .'_certificate.pdf';
         $pdf->Output($outputDir . '/' . $fileName, 'F');
 
         return $outputDir . '/' . $fileName;
     }
-    private function createKatilimPdf($classList, $sinifId, $kursId , $class_data ,$courses_data)
+    private function createKatilimPdf($classList, $sinifId, $kursId , $class_data ,$courses_data , $qr)
     {
         $pdf = new  Fpdi();
 
@@ -216,7 +220,7 @@ class SertifikaController extends Controller
 
         $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
-        $qr = 'UN_041061' . $classList->tc . $sinifId;
+       // $qr = 'UN_041061' . $classList->tc . $sinifId;
         $qr = substr($qr, 0, 22);
         $createdTime = date('Y/m/d', strtotime($classList->created_at));
         $qrCode = new QrCode($qr);
@@ -270,11 +274,11 @@ class SertifikaController extends Controller
         }
        // $pdf->Output($outputDir . '/' . $qr .'_'. $classList->tc . '_certificate.pdf', 'F');
         //return true;
-        $fileName = $qr . '_' . $classList->tc . '_certificate.pdf';
+        $fileName = $qr . '_certificate.pdf';
         $pdf->Output($outputDir . '/' . $fileName, 'F');
         return $outputDir . '/' . $fileName;
     }
-    private function createTemelPdf($classList, $sinifId, $kursId , $class_data ,$courses_data)
+    private function createTemelPdf($classList, $sinifId, $kursId , $class_data ,$courses_data , $qr)
 {
     $pdf = new  Fpdi();
 
@@ -308,7 +312,7 @@ class SertifikaController extends Controller
 
     $pagesCount = $pdf->setSourceFile('sertifika_template/'.$class_data->sertifika);
 
-    $qr = 'UN_041061' . $classList->tc . $sinifId;
+    //$qr = 'UN_041061' . $classList->tc . $sinifId;
     $qr = substr($qr, 0, 22);
     $createdTime = date('Y/m/d', strtotime($classList->created_at));
     $qrCode = new QrCode($qr);
@@ -364,7 +368,7 @@ class SertifikaController extends Controller
     //$pdf->Output($outputDir . '/' . $qr .'_'. $classList->tc . '_certificate.pdf', 'F');
    // return true;
 
-    $fileName = $qr . '_' . $classList->tc . '_certificate.pdf';
+    $fileName = $qr . '_certificate.pdf';
     $pdf->Output($outputDir . '/' . $fileName, 'F');
     return $outputDir . '/' . $fileName;
 }
