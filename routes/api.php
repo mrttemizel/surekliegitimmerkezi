@@ -15,17 +15,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::any('/soap', function () {
     $options = [
         'uri' => 'http://127.0.0.1:8000/soap',
         'location' => 'http://127.0.0.1:8000/soap'
     ];
 
-    $server = new \SoapServer(public_path('wsdl\universite.wsdl'), $options);
+    $server = new \SoapServer(public_path('wsdl/universite.wsdl'), $options);
     $server->setClass(SertifikaService::class);
-    $server->handle();
-});
 
+    // Output buffering to capture the SOAP response
+    ob_start();
+    $server->handle();
+    $response = ob_get_clean();
+
+    // Return the response with correct headers
+    return response($response, 200)
+        ->header('Content-Type', 'text/xml; charset=utf-8');
+});
 Route::get('/test', function () {
     return 'fgdsfTest route is working!';
 });
