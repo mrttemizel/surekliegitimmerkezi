@@ -65,6 +65,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Adı Soyadı</th>
+                                    <th>Barcode</th>
                                     <th>TC</th>
                                     <th>Sınıf</th>
                                     <th>Eğitim</th>
@@ -82,6 +83,7 @@
                                     <tr>
                                         <td>{{$classList->id}}</td>
                                         <td>{{$classList->name. ' '. $classList->surname}}</td>
+                                        <td>{{$classList->barcode}}</td>
                                         <td>{{$classList->tc}}</td>
                                         <td>{{ $classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{ $classList->kurs_adi}}</td>
