@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend\basvuruformlari;
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
 use App\Models\KesinKayitForm;
+use App\Models\Siniflar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -22,7 +23,7 @@ class KesinKayitFormController extends Controller
 
     public function storeKesinKayitForm(Request $request)
     {
-
+        $class = Siniflar::where('egitim_id',$request->input('id'))->firstOrFail();
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
@@ -35,7 +36,6 @@ class KesinKayitFormController extends Controller
         $kurs = Courses::where('id',$request->id)->firstOrFail();
         $data = new KesinKayitForm();
 
-
         $data->name = mb_strtoupper($request->input('name'), 'UTF-8');
         $data->surname = mb_strtoupper($request->input('surname'), 'UTF-8');
         $data->email = $request->input('email');
@@ -43,7 +43,7 @@ class KesinKayitFormController extends Controller
         $data->tc = $request->input('tc');
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
 
-        $timestamp = Carbon::now()->format('YmdHis'); // YılAyGünSaatDakikaSaniye formatında zaman damgası
+        $timestamp = Carbon::now()->format('YmdHis');
 
         if ($request->hasFile('kimlik')) {
             $request->validate([
@@ -76,7 +76,7 @@ class KesinKayitFormController extends Controller
 
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
-        $data->sinif_id=$request->input('id');
+        $data->sinif_id=$class->id;
         $query = $data->save();
 
         if (!$query) {
