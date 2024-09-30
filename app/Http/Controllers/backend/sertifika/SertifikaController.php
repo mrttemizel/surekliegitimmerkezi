@@ -198,7 +198,7 @@ class SertifikaController extends Controller
         $fontSize = 22;
 
         if ($nameLength > 20) {
-            $fontSize = 12;
+            $fontSize = 14;
         } elseif ($nameLength > 15) {
             $fontSize = 16;
         } elseif ($nameLength > 11) {
@@ -290,7 +290,7 @@ class SertifikaController extends Controller
     $fontSize = 22;
 
     if ($nameLength > 20) {
-        $fontSize = 12;
+        $fontSize = 14;
     } elseif ($nameLength > 15) {
         $fontSize = 16;
     } elseif ($nameLength > 11) {
