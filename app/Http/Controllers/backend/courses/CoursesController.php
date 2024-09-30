@@ -220,6 +220,7 @@ class CoursesController extends Controller
             $class->email = $row[2];
             $class->phone = $row[3];
             $class->tc = $row[4];
+            $class->address = $row[5];
             $class->status = 0;
             $class->save();
         }

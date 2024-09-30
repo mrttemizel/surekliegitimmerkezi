@@ -1,22 +1,25 @@
 @extends('frontend.components.master')
-@section('title') {{$data->egitim_adi}}  @endsection
+@section('title')
+    {{$data->egitim_adi}}
+@endsection
 
 @section('addcss')
 
     <style>
-        .react-login-page .login-right-form form .login-top{
-            padding-bottom: 0!important;
+        .react-login-page .login-right-form form .login-top {
+            padding-bottom: 0 !important;
         }
 
-        .react-login-page .login-right-form{
+        .react-login-page .login-right-form {
             max-width: 100% !important;
 
         }
-        .react-login-page .login-right-form form .back-check-box{
-            display: block!important;
+
+        .react-login-page .login-right-form form .back-check-box {
+            display: block !important;
         }
 
-        .react-login-page .text-danger{
+        .react-login-page .text-danger {
             font-size: 15px;
         }
     </style>
@@ -35,7 +38,8 @@
 
                             <div class="login-right-form">
 
-                                <form method="POST" action="{{route('form.kesin-kayit-form.store')}}" enctype="multipart/form-data">
+                                <form method="POST" action="{{route('form.kesin-kayit-form.store')}}"
+                                      enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$data->id}}">
                                     <div class="login-top">
@@ -86,14 +90,14 @@
 
 
 
-                                @if(session('error'))
+                                    @if(session('error'))
                                         <div class="alert alert-danger">
                                             <b>{{ session('error') }}</b>
                                         </div>
                                     @endif
                                     <p>
                                         <label><span class="text-danger">*</span> Adınız</label>
-                                        <input placeholder="Adınız" type="text"  name="name" value="{{old('name')}}"  >
+                                        <input placeholder="Adınız" type="text" name="name" value="{{old('name')}}">
                                         <span class="text-danger">
                                     @error('name')
                                             {{ $message }}
@@ -102,7 +106,8 @@
                                     </p>
                                     <p>
                                         <label><span class="text-danger">*</span> Soyadınız</label>
-                                        <input placeholder="Soyadınız" type="text"  name="surname" value="{{old('surname')}}"  >
+                                        <input placeholder="Soyadınız" type="text" name="surname"
+                                               value="{{old('surname')}}">
                                         <span class="text-danger">
                                     @error('surname')
                                             {{ $message }}
@@ -111,7 +116,7 @@
                                     </p>
                                     <p>
                                         <label><span class="text-danger">*</span> E-Posta</label>
-                                        <input placeholder="E-Posta" type="text" name="email" value="{{old('email')}}" >
+                                        <input placeholder="E-Posta" type="text" name="email" value="{{old('email')}}">
                                         <span class="text-danger">
                                     @error('email')
                                             {{ $message }}
@@ -119,8 +124,18 @@
                             </span>
                                     </p>
                                     <p>
+                                        <label><span class="text-danger">*</span> Adres</label>
+                                        <input placeholder="Adres" type="text" name="address"
+                                               value="{{old('address')}}">
+                                        <span class="text-danger">
+                                    @error('address')
+                                            {{ $message }}
+                                            @enderror
+                            </span>
+                                    </p>
+                                    <p>
                                         <label><span class="text-danger">*</span> Telefon</label>
-                                        <input placeholder="Telefon" type="text"  name="phone" value="{{old('phone')}}" >
+                                        <input placeholder="Telefon" type="text" name="phone" value="{{old('phone')}}">
                                         <span class="text-danger">
                                     @error('phone')
                                             {{ $message }}
@@ -129,7 +144,7 @@
                                     </p>
                                     <p>
                                         <label><span class="text-danger">*</span> TC</label>
-                                        <input placeholder="TC" type="text"  name="tc" value="{{old('tc')}}" >
+                                        <input placeholder="TC" type="text" name="tc" value="{{old('tc')}}">
                                         <span class="text-danger">
                                     @error('tc')
                                             {{ $message }}
@@ -140,7 +155,7 @@
                                     @if($data->kimlik == 'on')
                                         <p>
                                             <label><span class="text-danger">*</span> Kimlik</label>
-                                            <input type="file"  name="kimlik" >
+                                            <input type="file" name="kimlik">
                                             <span>Lütfen belgelerinizi "pdf" formatında yükleyiniz. Yükleyebileceğiniz dosya boyutu maksimum 2 MB dır. Hata almanız durumunda belgeleri tekrar yüklemelisiniz.</span>
                                             <span class="text-danger">
                                     @error('kimlik')
@@ -153,7 +168,7 @@
                                     @if($data->diploma == 'on')
                                         <p>
                                             <label><span class="text-danger">*</span> Diploma</label>
-                                            <input type="file"  name="diploma" >
+                                            <input type="file" name="diploma">
                                             <span>Lütfen belgelerinizi "pdf" formatında yükleyiniz. Yükleyebileceğiniz dosya boyutu maksimum 2 MB dır. Hata almanız durumunda belgeleri tekrar yüklemelisiniz.</span>
 
                                             <span class="text-danger">
@@ -167,7 +182,7 @@
                                     @if($data->kurumkarti == 'on')
                                         <p>
                                             <label><span class="text-danger">*</span> Kurum Kartı</label>
-                                            <input type="file"  name="kurumkarti" >
+                                            <input type="file" name="kurumkarti">
                                             <span>Lütfen belgelerinizi "pdf" formatında yükleyiniz. Yükleyebileceğiniz dosya boyutu maksimum 2 MB dır. Hata almanız durumunda belgeleri tekrar yüklemelisiniz.</span>
 
                                             <span class="text-danger">
@@ -180,9 +195,11 @@
                                     @endif
 
 
-
                                     <div class="back-check-box">
-                                        <input type="checkbox" id="box-1" name="kvkk" {{ old('kvkk') ? 'checked' : '' }}><em><span class="text-danger">*</span> Kişisel verilerin korunması ve işlenmesi</em>&nbsp;  hakkında bilgilendirme metnini ve haklarımı okudum.<br>
+                                        <input type="checkbox" id="box-1"
+                                               name="kvkk" {{ old('kvkk') ? 'checked' : '' }}><em><span
+                                                class="text-danger">*</span> Kişisel verilerin korunması ve
+                                            işlenmesi</em>&nbsp; hakkında bilgilendirme metnini ve haklarımı okudum.<br>
                                         <p></p>
                                         <span class="text-danger">
                                     @error('kvkk')
@@ -190,7 +207,15 @@
                                             @enderror
                             </span>
                                     </div>
-                                    <button type="submit">Kesin Kayıt Yap <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+                                    <button type="submit">Kesin Kayıt Yap
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             class="feather feather-arrow-right">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -199,7 +224,6 @@
             </div>
         </div>
     </div>
-
 
 @endsection
 

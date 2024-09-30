@@ -31,6 +31,7 @@ class KesinKayitFormController extends Controller
             'phone' => 'required',
             'kvkk' => 'required',
             'tc' => 'required',
+            'address' => 'required',
         ]);
 
         $kurs = Courses::where('id',$request->id)->firstOrFail();
@@ -41,6 +42,7 @@ class KesinKayitFormController extends Controller
         $data->email = $request->input('email');
         $data->phone = $request->input('phone');
         $data->tc = $request->input('tc');
+        $data->address = $request->input('address');
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
 
         $timestamp = Carbon::now()->format('YmdHis');

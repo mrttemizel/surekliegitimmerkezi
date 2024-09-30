@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('diploma')->nullable();
             $table->string('kurumkarti')->nullable();
             $table->string('kvkk');
-
+            $table->string('address');
             $table->integer('status')->default(0);
             $table->integer('mezun_durumu')->default(0);
 

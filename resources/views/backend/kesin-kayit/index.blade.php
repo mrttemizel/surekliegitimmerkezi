@@ -42,6 +42,14 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">Kesin Kayıt Olanların Listesi</h5><div class="buttons">
+                                <div>
+                                    <select class="form-select me-2" id="egitimSec" aria-label="Eğitim Seç">
+                                        <option selected="" disabled="">Eğitim Seç</option>
+                                        @foreach($courses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->egitim_adi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <a href="#" class="btn btn-success me-2" id="excelBtn">
                                     <i class="ri-file-excel-2-line me-1"></i> Excel İndir
                                 </a>
@@ -249,6 +257,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
     <script>
+        document.getElementById('egitimSec').addEventListener('change', function () {
+            var courseId = this.value;
+            var url = "{{ route('kesin-kayit-basvurulari.index') }}";
+
+            fetch(url + '?course_id=' + courseId)
+                .then(response => response.text())
+                .then(html => {
+                    document.querySelector('tbody').innerHTML = new DOMParser()
+                        .parseFromString(html, 'text/html')
+                        .querySelector('tbody').innerHTML;
+                })
+                .catch(error => console.error('Error:', error));
+        });
 
         $(function (){
             $('.edit-click').click(function (){

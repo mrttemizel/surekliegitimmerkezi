@@ -69,6 +69,7 @@
                                     <th>TC</th>
                                     <th>Sınıf</th>
                                     <th>Eğitim</th>
+                                    <th>Adres</th>
                                     <th>Düzenle</th>
                                     <th>İndir</th>
                                 </tr>
@@ -87,7 +88,7 @@
                                         <td>{{$classList->tc}}</td>
                                         <td>{{ $classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{ $classList->kurs_adi}}</td>
-
+                                        <td>{{$classList->address}}</td>
                                         <td>
                                             <div class="hstack gap-3 fs-15">
                                                 <a data-id="{{ $classList->id }}" class="btn btn-sm btn-success edit-click"><i class="ri-eye-2-line"></i></a>

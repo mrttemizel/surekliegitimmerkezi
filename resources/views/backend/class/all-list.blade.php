@@ -108,6 +108,7 @@
                             <th>TC</th>
                             <th>Sınıf</th>
                             <th>Eğitim</th>
+                            <th>Adres</th>
                             <th>Başarı Durumu</th>
                             <th>İndir</th>
                         </tr>
@@ -121,6 +122,7 @@
                                 <td>{{ $classList->tc }}</td>
                                 <td>{{ $classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                 <td>{{ $classList->kurs_adi }}</td>
+                                <td>{{$classList->address}}</td>
                                 <td>
                                     <input type="checkbox" class="switchStatus"
                                            data-id="{{ $classList->id }}" {{ $classList->status ? 'checked' : '' }}>
