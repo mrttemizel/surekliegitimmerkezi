@@ -1,0 +1,1090 @@
+<definitions
+        name="Universite"
+        targetNamespace="http://standart.turkiye.gov.tr/universite/v3"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://standart.turkiye.gov.tr/universite/v3"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:xmime="http://www.w3.org/2005/05/xmlmime" >
+    <types>
+
+        <xsd:schema targetNamespace="http://standart.turkiye.gov.tr/universite/v3" xmlns:tns="http://standart.turkiye.gov.tr/universite/v3">
+
+            <xsd:complexType name="sorguParametreType">
+                <xsd:sequence>
+                    <xsd:element name="kurumKodu" type="xsd:string" />
+                    <xsd:element name="kullaniciAdi" type="xsd:string"/>
+                    <xsd:element name="sifre" type="xsd:string"/>
+                    <xsd:element name="ipAdresi" type="xsd:string"/>
+
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="kisiselSorgulamaGType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:sorguParametreType">
+                        <xsd:sequence>
+                            <xsd:element name="tcKimlikNo" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="islemSonucType">
+                <xsd:sequence>
+                    <xsd:element name="kurumKodu"  type="xsd:string"/>
+                    <xsd:element name="sonucKodu" nillable="false" type="xsd:string"/>
+                    <xsd:element name="sonucAciklamasi" nillable="false" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="detailType">
+                <xsd:sequence>
+                    <xsd:element name="group" type="xsd:string"/>
+                    <xsd:element name="key" type="xsd:string"/>
+                    <xsd:element name="value" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDetailType">
+                <xsd:sequence>
+                    <xsd:element name="detay" type="tns:detailType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ayarOkuGType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:sorguParametreType">
+                        <xsd:sequence>
+                            <xsd:element name="ayar" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="ayarOkuCType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="deger" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="ayarOkuListeCType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="detayListesi" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="dilSorgula">
+                <xsd:sequence>
+                    <xsd:element name="dilKey" type="xsd:string"/>
+                    <xsd:element name="dilValue" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDilType">
+                <xsd:sequence>
+                    <xsd:element name="dil" type="tns:dilSorgula" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="dilSorgulaGType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:sorguParametreType">
+                        <xsd:sequence>
+                            <xsd:element name="belgeTur" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="dilSorgulaCType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="dilListesi" type="tns:arrayOfDilType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="ogrencilikBilgisiSorgulamaGType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="hizmetTuru" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="ogrencilikBilgisiType">
+                <xsd:sequence>
+                    <xsd:element name="ogrenciNo" type="xsd:string"/>
+                    <xsd:element name="program" type="xsd:string"/>
+                    <xsd:element name="programKodu" type="xsd:string"/>
+                    <xsd:element name="kayitTarihi" type="xsd:date"/>
+                    <xsd:element name="ogrencilikDurumu" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfOgrencilikBilgisiType">
+                <xsd:sequence>
+                    <xsd:element name="ogrencilikBilgisi" maxOccurs="unbounded" minOccurs="0" type="tns:ogrencilikBilgisiType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ogrenciBilgisiListesiSorgulamaCType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciBilgisiListesi" type="tns:arrayOfOgrencilikBilgisiType"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="universiteBelgeOlusturGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciNo" type="xsd:string"/>
+                            <xsd:element name="programKodu" type="xsd:string"/>
+                            <xsd:element name="belgeTur" type="xsd:string"/>
+                            <xsd:element name="donem" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+                            <xsd:element name="dilKey" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="kayitliBelgeSorgulaGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="belgeTur" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="universiteBelgeOlusturCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="belge" type="xsd:base64Binary"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+
+            <xsd:complexType name="kayitliBelgeType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:ogrencilikBilgisiType">
+                        <xsd:sequence>
+                            <xsd:element name="barkodNo" type="xsd:string"/>
+                            <xsd:element name="olusturulmaTarihi" type="xsd:dateTime"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfKayitliBelge">
+                <xsd:sequence>
+                    <xsd:element name="kayitliBelge" type="tns:kayitliBelgeType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="KayitliBelgeSorgulaCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="kayitliBelgeListesi" type="tns:arrayOfKayitliBelge"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="barkodluBelgeDogrulaGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:sorguParametreType">
+                        <xsd:sequence>
+                            <xsd:element name="tcKimlikNo" type="xsd:string"/>
+                            <xsd:element name="barkodNo" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="barkodluBelgeDogrulaCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="belge" type="xsd:base64Binary"/>
+                            <xsd:element name="tcKimlikNo" type="xsd:string"/>
+                            <xsd:element name="ad" type="xsd:string"/>
+                            <xsd:element name="soyad" type="xsd:string"/>
+                            <xsd:element name="belgeOlusturulmaTarihi" type="xsd:dateTime"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="akademikTakvimCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="genelAciklama" type="xsd:string"/>
+                            <xsd:element name="belge" type="xsd:base64Binary"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="sinavSonucuGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciNo" type="xsd:string"/>
+                            <xsd:element name="programKodu" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+
+            <xsd:complexType name="sinavSonucuCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="donemListesi" type="tns:arrayOfDonemListesi"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="donemType">
+                <xsd:sequence>
+                    <xsd:element name="donemAdi" type="xsd:string"/>
+                    <xsd:element name="ogretimYili" type="xsd:string"/>
+                    <xsd:element name="donemNotOrtalamasi" type="xsd:string"/>
+                    <xsd:element name="genelNotOrtalamasi" type="xsd:string"/>
+                    <xsd:element name="alinanDersListesi" type="tns:arrayOfAlinanDersListesi"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDonemListesi">
+                <xsd:sequence>
+                    <xsd:element name="donemBilgisi" type="tns:donemType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+
+            <xsd:complexType name="alinanDersType">
+                <xsd:sequence>
+                    <xsd:element name="dersKodu" type="xsd:string"/>
+                    <xsd:element name="dersAdi" type="xsd:string"/>
+                    <xsd:element name="krediAkts" type="xsd:string"/>
+                    <xsd:element name="basariNotu" type="xsd:string"/>
+                    <xsd:element name="akademikPersonel" type="xsd:string"/>
+                    <xsd:element name="harfNotu" type="xsd:string"/>
+                    <xsd:element name="dersSinavSonucListesi" type="tns:arrayOfDersSinavSonucListesi"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfAlinanDersListesi">
+                <xsd:sequence>
+                    <xsd:element name="alinanDers" type="tns:alinanDersType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="dersSinavSonucType">
+                <xsd:sequence>
+                    <xsd:element name="sinavAdi" type="xsd:string"/>
+                    <xsd:element name="sinavSonucu" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDersSinavSonucListesi">
+                <xsd:sequence>
+                    <xsd:element name="dersSinavSonucu" type="tns:dersSinavSonucType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="donemNotOrtalamasiGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciNo" type="xsd:string"/>
+                            <xsd:element name="programKodu" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+
+            <xsd:complexType name="donemNotOrtalamasiCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="donemNotListesi" type="tns:arrayOfDonemNotListesi"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="donemNotType">
+                <xsd:sequence>
+                    <xsd:element name="donemTarihi" type="xsd:string"/>
+                    <xsd:element name="donemAdi" type="xsd:string"/>
+                    <xsd:element name="donemNotOrtalamasi" type="xsd:string"/>
+                    <xsd:element name="genelNotOrtalamasi" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDonemNotListesi">
+                <xsd:sequence>
+                    <xsd:element name="donemNotBilgisi" type="tns:donemNotType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="danismanBilgisiSorgulamaGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciNo" type="xsd:string"/>
+                            <xsd:element name="programKodu" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="danismanBilgisiSorgulamaCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="danismanAdi" type="xsd:string"/>
+                            <xsd:element name="danismanSoyadi" type="xsd:string"/>
+                            <xsd:element name="danismanOfisi" type="xsd:string"/>
+                            <xsd:element name="danismanTelefon" type="xsd:string"/>
+                            <xsd:element name="danismanEposta" type="xsd:string"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="etkinlikBilgisiType">
+                <xsd:sequence>
+                    <xsd:element name="etkinlikBaslangicTarihi" type="xsd:date"/>
+                    <xsd:element name="etkinlikBitisTarihi" type="xsd:date"/>
+                    <xsd:element name="etkinlikTuru" type="xsd:string"/>
+                    <xsd:element name="etkinlikDuzenleyen" type="xsd:string"/>
+                    <xsd:element name="etkinlikAdi" type="xsd:string"/>
+                    <xsd:element name="etkinlikAdres" type="xsd:string"/>
+                    <xsd:element name="etkinlikAciklama" type="xsd:string"/>
+                    <xsd:element name="etkinlikBaslangicSaati" type="xsd:string"/>
+                    <xsd:element name="etkinlikBitisSaati" type="xsd:string"/>
+                    <xsd:element name="etkinlikTahminiSure" type="xsd:string"/>
+                    <xsd:element name="etkinlikMekan" type="xsd:string"/>
+                    <xsd:element name="etkinlikKatilimSarti" type="xsd:string"/>
+                    <xsd:element name="etkinlikURL" type="xsd:string"/>
+                    <xsd:element name="etkinlikKoordinat" nillable="true">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="enlem" type="xsd:string"/>
+                                <xsd:element name="boylam" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfEtkinlikBilgisi">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="etkinlikBilgisi" type="tns:etkinlikBilgisiType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="etkinlikBilgisiSorgulaCType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="sorgulamaZamanAralikBilgisi" type="xsd:string"/>
+                            <xsd:element name="etkinlikListesi" type="tns:arrayOfEtkinlikBilgisi"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="devamTakipDersListesiType">
+                <xsd:sequence>
+                    <xsd:element name="donemTarihi" type="xsd:string"/>
+                    <xsd:element name="donemAdi" type="xsd:string"/>
+                    <xsd:element name="dersAdi" type="xsd:string"/>
+                    <xsd:element name="program" type="xsd:string"/>
+                    <xsd:element name="devamTakipListesi" type="tns:arrayOfDevamTakipListesi"/>
+                    <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="devamTakipType">
+                <xsd:sequence>
+                    <xsd:element name="tarih" type="xsd:date"/>
+                    <xsd:element name="aciklama" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDevamTakipListesi">
+                <xsd:sequence>
+                    <xsd:element name="devamTakip" type="tns:devamTakipType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfdevamTakipDersBilgisi">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="devamTakipDers" type="tns:devamTakipDersListesiType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="devamTakipBilgisiSorgulamaGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciNo" type="xsd:string"/>
+                            <xsd:element name="programKodu" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="devamTakipBilgisiSorgulamaCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="devamTakipDersListesi" type="tns:arrayOfdevamTakipDersBilgisi"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="sertifikaDetayType">
+                <xsd:sequence>
+                    <xsd:element name="baslik" type="xsd:string"/>
+                    <xsd:element name="aciklama" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfSertifikaDetayListesi">
+                <xsd:sequence>
+                    <xsd:element name="sertifikaDetay" type="tns:sertifikaDetayType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+
+            <xsd:complexType name="sertifikaType">
+                <xsd:sequence>
+                    <xsd:element name="sertifikaID" type="xsd:string"/>
+                    <xsd:element name="sertifikaNumarasi" type="xsd:string"/>
+                    <xsd:element name="tur" type="xsd:string"/>
+                    <xsd:element name="sertifikaAdi" type="xsd:string"/>
+                    <xsd:element name="alindigiYer" type="xsd:string"/>
+                    <xsd:element name="sertifikaGecerlilikTarih" type="xsd:string"/>
+                    <xsd:element name="sertifikaDetayListesi" type="tns:arrayOfSertifikaDetayListesi"/>
+                    <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="diplomaType">
+                <xsd:sequence>
+                    <xsd:element name="fakulteAdi" type="xsd:string"/>
+                    <xsd:element name="bolumAdi" type="xsd:string"/>
+                    <xsd:element name="mezuniyetYili" type="xsd:string"/>
+                    <xsd:element name="eDiplomaVarMi" type="xsd:boolean"/>
+                    <xsd:element name="aciklama" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfSertifikaListesi">
+                <xsd:sequence>
+                    <xsd:element name="sertifika" type="tns:sertifikaType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDiplomaListesi">
+                <xsd:sequence>
+                    <xsd:element name="diploma" type="tns:diplomaType" maxOccurs="unbounded" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="sertifikaSorgulaCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="sertifikaListesi" type="tns:arrayOfSertifikaListesi"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="diplomaSorgulaGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="eDiplomaMi" type="xsd:boolean"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="diplomaSorgulaCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="diplomaListesi" type="tns:arrayOfDiplomaListesi"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="sertifikaBelgeIndirGType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="sertifikaID" type="xsd:string"/>
+                            <xsd:element name="dilKey" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="sertifikaBelgeIndirCType">
+                <xsd:complexContent>
+                    <xsd:extension  base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="belge" type="xsd:base64Binary"/>
+                            <xsd:element minOccurs="0" name="detayListesi" nillable="true" type="tns:arrayOfDetailType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+
+            <xsd:complexType name="donemSorgulaType">
+                <xsd:sequence>
+                    <xsd:element name="donemTarihi" type="xsd:string"/>
+                    <xsd:element name="donemAdi" type="xsd:string"/>
+                    <xsd:element name="program" type="xsd:string"/>
+                    <xsd:element name="programKodu" type="xsd:string"/>
+                    <xsd:element name="ogrencilikDurumu" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="arrayOfDonemSorgulaType">
+                <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+                    <xsd:element name="donemSorgula" type="tns:donemSorgulaType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="donemSorgulaGType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:kisiselSorgulamaGType">
+                        <xsd:sequence>
+                            <xsd:element name="ogrenciNo" type="xsd:string"/>
+                            <xsd:element name="programKodu" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:complexType name="donemSorgulaCType">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:islemSonucType">
+                        <xsd:sequence>
+                            <xsd:element name="donemSorgulaListesi" type="tns:arrayOfDonemSorgulaType"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:element name="donemSorgulaG" type="tns:donemSorgulaGType"/>
+            <xsd:element name="donemSorgulaC" type="tns:donemSorgulaCType"/>
+
+            <xsd:element name="sertifikaSorgulaG" type="tns:kisiselSorgulamaGType"/>
+            <xsd:element name="sertifikaSorgulaC" type="tns:sertifikaSorgulaCType"/>
+
+            <xsd:element name="sertifikaBelgeIndirG" type="tns:sertifikaBelgeIndirGType"/>
+            <xsd:element name="sertifikaBelgeIndirC" type="tns:sertifikaBelgeIndirCType"/>
+
+            <xsd:element name="devamTakipBilgisiSorgulaG" type="tns:devamTakipBilgisiSorgulamaGType"/>
+            <xsd:element name="devamTakipBilgisiSorgulaC" type="tns:devamTakipBilgisiSorgulamaCType"/>
+
+            <xsd:element name="etkinlikBilgisiSorgulaG" type="tns:sorguParametreType"/>
+            <xsd:element name="etkinlikBilgisiSorgulaC" type="tns:etkinlikBilgisiSorgulaCType"/>
+
+            <xsd:element name="donemNotOrtalamasiG" type="tns:donemNotOrtalamasiGType"/>
+            <xsd:element name="donemNotOrtalamasiC" type="tns:donemNotOrtalamasiCType"/>
+
+            <xsd:element name="danismanBilgisiSorgulaG" type="tns:danismanBilgisiSorgulamaGType"/>
+            <xsd:element name="danismanBilgisiSorgulaC" type="tns:danismanBilgisiSorgulamaCType"/>
+
+            <xsd:element name="ogrenciBilgisiSorgulaG" type="tns:ogrencilikBilgisiSorgulamaGType"/>
+            <xsd:element name="ogrenciBilgisiSorgulaC" type="tns:ogrenciBilgisiListesiSorgulamaCType"/>
+
+            <xsd:element name="universiteBelgeOlusturG" type="tns:universiteBelgeOlusturGType"/>
+            <xsd:element name="universiteBelgeOlusturC" type="tns:universiteBelgeOlusturCType"/>
+
+            <xsd:element name="kayitliBelgeSorgulaG" type="tns:kayitliBelgeSorgulaGType"/>
+            <xsd:element name="kayitliBelgeSorgulaC" type="tns:KayitliBelgeSorgulaCType"/>
+
+            <xsd:element name="barkodluBelgeDogrulaG" type="tns:barkodluBelgeDogrulaGType"/>
+            <xsd:element name="barkodluBelgeDogrulaC" type="tns:barkodluBelgeDogrulaCType"/>
+
+            <xsd:element name="akademikTakvimG" type="tns:sorguParametreType"/>
+            <xsd:element name="akademikTakvimC" type="tns:akademikTakvimCType"/>
+
+            <xsd:element name="sinavSonucuG" type="tns:sinavSonucuGType"/>
+            <xsd:element name="sinavSonucuC" type="tns:sinavSonucuCType"/>
+
+            <xsd:element name="ayarOkuG" type="tns:ayarOkuGType"/>
+            <xsd:element name="ayarOkuC" type="tns:ayarOkuCType"/>
+
+            <xsd:element name="ayarOkuListeG" type="tns:ayarOkuGType"/>
+            <xsd:element name="ayarOkuListeC" type="tns:ayarOkuListeCType"/>
+
+            <xsd:element name="dilSorgulaG" type="tns:dilSorgulaGType"/>
+            <xsd:element name="dilSorgulaC" type="tns:dilSorgulaCType"/>
+
+            <xsd:element name="diplomaSorgulaG" type="tns:diplomaSorgulaGType"/>
+            <xsd:element name="diplomaSorgulaC" type="tns:diplomaSorgulaCType"/>
+
+        </xsd:schema>
+    </types>
+
+    <message name="ogrenciBilgisiSorgulamaRequest">
+        <part name="part1" element="tns:ogrenciBilgisiSorgulaG"/>
+    </message>
+
+    <message name="ogrenciBilgisiSorgulamaResponse">
+        <part name="part1" element="tns:ogrenciBilgisiSorgulaC"/>
+    </message>
+
+    <message name="donemSorgulamaRequest">
+        <part name="part1" element="tns:donemSorgulaG"/>
+    </message>
+
+    <message name="donemSorgulamaResponse">
+        <part name="part1" element="tns:donemSorgulaC"/>
+    </message>
+
+    <message name="danismanBilgisiSorgulaRequest">
+        <part name="part1" element="tns:danismanBilgisiSorgulaG"/>
+    </message>
+
+    <message name="danismanBilgisiSorgulaResponse">
+        <part name="part1" element="tns:danismanBilgisiSorgulaC"/>
+    </message>
+
+    <message name="donemNotOrtalamasiSorgulamaRequest">
+        <part name="part1" element="tns:donemNotOrtalamasiG"/>
+    </message>
+
+    <message name="donemNotOrtalamasiSorgulamaResponse">
+        <part name="part1" element="tns:donemNotOrtalamasiC"/>
+    </message>
+
+    <message name="universiteBelgeOlusturmaRequest">
+        <part name="part1" element="tns:universiteBelgeOlusturG"/>
+    </message>
+
+    <message name="universiteBelgeOlusturmaResponse">
+        <part name="part1" element="tns:universiteBelgeOlusturC"/>
+    </message>
+
+    <message name="kayitliBelgeSorgulamaRequest">
+        <part name="part1" element="tns:kayitliBelgeSorgulaG"/>
+    </message>
+
+    <message name="kayitliBelgeSorgulamaResponse">
+        <part name="part1" element="tns:kayitliBelgeSorgulaC"/>
+    </message>
+
+    <message name="barkodluBelgeDogrulamaRequest">
+        <part name="part1" element="tns:barkodluBelgeDogrulaG"/>
+    </message>
+
+    <message name="barkodluBelgeDogrulamaResponse">
+        <part name="part1" element="tns:barkodluBelgeDogrulaC"/>
+    </message>
+
+    <message name="akademikTakvimRequest">
+        <part name="part1" element="tns:akademikTakvimG"/>
+    </message>
+
+    <message name="akademikTakvimResponse">
+        <part name="part1" element="tns:akademikTakvimC"/>
+    </message>
+
+    <message name="sinavSonucuRequest">
+        <part name="part1" element="tns:sinavSonucuG"/>
+    </message>
+
+    <message name="sinavSonucuResponse">
+        <part name="part1" element="tns:sinavSonucuC"/>
+    </message>
+
+    <message name="ayarOkuRequest">
+        <part name="part1" element="tns:ayarOkuG"/>
+    </message>
+
+    <message name="ayarOkuResponse">
+        <part name="part1" element="tns:ayarOkuC"/>
+    </message>
+
+    <message name="ayarOkuListeRequest">
+        <part element="tns:ayarOkuListeG" name="part1"/>
+    </message>
+
+    <message name="ayarOkuListeResponse">
+        <part element="tns:ayarOkuListeC" name="part1"/>
+    </message>
+
+    <message name="etkinlikBilgisiSorgulaRequest">
+        <part element="tns:etkinlikBilgisiSorgulaG" name="part1"/>
+    </message>
+
+    <message name="etkinlikBilgisiSorgulaResponse">
+        <part element="tns:etkinlikBilgisiSorgulaC" name="part1"/>
+    </message>
+
+    <message name="dilSorgulaRequest">
+        <part element="tns:dilSorgulaG" name="part1"/>
+    </message>
+
+    <message name="dilSorgulaResponse">
+        <part element="tns:dilSorgulaC" name="part1"/>
+    </message>
+
+    <message name="devamTakipBilgisiSorgulaRequest">
+        <part element="tns:devamTakipBilgisiSorgulaG" name="part1"/>
+    </message>
+
+    <message name="devamTakipBilgisiSorgulaResponse">
+        <part element="tns:devamTakipBilgisiSorgulaC" name="part1"/>
+    </message>
+
+    <message name="sertifikaBelgeIndirRequest">
+        <part element="tns:sertifikaBelgeIndirG" name="part1"/>
+    </message>
+
+    <message name="sertifikaBelgeIndirResponse">
+        <part element="tns:sertifikaBelgeIndirC" name="part1"/>
+    </message>
+
+    <message name="sertifikaSorgulaRequest">
+        <part element="tns:sertifikaSorgulaG" name="part1"/>
+    </message>
+
+    <message name="sertifikaSorgulaResponse">
+        <part element="tns:sertifikaSorgulaC" name="part1"/>
+    </message>
+
+    <message name="diplomaSorgulaRequest">
+        <part element="tns:diplomaSorgulaG" name="part1"/>
+    </message>
+
+    <message name="diplomaSorgulaResponse">
+        <part element="tns:diplomaSorgulaC" name="part1"/>
+    </message>
+
+    <portType name="UniversiteStandartPortType">
+
+        <operation name="ogrenciBilgisiSorgula">
+            <input name="ogrenciBilgisiSorgulamaInput" message="tns:ogrenciBilgisiSorgulamaRequest"/>
+            <output name="ogrenciBilgisiSorgulamaOutput" message="tns:ogrenciBilgisiSorgulamaResponse"/>
+        </operation>
+
+        <operation name="donemNotOrtalamasiSorgula">
+            <input name="donemNotOrtalamasiSorgulamaInput" message="tns:donemNotOrtalamasiSorgulamaRequest"/>
+            <output name="donemNotOrtalamasiSorgulamaOutput" message="tns:donemNotOrtalamasiSorgulamaResponse"/>
+        </operation>
+
+        <operation name="danismanBilgisiSorgula">
+            <input name="danismanBilgisiSorgulamaInput" message="tns:danismanBilgisiSorgulaRequest"/>
+            <output name="danismanBilgisiSorgulamaOutput" message="tns:danismanBilgisiSorgulaResponse"/>
+        </operation>
+
+        <operation name="universiteBelgeOlustur">
+            <input name="universiteBelgeOlusturmaInput" message="tns:universiteBelgeOlusturmaRequest"/>
+            <output name="universiteBelgeOlusturmaOutput" message="tns:universiteBelgeOlusturmaResponse"/>
+        </operation>
+
+        <operation name="kayitliBelgeSorgula">
+            <input name="kayitliBelgeSorgulamaInput" message="tns:kayitliBelgeSorgulamaRequest"/>
+            <output name="kayitliBelgeSorgulamaOutput" message="tns:kayitliBelgeSorgulamaResponse"/>
+        </operation>
+
+        <operation name="barkodluBelgeDogrulama">
+            <input name="barkodluBelgeDogrulamaInput" message="tns:barkodluBelgeDogrulamaRequest"/>
+            <output name="barkodluBelgeDogrulamaOutput" message="tns:barkodluBelgeDogrulamaResponse"/>
+        </operation>
+
+        <operation name="akademikTakvim">
+            <input name="akademikTakvimInput" message="tns:akademikTakvimRequest"/>
+            <output name="akademikTakvimOutput" message="tns:akademikTakvimResponse"/>
+        </operation>
+
+        <operation name="sinavSonucuSorgula">
+            <input name="sinavSonucuInput" message="tns:sinavSonucuRequest"/>
+            <output name="sinavSonucuOutput" message="tns:sinavSonucuResponse"/>
+        </operation>
+
+        <operation name="ayarOku">
+            <input name="ayarOkuInput" message="tns:ayarOkuRequest"/>
+            <output name="ayarOkuOutput" message="tns:ayarOkuResponse"/>
+        </operation>
+
+        <operation name="ayarOkuListe">
+            <input message="tns:ayarOkuListeRequest" name="ayarOkuListeInput"/>
+            <output message="tns:ayarOkuListeResponse" name="ayarOkuListeOutput"/>
+        </operation>
+
+        <operation name="etkinlikBilgisiSorgula">
+            <input message="tns:etkinlikBilgisiSorgulaRequest" name="etkinlikBilgisiSorgulaInput"/>
+            <output message="tns:etkinlikBilgisiSorgulaResponse" name="etkinlikBilgisiSorgulaOutput"/>
+        </operation>
+
+        <operation name="dilSorgula">
+            <input message="tns:dilSorgulaRequest" name="dilSorgulaInput"/>
+            <output message="tns:dilSorgulaResponse" name="dilSorgulaOutput"/>
+        </operation>
+
+        <operation name="devamTakipBilgisiSorgula">
+            <input message="tns:devamTakipBilgisiSorgulaRequest" name="devamTakipBilgisiSorgulaInput"/>
+            <output message="tns:devamTakipBilgisiSorgulaResponse" name="devamTakipBilgisiSorgulaOutput"/>
+        </operation>
+
+        <operation name="sertifikaBelgeIndir">
+            <input message="tns:sertifikaBelgeIndirRequest" name="sertifikaBelgeIndirInput"/>
+            <output message="tns:sertifikaBelgeIndirResponse" name="sertifikaBelgeIndirOutput"/>
+        </operation>
+
+        <operation name="sertifikaSorgula">
+            <input message="tns:sertifikaSorgulaRequest" name="sertifikaSorgulaInput"/>
+            <output message="tns:sertifikaSorgulaResponse" name="sertifikaSorgulaOutput"/>
+        </operation>
+
+        <operation name="diplomaSorgula">
+            <input message="tns:diplomaSorgulaRequest" name="diplomaSorgulaInput"/>
+            <output message="tns:diplomaSorgulaResponse" name="diplomaSorgulaOutput"/>
+        </operation>
+
+        <operation name="donemSorgula">
+            <input message="tns:donemSorgulamaRequest" name="donemSorgulaInput"/>
+            <output message="tns:donemSorgulamaResponse" name="donemSorgulaOutput"/>
+        </operation>
+
+    </portType>
+
+    <binding name="UniversiteStandartPortTypeBinding" type="tns:UniversiteStandartPortType">
+
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="ogrenciBilgisiSorgula">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/ogrenciBilgisiSorgula"/>
+            <input name="ogrenciBilgisiSorgulamaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ogrenciBilgisiSorgulamaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="donemNotOrtalamasiSorgula">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/donemNotOrtalamasiSorgula"/>
+            <input name="donemNotOrtalamasiSorgulamaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="donemNotOrtalamasiSorgulamaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="danismanBilgisiSorgula">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/danismanBilgisiSorgula"/>
+            <input name="danismanBilgisiSorgulamaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="danismanBilgisiSorgulamaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="universiteBelgeOlustur">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/universiteBelgeOlustur"/>
+            <input name="universiteBelgeOlusturmaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="universiteBelgeOlusturmaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="kayitliBelgeSorgula">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/kayitliBelgeSorgula"/>
+            <input name="kayitliBelgeSorgulamaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="kayitliBelgeSorgulamaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="barkodluBelgeDogrulama">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/barkodluBelgeDogrulama"/>
+            <input name="barkodluBelgeDogrulamaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="barkodluBelgeDogrulamaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="akademikTakvim">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/akademikTakvim"/>
+            <input name="akademikTakvimInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="akademikTakvimOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="sinavSonucuSorgula">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/sinavSonucuSorgula"/>
+            <input name="sinavSonucuInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="sinavSonucuOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="ayarOku">
+            <soap:operation style="document" soapAction="http://standart.turkiye.gov.tr/universite/v3/ayarOku"/>
+            <input name="ayarOkuInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ayarOkuOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="ayarOkuListe">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/ayarOkuListe" style="document"/>
+            <input name="ayarOkuListeInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ayarOkuListeOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="etkinlikBilgisiSorgula">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/etkinlikBilgisiSorgula" style="document"/>
+            <input name="etkinlikBilgisiSorgulaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="etkinlikBilgisiSorgulaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="dilSorgula">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/dilSorgula" style="document"/>
+            <input name="dilSorgulaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="dilSorgulaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="devamTakipBilgisiSorgula">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/devamTakipBilgisiSorgula" style="document"/>
+            <input name="devamTakipBilgisiSorgulaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="devamTakipBilgisiSorgulaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="sertifikaSorgula">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/sertifikaSorgula" style="document"/>
+            <input name="sertifikaSorgulaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="sertifikaSorgulaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="diplomaSorgula">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/diplomaSorgula" style="document"/>
+            <input name="diplomaSorgulaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="diplomaSorgulaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="sertifikaBelgeIndir">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/sertifikaBelgeIndir" style="document"/>
+            <input name="sertifikaBelgeIndirInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="sertifikaBelgeIndirOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="donemSorgula">
+            <soap:operation soapAction="http://standart.turkiye.gov.tr/universite/v3/donemSorgula" style="document"/>
+            <input name="donemSorgulaInput">
+                <soap:body use="literal"/>
+            </input>
+            <output name="donemSorgulaOutput">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="UniversiteStandartervice">
+        <port name="UniversiteStandartPortTypeBindingPort" binding="tns:UniversiteStandartPortTypeBinding">
+            <soap:address location="https://testsem.antalya.edu.tr/api/soap"/>
+        </port>
+    </service>
+
+</definitions>
