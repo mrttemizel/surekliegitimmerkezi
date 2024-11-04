@@ -7,6 +7,8 @@ use App\Models\Categories;
 use App\Models\KesinKayitForm;
 use App\Models\Siniflar;
 use App\Models\TemplateSettings;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use setasign\Fpdi\Fpdi;
 use Endroid\QrCode\QrCode;
@@ -41,24 +43,64 @@ class SertifikaController extends Controller
         $courses_data = Courses::where('id', $kursId)->first();
 
         $filePath = null;
+        $createdYear = now()->year;
+        $createdMonth = now()->month;
 
-
+        $createdYearC = $courses_data->created_at->format('Y');
+        $createdMonthC = $courses_data->created_at->format('m');
 
         foreach ($classLists as $classList) {
+            // Generate QR code
             $qr = 'UN_041061' . $classList->tc . substr($sinifId, 0, 1);
+
+            // Generate course position
+            $coursePositionQuery = "
+            SELECT COUNT(*) AS course_position
+            FROM sem.courses
+            WHERE (YEAR(created_at) = :createdYear AND MONTH(created_at) = :createdMonth)
+            AND created_at <= (SELECT created_at FROM sem.courses WHERE id = :kursId)
+        ";
+
+            $coursePositionResult = DB::select($coursePositionQuery, [
+                'createdYear' => $createdYearC,
+                'createdMonth' => $createdMonthC,
+                'kursId' => $kursId,
+            ]);
+
+            $coursePosition = str_pad($coursePositionResult[0]->course_position, 2, '0', STR_PAD_LEFT);
+
+            // Generate student position
+            $studentPositionQuery = "
+            SELECT COUNT(*) AS position
+            FROM kesin_kayit_forms
+            WHERE sinif_id = :snfId
+            AND id <= :studentId
+        ";
+            $positionResult = DB::select($studentPositionQuery, [
+                'snfId' => $sinifId,
+                'studentId' => $classList->id,
+            ]);
+            $studentPosition = str_pad($positionResult[0]->position, 2, '0', STR_PAD_LEFT);
+
+            // Generate belge_no
+            $belge_no = "{$createdYearC}/{$createdMonthC}.{$coursePosition}.{$studentPosition}";
+
+            // Generate PDF based on certificate type
             if ($class_data->sertifika == 'tr-eng.pdf') {
-                $filePath = $this->createTrPdf($classList, $sinifId, $kursId, $class_data, $courses_data , $qr);
+                $filePath = $this->createTrPdf($classList, $sinifId, $kursId, $class_data, $courses_data, $qr ,$belge_no);
             } elseif ($class_data->sertifika == 'katilim.pdf') {
-                $filePath = $this->createKatilimPdf($classList, $sinifId, $kursId, $class_data, $courses_data , $qr);
+                $filePath = $this->createKatilimPdf($classList, $sinifId, $kursId, $class_data, $courses_data, $qr,$belge_no);
             } elseif ($class_data->sertifika == 'temel.pdf') {
-                $filePath =$this->createTemelPdf($classList, $sinifId, $kursId, $class_data, $courses_data , $qr);
+                $filePath = $this->createTemelPdf($classList, $sinifId, $kursId, $class_data, $courses_data, $qr,$belge_no);
             }
 
+            // Save file path, QR code, and belge_no to the database if PDF creation is successful
             if ($filePath) {
-                $data = KesinKayitForm::where('id', $classList->id)->first();
+                $data = KesinKayitForm::find($classList->id);
                 $data->sertificate = $filePath;
                 $data->status = 2;
                 $data->barcode = $qr;
+                $data->belge_no = $belge_no;
                 $data->update();
             } else {
                 return response()->json(['message' => 'Sertifikaların Oluşturulma Aşamasında Sorun Oluştu']);
@@ -66,9 +108,7 @@ class SertifikaController extends Controller
         }
 
         if ($filePath) {
-            // $classList->update(['status' => 2]);  ??????
-
-            $data = Siniflar::where('id', $sinifId)->first();
+            $data = Siniflar::find($sinifId);
             $data->sinif_durumu = '2';
             $query = $data->update();
 
@@ -77,11 +117,12 @@ class SertifikaController extends Controller
             } else {
                 return back()->with($this->toastr('Sertifika Oluşturma Başarılı', 'success'));
             }
-        }else{
+        } else {
             return back()->with($this->toastr('Sertifikanız Oluşturulamadı', 'error'));
         }
     }
-    private function createTrPdf($classList, $sinifId, $kursId, $class_data ,$courses_data , $qr)
+
+    private function createTrPdf($classList, $sinifId, $kursId, $class_data ,$courses_data , $qr ,$belge_no)
     {
         $pdf = new Fpdi();
         $pdf->AddFont('arial', '', 'arial.php');
@@ -90,7 +131,6 @@ class SertifikaController extends Controller
         $nameLength = strlen($fullName);
 
         $fontSize = 22;
-
         if ($nameLength > 20) {
             $fontSize = 12;
         } elseif ($nameLength > 15) {
@@ -101,22 +141,12 @@ class SertifikaController extends Controller
 
         $pdf->SetFontSize($fontSize);
         $pagesCount = $pdf->setSourceFile('sertifika_template/' . $class_data->sertifika);
-        $trfullnameCoord = TemplateSettings::where('certificate_value', 'trfullname')
-            ->first()->certificate_coord;
+        $trfullnameCoord = TemplateSettings::where('certificate_value', 'trfullname')->first()->certificate_coord;
+        $trclassnameengCoord = TemplateSettings::where('certificate_value', 'trclassnameeng')->first()->certificate_coord;
+        $trcreatedtimeCoord = TemplateSettings::where('certificate_value', 'trcreatedtime')->first()->certificate_coord;
+        $trclassnameCoord = TemplateSettings::where('certificate_value', 'trclassname')->first()->certificate_coord;
 
-        $trclassnameengCoord = TemplateSettings::where('certificate_value', 'trclassnameeng')
-            ->first()->certificate_coord;
-
-        $trcreatedtimeCoord = TemplateSettings::where('certificate_value', 'trcreatedtime')
-            ->first()->certificate_coord;
-
-        $trclassnameCoord = TemplateSettings::where('certificate_value', 'trclassname')
-            ->first()->certificate_coord;
-
-       // $qr = 'UN_041061' . $classList->tc . $sinifId;
-        //$qr = substr($qr, 0, 22);
         $qrCode = new QrCode($qr);
-
         $writer = new PngWriter();
         $result = $writer->write($qrCode);
         $qrCodePath = storage_path('certificates/qrcode.png');
@@ -129,39 +159,23 @@ class SertifikaController extends Controller
         $pdf->SetTextColor(0, 10, 0);
         list($x, $y) = explode(',', $trfullnameCoord);
         $pdf->SetXY($x, $y);
-
-        // İsim ve soyismi yazdır
         $pdf->Write(0, iconv('utf-8', 'windows-1254', $fullName));
 
         $trclaslenght = strlen($courses_data->egitim_adi);
-        if ($trclaslenght > 20) {
-            $fontSize = 8;
-        } elseif ($trclaslenght > 15) {
-            $fontSize = 16;
-        } elseif ($trclaslenght > 11) {
-            $fontSize = 18;
-        }
-
+        $fontSize = ($trclaslenght > 20) ? 8 : (($trclaslenght > 15) ? 16 : 18);
         $pdf->SetTextColor(0, 10, 0);
-        $pdf->SetFontSize( $fontSize);
+        $pdf->SetFontSize($fontSize);
         list($x, $y) = explode(',', $trclassnameCoord);
         $pdf->SetXY($x, $y);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi) );
+        $pdf->Write(0, iconv('utf-8', 'windows-1254', $courses_data->egitim_adi));
 
         $engclaslenght = strlen($courses_data->egitim_adi_ing);
-        if ($engclaslenght > 20) {
-            $fontSize = 8;
-        } elseif ($engclaslenght > 15) {
-            $fontSize = 16;
-        } elseif ($engclaslenght > 11) {
-            $fontSize = 18;
-        }
-
+        $fontSize = ($engclaslenght > 20) ? 8 : (($engclaslenght > 15) ? 16 : 18);
         $pdf->SetTextColor(0, 10, 0);
         $pdf->SetFontSize($fontSize);
         list($x, $y) = explode(',', $trclassnameengCoord);
         $pdf->SetXY($x, $y);
-        $pdf->Write(0,iconv('utf-8','windows-1254',$courses_data->egitim_adi_ing) );
+        $pdf->Write(0, iconv('utf-8', 'windows-1254', $courses_data->egitim_adi_ing));
 
         $pdf->Image($qrCodePath, 250, 165, 25, 25);
         $pdf->AddPage('O');
@@ -169,24 +183,26 @@ class SertifikaController extends Controller
         $pdf->useTemplate($tplIdx, 0, 0);
 
         $pdf->SetTextColor(0, 0, 255);
+        $pdf->SetFont('arial', '', 12);
         $pdf->SetXY(245, 163);
         $createdTime = date('Y/m/d', strtotime($classList->created_at));
         $pdf->Write(0, $createdTime);
 
         $pdf->SetXY(245, 173);
-        $createdYearMonth = date('Y/m', strtotime($classList->created_at));
-        $pdf->Write(0, $createdYearMonth);
+        $pdf->Write(0, "$belge_no");
 
         $outputDir = 'sertifikalar/' . $kursId . '/' . $sinifId;
         if (!file_exists($outputDir)) {
             mkdir($outputDir, 0777, true);
         }
-        $fileName = $qr .'_certificate.pdf';
+        $fileName = $qr . '_certificate.pdf';
         $pdf->Output($outputDir . '/' . $fileName, 'F');
 
         return $outputDir . '/' . $fileName;
     }
-    private function createKatilimPdf($classList, $sinifId, $kursId , $class_data ,$courses_data , $qr)
+
+
+    private function createKatilimPdf($classList, $sinifId, $kursId , $class_data ,$courses_data , $qr,$belge_no)
     {
         $pdf = new  Fpdi();
 
@@ -262,8 +278,7 @@ class SertifikaController extends Controller
         $pdf->Write(0, $createdTime);
 
         $pdf->SetXY(256, 166);
-        $createdYearMonth = date('Y/m', strtotime($classList->created_at));
-        $pdf->Write(0, $createdYearMonth);
+        $pdf->Write(0, "$belge_no");
 
         $pdf->SetXY(256, 173);
         $pdf->Write(0,$classList->tc);
@@ -278,7 +293,7 @@ class SertifikaController extends Controller
         $pdf->Output($outputDir . '/' . $fileName, 'F');
         return $outputDir . '/' . $fileName;
     }
-    private function createTemelPdf($classList, $sinifId, $kursId , $class_data ,$courses_data , $qr)
+    private function createTemelPdf($classList, $sinifId, $kursId , $class_data ,$courses_data , $qr,$belge_no)
 {
     $pdf = new  Fpdi();
 
@@ -290,7 +305,7 @@ class SertifikaController extends Controller
     $fontSize = 22;
 
     if ($nameLength > 20) {
-        $fontSize = 14;
+        $fontSize = 12;
     } elseif ($nameLength > 15) {
         $fontSize = 16;
     } elseif ($nameLength > 11) {
@@ -352,11 +367,7 @@ class SertifikaController extends Controller
 
     $pdf->SetTextColor(0, 0, 255);
     $pdf->SetXY(256, 166);
-    $pdf->Write(0, $createdTime);
-
-    $pdf->SetXY(256, 173);
-    $createdYearMonth = date('Y/m', strtotime($classList->created_at));
-    $pdf->Write(0, $createdYearMonth);
+    $pdf->Write(0,"$belge_no");
 
     $pdf->SetXY(256, 180);
     $pdf->Write(0,$classList->tc);
@@ -365,8 +376,6 @@ class SertifikaController extends Controller
     if (!file_exists($outputDir)) {
         mkdir($outputDir, 0777, true);
     }
-    //$pdf->Output($outputDir . '/' . $qr .'_'. $classList->tc . '_certificate.pdf', 'F');
-   // return true;
 
     $fileName = $qr . '_certificate.pdf';
     $pdf->Output($outputDir . '/' . $fileName, 'F');
