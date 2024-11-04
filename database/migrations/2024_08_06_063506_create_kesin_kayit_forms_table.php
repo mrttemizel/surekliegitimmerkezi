@@ -32,6 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sinif_id')->nullable();
             $table->foreign('sinif_id')->references('id')->on('siniflars')->onDelete('cascade');
             $table->string('barcode')->nullable();
+            $table->string('belge_no')->nullable();
             $table->string('sertificate')->nullable();
             $table->timestamps();
         });
