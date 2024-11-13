@@ -198,8 +198,8 @@
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-1"
                                                name="kvkk" {{ old('kvkk') ? 'checked' : '' }}><em><span
-                                                class="text-danger">*</span> Kişisel verilerin korunması ve
-                                            işlenmesi</em>&nbsp; hakkında bilgilendirme metnini ve haklarımı okudum.<br>
+                                                class="text-danger">*</span><a href="{{ route('kvkk') }}" target="_blank"> Kişisel verilerin korunması ve
+                                            işlenmesi</em>&nbsp; hakkında bilgilendirme metnini ve haklarımı okudum.</a><br>
                                         <p></p>
                                         <span class="text-danger">
                                     @error('kvkk')

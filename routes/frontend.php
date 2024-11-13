@@ -21,7 +21,9 @@ Route::get('/kategori-ara', [EgitimController::class, 'kategori_ara'])->name('tu
 Route::get('/show-category/{id}', [EgitimController::class, 'showCategory'])->name('tum_egitimler.showCategory');
 
 
-
+Route::get('/kvkk', function () {
+    return view('frontend/kvkk/kvkk'); //
+})->name('kvkk');
 
 
 Route::get('/hakkimizda/yonetim',[AboutController::class,'yonetim'])->name('hakkimizda_yonetim.index');
