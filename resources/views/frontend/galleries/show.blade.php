@@ -80,7 +80,7 @@
             <!--================= Gallery Images Section Start Here =================-->
             <div class="container my-5">
                 <!-- Galeriye Dön Butonu -->
-                <a href="{{ route('gallery.frontindex') }}" class="btn btn-secondary mt-3">Galeriye Dön</a>
+                <a href="{{ route('gallery.frontindex') }}" class="btn btn-secondary mt-3" style="margin: 1rem">Galeriye Dön</a>
                 <div class="row">
                     <div class="gallery-grid">
                         @forelse($gallery->images as $image)
