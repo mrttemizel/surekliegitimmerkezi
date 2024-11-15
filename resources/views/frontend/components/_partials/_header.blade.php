@@ -56,7 +56,7 @@
 
                                 </ul>
                             </li>
-                            <li> <a href="contact.html">Galeri</a></li>
+                            <li> <a href="{{route('gallery.frontindex')}}">Galeri</a></li>
                             <li> <a href="#">Hakkımızda</a>
                                 <ul>
                                     <li> <a href="{{route('hakkimizda_yonetim.index')}}">Yönetim</a></li>

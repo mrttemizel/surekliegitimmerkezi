@@ -176,6 +176,12 @@
                 </li> <!-- end Dashboard Menu -->
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link {{ $currentRoute == 'gallery.index' ? 'active' : '' }}" href="{{ route('gallery.index') }}">
+                        <i class="ri-medal-2-fill"></i> <span data-key="t-dashboards">Galeri</span>
+                    </a>
+                </li> <!-- end Dashboard Menu -->
+
+                <li class="nav-item">
                     @php
                         $coursesRoutes = ['courses.create', 'courses.index'];
                     @endphp

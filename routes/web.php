@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\basvurular\KesinKayitBasvurulariController;
 use App\Http\Controllers\backend\basvurular\OnKayitBasvurulariController;
 use App\Http\Controllers\backend\categories\CategoriesController;
 use App\Http\Controllers\backend\courses\CoursesController;
+use App\Http\Controllers\backend\gallery\GalleryController;
 use App\Http\Controllers\backend\sertifika\EDevletController;
 use App\Http\Controllers\backend\sertifika\SertifikaController;
 use App\Http\Controllers\backend\settings\SettingsController;
@@ -178,5 +179,18 @@ Route::middleware('auth')->group(function (){
         Route::post('/settings/social/updatecus', [TemplateSettingsController::class, 'updatecus'])->name('settings.social.updatecus');
         Route::post('/settings/social/updatetr', [TemplateSettingsController::class, 'updatetr'])->name('settings.social.updatetr');
         // Sınıflar routes
+
+        Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+        Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('gallery.show');
+        Route::get('/galleries/create', [GalleryController::class, 'create'])->name('gallery.admincreate');
+        Route::get('/gallery/edit/{id}',[GalleryController::class,'edit'])->name('gallery.edit');
+        Route::post('gallery/store', [GalleryController::class, 'store'])->name('gallery.store');
+        Route::put('/gallery/update/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+        Route::delete('/gallery/delete/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
+        Route::get('/gallery/{id}/add-images', [GalleryController::class, 'addImages'])->name('gallery.addImages');
+        Route::post('/gallery/{id}/upload-images', [GalleryController::class, 'uploadImages'])->name('gallery.uploadImages');
+        Route::get('/gallery/{id}/manage-images', [GalleryController::class, 'manageImages'])->name('gallery.manageImages');
+        Route::delete('/gallery/image/{imageId}/delete', [GalleryController::class, 'deleteImage'])->name('gallery.deleteImage');
+
     });
 });

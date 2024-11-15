@@ -4,8 +4,11 @@ use App\Http\Controllers\frontend\about\AboutController;
 use App\Http\Controllers\frontend\basvuruformlari\KesinKayitFormController;
 use App\Http\Controllers\frontend\basvuruformlari\OnKayitFormController;
 use App\Http\Controllers\frontend\egitim\EgitimController;
+use App\Http\Controllers\frontend\gallery\GalleryFrontController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\home\HomeController;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -25,6 +28,15 @@ Route::get('/kvkk', function () {
     return view('frontend/kvkk/kvkk'); //
 })->name('kvkk');
 
+Route::get('/universite-wsdl', function () {
+    $path = storage_path('certificates/universite.wsdl');
+
+    if (!file_exists($path)) {
+        abort(404, 'Dosya bulunamadı.');
+    }
+
+    return response()->file($path);
+})->name('universite.wsdl');
 
 Route::get('/hakkimizda/yonetim',[AboutController::class,'yonetim'])->name('hakkimizda_yonetim.index');
 Route::get('/hakkimizda/iletisim',[AboutController::class,'iletisim'])->name('hakkimizda_iletisim.index');
@@ -36,14 +48,14 @@ Route::get('/hakkimizda/banka-hesap-bilgileri',[AboutController::class,'banka_he
 Route::get('/hakkimizda/is-birligi-yaptigimiz-kurumlar',[AboutController::class,'is_birligi_yaptigimiz_kurumlar'])->name('hakkimizda_is_birligi_yaptigimiz_kurumlar.index');
 Route::get('/hakkimizda/is-birligi-yaptigimiz-kurumlara-verilen-egitimler',[AboutController::class,'is_birligi_yaptigimiz_kurumlara_verilen_egitimler'])->name('hakkimizda_is_birligi_yaptigimiz_kurumlara_verilen_egitimler.index');
 
-
-
 Route::get('/form/kesin-kayit-form/{slug}',[KesinKayitFormController::class,'kesinKayitForm'])->name('form.kesin-kayit-form');
 Route::post('/form/kesin-kayit-form',[KesinKayitFormController::class,'storeKesinKayitForm'])->name('form.kesin-kayit-form.store');
 
 Route::get('/form/on-kayit-form/{slug}',[OnKayitFormController::class,'onKayitForm'])->name('form-kayit-on.form-kayit-form');
 Route::post('/form/on-kayit-form',[OnKayitFormController::class,'storeOnKayitForm'])->name('form-kayit-on.form-kayit-form.store');
 
+Route::get('/galleries', [GalleryFrontController::class, 'index'])->name('gallery.frontindex');
+Route::get('/gallery/{id}', [GalleryFrontController::class, 'show'])->name('gallery.frontshow');
 
 
 
