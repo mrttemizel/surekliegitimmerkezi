@@ -232,7 +232,7 @@
                                             @enderror
                             </span>
                                     </div>
-                                    <button type="submit">Kesin Kayıt Yap
+                                    <button type="submit" id="submit">Kesin Kayıt Yap
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                              stroke-linecap="round" stroke-linejoin="round"
@@ -241,6 +241,8 @@
                                             <polyline points="12 5 19 12 12 19"></polyline>
                                         </svg>
                                     </button>
+
+
                                 </form>
                             </div>
                         </div>
@@ -253,16 +255,40 @@
 @endsection
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const sinifSelect = document.getElementById('sinif_select');
-        const egiticiAdiSpan = document.getElementById('egitici_adi');
+        const form = document.querySelector('form'); // Form elemanını seçiyoruz
 
-        sinifSelect.addEventListener('change', function () {
-            // Seçilen option'un 'data-egitici' değerini al
-            const selectedOption = sinifSelect.options[sinifSelect.selectedIndex];
-            const egiticiAdi = selectedOption.getAttribute('data-egitici');
+        // Form tanımlı değilse veya boşsa işlemi durdur
+        if (!form) {
+            console.error('Form elemanı bulunamadı.');
+            return;
+        }
 
-            // Eğitici adını ekrana yaz
-            egiticiAdiSpan.textContent = egiticiAdi ? egiticiAdi : 'Seçilmedi';
+        const fileInputs = document.querySelectorAll('input[type="file"]'); // Tüm dosya girişlerini seçiyoruz
+        const submitButton = document.getElementById('submit'); // ID ile butonu seçiyoruz
+
+        // Submit butonu yoksa işlemi durdur
+        if (!submitButton) {
+            console.error('Submit butonu bulunamadı.');
+            return;
+        }
+
+        fileInputs.forEach(input => {
+            input.addEventListener('change', function () {
+                const file = this.files[0];
+                console.log('Dosya değiştirildi.');
+
+                if (file && file.size > 2 * 1024 * 1024) { // 2 MB limit
+                    alert('Dosya boyutu 2 MB\'ı geçemez.');
+                    submitButton.style.visibility = 'hidden'; // Butonu gizle
+                    this.value = ''; // Dosya seçim alanını temizle
+                } else if (file && file.type !== 'application/pdf') {
+                    alert('Sadece PDF dosyaları yüklenebilir.');
+                    submitButton.style.visibility = 'hidden'; // Butonu gizle
+                    this.value = '';
+                } else {
+                    submitButton.style.visibility = 'visible'; // Geçerliyse butonu görünür yap
+                }
+            });
         });
     });
 </script>

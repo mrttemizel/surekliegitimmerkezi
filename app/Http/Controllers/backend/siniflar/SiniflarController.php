@@ -248,7 +248,7 @@ class SiniflarController extends Controller
             });
         }
 
-        $classLists = $query->paginate(3);  // Pagination with 10 results per page
+        $classLists = $query->paginate(15);  // Pagination with 10 results per page
         $coursesData = Courses::all();
         $classData = Siniflar::all();
 
