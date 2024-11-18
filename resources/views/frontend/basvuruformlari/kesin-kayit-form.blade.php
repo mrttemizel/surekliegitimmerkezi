@@ -256,7 +256,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('form'); // Form elemanını seçiyoruz
-
+        const sinifSelect = document.getElementById('sinif_select');
+        const egiticiAdiSpan = document.getElementById('egitici_adi');
         // Form tanımlı değilse veya boşsa işlemi durdur
         if (!form) {
             console.error('Form elemanı bulunamadı.');
@@ -289,6 +290,17 @@
                     submitButton.style.visibility = 'visible'; // Geçerliyse butonu görünür yap
                 }
             });
+        });
+
+
+
+        sinifSelect.addEventListener('change', function () {
+            // Seçilen option'un 'data-egitici' değerini al
+            const selectedOption = sinifSelect.options[sinifSelect.selectedIndex];
+            const egiticiAdi = selectedOption.getAttribute('data-egitici');
+
+            // Eğitici adını ekrana yaz
+            egiticiAdiSpan.textContent = egiticiAdi ? egiticiAdi : 'Seçilmedi';
         });
     });
 </script>
