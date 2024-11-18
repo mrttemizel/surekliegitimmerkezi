@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longText('slug');
             $table->integer('sertifika_dili')->nullable();
             $table->string('sertifika')->nullable();
-
+            $table->string('egitici_adi')->nullable();
             $table->date('baslangic_tarihi')->nullable();
             $table->date('bitis_tarihi')->nullable();
             $table->integer('sertifika_tipi')->nullable();

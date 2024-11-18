@@ -35,7 +35,7 @@
                             @error('sinif_adi')
                                             {{ $message }}
                                             @enderror
-                        </span>
+                                          </span>
                                     </div>
                                 </div>
                                 <!-- Başlangıç Tarihi -->
@@ -79,6 +79,21 @@
                         </span>
                                     </div>
                                 </div>
+
+
+                                <div class="col-md-12">
+                                    <div>
+                                        <label class="form-label">Eğitici Adı </label>
+                                        <input type="text" name="egitici_adi" placeholder="Eğitici Adı" class="form-control" value="{{ old('egitici_adi') }}">
+                                        <span class="text-danger">
+                                    @error('egitici_adi')
+                                            {{ $message }}
+                                            @enderror
+                            </span>
+                                    </div>
+                                </div>
+                                <!--end col-->
+
                                 <!-- Sertifika Tipi -->
                                 <div class="col-md-12">
                                     <div>

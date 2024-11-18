@@ -59,6 +59,7 @@ class SiniflarController extends Controller
         $data->baslangic_tarihi = $request->input('baslangic_tarihi');
         $data->bitis_tarihi = $request->input('bitis_tarihi');
         $data->egitim_id = $request->input('egitim_id');
+        $data->egitici_adi = $request->input('egitici_adi');
         $data->sertifika_tipi = $request->input('sertifika_tipi');
         $data->sertifika_dili = $request->input('sertifika_dili');
         $data->sertifika= $request->input('sertifika');
@@ -140,7 +141,7 @@ class SiniflarController extends Controller
         $data->sinif_adi = $request->input('sinif_adi');
         $data->baslangic_tarihi = $request->input('baslangic_tarihi');
         $data->bitis_tarihi = $request->input('bitis_tarihi');
-        $data->egitim_id = $request->input('egitim_id');
+        $data->egitici_adi = $request->input('egitici_adi');
         $data->sertifika_tipi = $request->input('sertifika_tipi');
         $data->sertifika_dili = $request->input('sertifika_dili');
 

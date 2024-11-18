@@ -152,6 +152,31 @@
                             </span>
                                     </p>
 
+                                    <p>
+                                        <label>
+                                            <span class="text-danger">*</span> Sınıf
+                                        </label>
+                                        <select id="sinif_select" name="sinif" class="form-control">
+                                            <option value="">Bir sınıf seçin</option>
+                                            @foreach ($siniflar as $sinif)
+                                                <option value="{{ $sinif->id }}" data-egitici="{{ $sinif->egitici_adi }}">
+                                                    {{ $sinif->sinif_adi }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        <span class="text-danger">
+                                            @error('tc')
+                                            {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </p>
+
+                                    <p id="egitici_label">
+                                        <label>Eğitici Adı:</label>
+                                        <span id="egitici_adi"></span>
+                                    </p>
+
                                     @if($data->kimlik == 'on')
                                         <p>
                                             <label><span class="text-danger">*</span> Kimlik</label>
@@ -226,5 +251,19 @@
     </div>
 
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sinifSelect = document.getElementById('sinif_select');
+        const egiticiAdiSpan = document.getElementById('egitici_adi');
 
+        sinifSelect.addEventListener('change', function () {
+            // Seçilen option'un 'data-egitici' değerini al
+            const selectedOption = sinifSelect.options[sinifSelect.selectedIndex];
+            const egiticiAdi = selectedOption.getAttribute('data-egitici');
+
+            // Eğitici adını ekrana yaz
+            egiticiAdiSpan.textContent = egiticiAdi ? egiticiAdi : 'Seçilmedi';
+        });
+    });
+</script>
 

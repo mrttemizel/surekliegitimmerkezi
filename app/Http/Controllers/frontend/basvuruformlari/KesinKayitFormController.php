@@ -15,15 +15,18 @@ class KesinKayitFormController extends Controller
 
     public function kesinKayitForm($slug)
     {
-        $data = Courses::where('slug', $slug)->firstOrFail();
+        $data = Courses::where('slug', $slug)
+            ->firstOrFail();
 
-        return view('frontend.basvuruformlari.kesin-kayit-form',compact('data'));
+        $siniflar = Siniflar::where('egitim_id', $data->id)->get();
+
+        return view('frontend.basvuruformlari.kesin-kayit-form', compact('data', 'siniflar'));
     }
 
 
     public function storeKesinKayitForm(Request $request)
     {
-        $class = Siniflar::where('egitim_id',$request->input('id'))->firstOrFail();
+        $class = $request->input('sinif');
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
@@ -78,7 +81,7 @@ class KesinKayitFormController extends Controller
 
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
-        $data->sinif_id=$class->id;
+        $data->sinif_id=$class;
         $query = $data->save();
 
         if (!$query) {

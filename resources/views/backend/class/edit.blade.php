@@ -80,6 +80,20 @@
                         </span>
                                     </div>
                                 </div>
+
+                                <!-- Eğitim Adı -->
+                                <div class="col-md-12">
+                                    <div>
+                                        <label class="form-label">Eğitici Adı<span class="text-danger"> *</span></label>
+                                        <input type="text" name="egitici_adi" placeholder="Eğitici Adı" class="form-control" value="{{ old('egitici_adi', $data->egitici_adi) }}">
+                                        <span class="text-danger">
+                            @error('egitici_adi')
+                                            {{ $message }}
+                                            @enderror
+                        </span>
+                                    </div>
+                                </div>
+
                                 <!-- Sertifika Tipi -->
                                 <div class="col-md-12">
                                     <div>
