@@ -24,7 +24,6 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->integer('sinif_durumu')->default(1);
 
-
             $table->unsignedBigInteger('egitim_id')->nullable();
             $table->foreign('egitim_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();
