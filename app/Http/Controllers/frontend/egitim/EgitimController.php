@@ -93,7 +93,7 @@ class EgitimController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        $data = Courses::where('category_id', $id)
+        $data = Courses::where('category_id', $id)->where('status', 1)
             ->orderBy('egitim_adi', 'asc')->paginate(4);
 
         return view('frontend.course.filter-course-resutls',compact('data','category'));

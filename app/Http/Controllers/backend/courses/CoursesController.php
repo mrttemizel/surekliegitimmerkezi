@@ -37,7 +37,13 @@ class CoursesController extends Controller
 
             return response()->json(['success' => true]);
         } else {
-            return response()->json(['success' => false, 'message' => 'Sınıfınız yoktur']);
+            $data->status = $request->status == "true" ? 1 : 0;
+            $data->kesin_kayit = "off";
+            $data->kimlik = "off";
+            $data->diploma = "off";
+            $data->kurumkarti = "off";
+            $data->save();
+            return response()->json(['success' => false, 'message' => 'Sınıfınız yoktur.Sadece Ön Kayıt Açabilirsiniz.']);
         }
     }
     public function index()
