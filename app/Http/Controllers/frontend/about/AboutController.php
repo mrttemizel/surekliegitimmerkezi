@@ -7,9 +7,11 @@ use App\Mail\ContactFormMail;
 use App\Models\BankaIs;
 use App\Models\Egitmenlerimiz;
 use App\Models\Formlar;
+use App\Models\OrganizationChart;
 use App\Models\Settings;
 use App\Models\Yonetim;
 use App\Models\YonetimKurulu;
+use App\Models\EducationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -84,6 +86,24 @@ class AboutController extends Controller
 
         $data = Settings::find(1);
         return view('frontend.about.iletisim',compact('data'));
+    }
+
+    public  function education_request()
+    {
+
+        $data = EducationRequest::find(1);
+
+
+        return view('frontend.about.education_request',compact('data'));
+    }
+
+    public  function organization_chart()
+    {
+
+        $data = OrganizationChart::find(1);
+
+
+        return view('frontend.about.organization_chart',compact('data'));
     }
 
     public function sendMail(Request $request)

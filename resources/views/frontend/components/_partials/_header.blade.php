@@ -66,6 +66,9 @@
                                     <li> <a href="{{route('hakkimizda_is_birligi_yaptigimiz_kurumlar.index')}}">İş Birliği Yaptığımız Kurumlar</a></li>
                                     <li> <a href="{{route('hakkimizda_is_birligi_yaptigimiz_kurumlara_verilen_egitimler.index')}}">İş Birliği Yaptığımız Kurumlar İle ilgili Eğitimler</a></li>
                                     <li> <a href="{{route('hakkimizda_banka_hesap.index')}}">Banka Hesap Bilgileri</a></li>
+                                    <li> <a href="{{route('education_request.index')}}">Eğitim İstek</a></li>
+                                    <li> <a href="{{route('organization_chart.index')}}">Organizasyon Şeması</a></li>
+                                    <li><a href="http://sikayet.antalya.edu.tr/portal" target="_blank">Şikayet Yönetim Sistemi</a></li>
 
                                 </ul>
                             </li>

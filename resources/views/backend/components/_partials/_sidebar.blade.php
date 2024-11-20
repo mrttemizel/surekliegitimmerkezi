@@ -136,6 +136,16 @@
                                     <span data-key="t-job">Banka ve İşbirlikleri</span> <span class="badge badge-pill bg-success" data-key="t-new">+</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('education-request.index') }}" class="nav-link {{ $currentRoute == 'education-request.index' ? 'active' : '' }}">
+                                    <span data-key="t-job">Eğitim Talebi</span> <span class="badge badge-pill bg-success" data-key="t-new">+</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('organization-chart.index') }}" class="nav-link {{ $currentRoute == 'organization-chart.index' ? 'active' : '' }}">
+                                    <span data-key="t-job">Organizasyon Şeması</span> <span class="badge badge-pill bg-success" data-key="t-new">+</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

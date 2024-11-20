@@ -44,6 +44,9 @@ Route::post('/hakkimizda/iletisim',[AboutController::class,'sendMail'])->name('h
 Route::get('/hakkimizda/formlar',[AboutController::class,'formlar'])->name('hakkimizda_formlar.index');
 Route::get('/hakkimizda/egitmenler',[AboutController::class,'egitmenler'])->name('hakkimizda_egitmenler.index');
 Route::get('/hakkimizda/yonetim-kurulu',[AboutController::class,'yonetim_kurulu'])->name('hakkimizda_yonetim_kurulu.index');
+Route::get('/hakkimizda/education-request',[AboutController::class,'education_request'])->name('education_request.index');
+Route::get('/hakkimizda/organization-chart',[AboutController::class,'organization_chart'])->name('organization_chart.index');
+
 Route::get('/hakkimizda/banka-hesap-bilgileri',[AboutController::class,'banka_hesap'])->name('hakkimizda_banka_hesap.index');
 Route::get('/hakkimizda/is-birligi-yaptigimiz-kurumlar',[AboutController::class,'is_birligi_yaptigimiz_kurumlar'])->name('hakkimizda_is_birligi_yaptigimiz_kurumlar.index');
 Route::get('/hakkimizda/is-birligi-yaptigimiz-kurumlara-verilen-egitimler',[AboutController::class,'is_birligi_yaptigimiz_kurumlara_verilen_egitimler'])->name('hakkimizda_is_birligi_yaptigimiz_kurumlara_verilen_egitimler.index');

@@ -2,8 +2,10 @@
 
 
 use App\Http\Controllers\backend\about\BankaIsController;
+use App\Http\Controllers\backend\about\EducationRequestController;
 use App\Http\Controllers\backend\about\EgitmenlerController;
 use App\Http\Controllers\backend\about\FormlarController;
+use App\Http\Controllers\backend\about\OrganizationChartController;
 use App\Http\Controllers\backend\about\YonetimController;
 use App\Http\Controllers\backend\about\YonetimKuruluController;
 use App\Http\Controllers\backend\auth\AuthController;
@@ -136,7 +138,12 @@ Route::middleware('auth')->group(function (){
         Route::get('/banka-isbirlikleri',[BankaIsController::class,'index'])->name('banka-is.index');
         Route::post('/banka-isbirlikleri',[BankaIsController::class,'update'])->name('banka-is.update');
 
+        Route::get('/education-request',[EducationRequestController::class,'index'])->name('education-request.index');
+        Route::post('/education-request',[EducationRequestController::class,'update'])->name('education-request.update');
 
+        Route::get('/organization-chart',[OrganizationChartController::class,'index'])->name('organization-chart.index');
+        Route::post('/organization-chart',[OrganizationChartController::class,'update'])->name('organization-chart.update');
+        Route::post('/organization-chart/upload', [OrganizationChartController::class, 'uploadImage'])->name('organization-chart.upload');
 
         Route::get('/on-kayit-basvurulari',[OnKayitBasvurulariController::class,'index'])->name('on-kayit-basvurulari.index');
         Route::get('/on-kayit', [OnKayitBasvurulariController::class, 'index'])->name('on-kayit.index');
