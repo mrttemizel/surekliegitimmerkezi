@@ -104,7 +104,7 @@
 
                 <li class="nav-item">
                     @php
-                        $aboutRoutes = ['yonetim.index', 'yonetimkurulu.index', 'egitmenler.index','formlar.index','banka-is.index'];
+                        $aboutRoutes = ['yonetim.index', 'yonetimkurulu.index', 'egitmenler.index','formlar.index','banka-is.index','education-request.index','organization-chart.index'];
                     @endphp
                     <a class="nav-link menu-link {{ in_array($currentRoute, $aboutRoutes) ? 'active' : '' }}" href="#sidebarAbout" data-bs-toggle="collapse" role="button" aria-expanded="{{ in_array($currentRoute, $aboutRoutes) ? 'true' : 'false' }}" aria-controls="sidebarAbout">
                         <i class="ri-chat-poll-line"></i> <span data-key="t-dashboards">Hakkımızda</span>
