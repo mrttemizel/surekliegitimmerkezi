@@ -246,7 +246,7 @@
                                 <div class=" col-md-6">
                                     <div>
                                         <label for="image" class="form-label">Eğitim Görseli <span
-                                                class="text-success fs-6">( Görsel Tam Ölçüleri <b>540x400 PX</b>  )</span></label>
+                                                class="text-success fs-6">( Görsel Tam Ölçüleri <b>540x400 PX | Maksimum 4MB olmalıdır./b>  )</span></label>
                                         <input type="file" name="image" class="form-control">
 
                                         <span class="text-danger">
