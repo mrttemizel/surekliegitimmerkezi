@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'dashboard/organization-chart/upload'
+        'dashboard/organization-chart/upload',
+        '/dashboard/generate-certificates',
     ];
 }
