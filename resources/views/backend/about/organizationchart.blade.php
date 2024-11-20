@@ -84,10 +84,8 @@
                 ],
                 // Resim yükleme yapılandırması
                 ckfinder: {
-                    uploadUrl: "{{ route('organization-chart.upload') }}", // Laravel route
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // CSRF token
-                    }
+                    uploadUrl: "{{ route('organization-chart.upload') }}?_token=" + document.querySelector('meta[name="csrf-token"]').content, // Laravel route
+
                 },
                 table: {
                     contentToolbar: [
