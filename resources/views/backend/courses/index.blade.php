@@ -51,6 +51,7 @@
                                     <th>Eğitim Adı</th>
                                     <th>Eğitim Kategorisi</th>
                                     <th>Eğitim Durumu</th>
+                                    <th>Sıra</th>
                                     <th>Toplu Öğrenci Yükle</th>
                                     <th>Düzenle</th>
                                 </tr>
@@ -63,10 +64,13 @@
                                                 alt="" class="rounded-circle avatar-xs"></td>
                                         <td>{{ $datas->egitim_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{ $datas->getCategory->name ?? 'Değer girişmemiş' }}</td>
-                                        <td><input class="switchStatus" data-id={{ $datas->id }} type="checkbox"
-                                                   {{$datas->status == 0 ? '' : 'checked' }} data-toggle="toggle"
-                                                   data-on="Aktif" data-off="Pasif" data-onstyle="success"
-                                                   data-offstyle="danger"></td>
+                                        <td>
+                                            <button class="btn btn-sm toggle-status {{ $datas->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                                    data-id="{{ $datas->id }}">
+                                                {{ $datas->status == 1 ? 'Aktif' : 'Pasif' }}
+                                            </button>
+                                        </td>
+                                        <td>{{ $datas->order ?? 'Değer girişmemiş' }}</td>
                                         <td>
                                             @if($datas->status == 1)
                                                 <a href="javascript:void(0)" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#uploadExcelModal" data-id="{{ $datas->id }}">Sınıf Seç & Excel Yükle</a>
@@ -149,13 +153,20 @@
 
     <script>
         $(function () {
-            $('.switchStatus').change(function () {
-                var status = $(this).prop('checked');
-                var id = $(this).attr('data-id');
+            $(document).on('click', '.toggle-status', function () {
+                var button = $(this);
+                var id = button.data('id');
+                var currentStatus = button.hasClass('btn-success') ? 1 : 0;
+                var newStatus = currentStatus === 1 ? 0 : 1;
 
-                $.get("{{route('courses.switch')}}", { id: id, status: status }, function (data) {
+                $.get("{{ route('courses.switch') }}", { id: id, status: newStatus }, function (data) {
                     if (data.success) {
-                        console.log('Status updated successfully');
+                        if (newStatus === 1) {
+                            button.removeClass('btn-danger').addClass('btn-success').text('Aktif');
+                        } else {
+                            button.removeClass('btn-success').addClass('btn-danger').text('Pasif');
+                        }
+                        alert(data.message);
                         window.location.reload();
                     } else {
                         alert(data.message);

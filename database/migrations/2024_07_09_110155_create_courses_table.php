@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('egitim_katilim_sarti')->nullable();
             $table->string('egitim_kontejyani')->nullable();
             $table->string('image')->nullable();
-
+            $table->integer('order')->default(1);
 
 
             $table->longText('detay')->nullable();

@@ -208,6 +208,18 @@
                                     </div>
                                 </div>
                                 <!--end col-->
+                                <div class="col-md-12">
+                                    <div>
+                                        <label class="form-label">Eğitim Sırası </label>
+                                        <input type="text" name="order"  class="form-control" value="{{ $data->order }}">
+                                        <span class="text-danger">
+                                    @error('order')
+                                            {{ $message }}
+                                            @enderror
+                            </span>
+                                    </div>
+                                </div>
+                                <!--end col-->
 
                                 <div class="col-md-12">
                                     <div>

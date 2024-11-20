@@ -14,6 +14,12 @@
             Site Ayarları
         @endslot
     @endcomponent
+    <!-- Display Success Message -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
 
 

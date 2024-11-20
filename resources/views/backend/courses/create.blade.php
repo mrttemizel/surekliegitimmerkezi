@@ -24,7 +24,9 @@
             <div class="card ">
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">Eğitim Ekle</h4>
-                    <a href="{{ route('courses.index') }}" class="btn btn-primary waves-effect waves-light d-flex justify-content-between"><i class="ri-arrow-go-back-fill"></i> &nbsp; Geri Dön</a>
+                    <a href="{{ route('courses.index') }}"
+                       class="btn btn-primary waves-effect waves-light d-flex justify-content-between"><i
+                            class="ri-arrow-go-back-fill"></i> &nbsp; Geri Dön</a>
 
                 </div><!-- end card header -->
                 <form action="{{route('courses.store')}}" method="POST" enctype="multipart/form-data">
@@ -36,7 +38,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Adı <span class="text-danger">*</span></label>
-                                        <input type="text" name="egitim_adi" placeholder="Eğitim Adı" class="form-control" value="{{ old('egitim_adi') }}">
+                                        <input type="text" name="egitim_adi" placeholder="Eğitim Adı"
+                                               class="form-control" value="{{ old('egitim_adi') }}">
                                         <span class="text-danger">
                                     @error('egitim_adi')
                                             {{ $message }}
@@ -46,8 +49,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label class="form-label">Eğitim Adı İngilizce <span class="text-danger">*</span></label>
-                                        <input type="text" name="egitim_adi_ing" placeholder="Eğitim Adı İngilizce" class="form-control" value="{{ old('egitim_adi_ing') }}">
+                                        <label class="form-label">Eğitim Adı İngilizce <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="egitim_adi_ing" placeholder="Eğitim Adı İngilizce"
+                                               class="form-control" value="{{ old('egitim_adi_ing') }}">
                                         <span class="text-danger">
                                     @error('egitim_adi_ing')
                                             {{ $message }}
@@ -59,8 +64,10 @@
 
                                 <div class="col-md-6">
                                     <div>
-                                        <label for="labelInput" class="form-label">Eğitim Kategorisi <span class="text-danger">*</span></label>
-                                        <select class="form-select" name="category_id"  aria-label="Default select example">
+                                        <label for="labelInput" class="form-label">Eğitim Kategorisi <span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select" name="category_id"
+                                                aria-label="Default select example">
                                             <option selected disabled>Kategorisi Seçiniz</option>
                                             @foreach($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -77,7 +84,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Kordinatörü</label>
-                                        <input type="text" name="egitim_kordinatorleri" placeholder="Eğitim Kordinatörü" class="form-control" value="{{ old('egitim_kordinatorleri') }}">
+                                        <input type="text" name="egitim_kordinatorleri" placeholder="Eğitim Kordinatörü"
+                                               class="form-control" value="{{ old('egitim_kordinatorleri') }}">
                                         <span class="text-danger">
                                     @error('egitim_kordinatorleri')
                                             {{ $message }}
@@ -90,7 +98,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Saati<span class="text-danger">*</span></label>
-                                        <input type="text" name="egitim_saati" required placeholder="Eğitim Saati" class="form-control" value="{{ old('egitim_kordinatorleri') }}">
+                                        <input type="text" name="egitim_saati" required placeholder="Eğitim Saati"
+                                               class="form-control" value="{{ old('egitim_kordinatorleri') }}">
                                         <span class="text-danger">
                                     @error('egitim_saati')
                                             {{ $message }}
@@ -103,7 +112,9 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Başlangıç Tarihi </label>
-                                        <input type="date" name="egitim_baslangic_tarihi" placeholder="Eğitim Başlangıç Tarihi" class="form-control" value="{{ old('egitim_baslangic_tarihi') }}">
+                                        <input type="date" name="egitim_baslangic_tarihi"
+                                               placeholder="Eğitim Başlangıç Tarihi" class="form-control"
+                                               value="{{ old('egitim_baslangic_tarihi') }}">
                                         <span class="text-danger">
                                     @error('egitim_baslangic_tarihi')
                                             {{ $message }}
@@ -115,7 +126,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Bitiş Tarihi </label>
-                                        <input type="date" name="egitim_bitis_tarihi" placeholder="Eğitim Bitiş Tarihi" class="form-control" value="{{ old('egitim_bitis_tarihi') }}">
+                                        <input type="date" name="egitim_bitis_tarihi" placeholder="Eğitim Bitiş Tarihi"
+                                               class="form-control" value="{{ old('egitim_bitis_tarihi') }}">
                                         <span class="text-danger">
                                     @error('egitim_bitis_tarihi')
                                             {{ $message }}
@@ -128,7 +140,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label for="labelInput" class="form-label">Eğitim Platformu</label>
-                                        <select class="form-select" name="egitim_platformu"  aria-label="Default select example">
+                                        <select class="form-select" name="egitim_platformu"
+                                                aria-label="Default select example">
                                             <option selected disabled>Eğitim Platformu Seçiniz</option>
                                             <option value="Örgün">Örgün</option>
                                             <option value="Online">Online</option>
@@ -147,7 +160,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Yeri </label>
-                                        <input type="text" name="egitim_yeri" placeholder="Eğitim Yeri" class="form-control" value="{{ old('egitim_yeri') }}">
+                                        <input type="text" name="egitim_yeri" placeholder="Eğitim Yeri"
+                                               class="form-control" value="{{ old('egitim_yeri') }}">
                                         <span class="text-danger">
                                     @error('egitim_yeri')
                                             {{ $message }}
@@ -160,7 +174,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitici Adı </label>
-                                        <input type="text" name="egitici_adi" placeholder="Eğitici Adı" class="form-control" value="{{ old('egitici_adi') }}">
+                                        <input type="text" name="egitici_adi" placeholder="Eğitici Adı"
+                                               class="form-control" value="{{ old('egitici_adi') }}">
                                         <span class="text-danger">
                                     @error('egitici_adi')
                                             {{ $message }}
@@ -173,7 +188,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Ücreti </label>
-                                        <input type="text" name="egitim_ücreti" placeholder="Eğitim Ücreti" class="form-control" value="{{ old('egitim_ücreti') }}">
+                                        <input type="text" name="egitim_ücreti" placeholder="Eğitim Ücreti"
+                                               class="form-control" value="{{ old('egitim_ücreti') }}">
                                         <span class="text-danger">
                                     @error('egitim_ücreti')
                                             {{ $message }}
@@ -186,7 +202,9 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Katılım Şartı </label>
-                                        <input type="text" name="egitim_katilim_sarti" placeholder="Eğitim Katılım Şartı" class="form-control" value="{{ old('egitim_katilim_sarti') }}">
+                                        <input type="text" name="egitim_katilim_sarti"
+                                               placeholder="Eğitim Katılım Şartı" class="form-control"
+                                               value="{{ old('egitim_katilim_sarti') }}">
                                         <span class="text-danger">
                                     @error('egitim_katilim_sarti')
                                             {{ $message }}
@@ -199,7 +217,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label class="form-label">Eğitim Kontejyanı </label>
-                                        <input type="text" name="egitim_kontejyani" placeholder="Eğitim Kontejyanı" class="form-control" value="{{ old('egitim_kontejyani') }}">
+                                        <input type="text" name="egitim_kontejyani" placeholder="Eğitim Kontejyanı"
+                                               class="form-control" value="{{ old('egitim_kontejyani') }}">
                                         <span class="text-danger">
                                     @error('egitim_kontejyani')
                                             {{ $message }}
@@ -209,10 +228,26 @@
                                 </div>
                                 <!--end col-->
 
+
+                                <div class="col-md-6">
+                                    <div>
+                                        <label class="form-label">Eğitim Sırası</label>
+                                        <input type="number" name="order" class="form-control"
+                                               value="{{ old('order') }}">
+                                        <span class="text-danger">
+                                    @error('order')
+                                            {{ $message }}
+                                            @enderror
+                            </span>
+                                    </div>
+                                </div>
+                                <!--end col-->
+
                                 <div class=" col-md-6">
                                     <div>
-                                        <label for="image" class="form-label">Eğitim Görseli  <span class="text-success fs-6">( Görsel Tam Ölçüleri <b>540x400 PX</b>  )</span></label>
-                                        <input type="file" name="image"  class="form-control">
+                                        <label for="image" class="form-label">Eğitim Görseli <span
+                                                class="text-success fs-6">( Görsel Tam Ölçüleri <b>540x400 PX</b>  )</span></label>
+                                        <input type="file" name="image" class="form-control">
 
                                         <span class="text-danger">
                                     @error('image')
@@ -240,7 +275,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="on_basvuru" name="on_basvuru" value="on" {{ old('on_basvuru') === 'on' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="checkbox" id="on_basvuru"
+                                               name="on_basvuru"
+                                               value="on" {{ old('on_basvuru') === 'on' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="on_basvuru">
                                             Ön Başvuru Formu
                                         </label>
@@ -249,7 +286,9 @@
 
                                 <div class="col-md-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="kesin_kayit" name="kesin_kayit" value="on" {{ old('kesin_kayit') === 'on' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="checkbox" id="kesin_kayit"
+                                               name="kesin_kayit"
+                                               value="on" {{ old('kesin_kayit') === 'on' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="kesin_kayit">
                                             Kesin Kayıt Formu
                                         </label>
@@ -260,7 +299,6 @@
                             </span>
                                     </div>
                                 </div>
-
 
 
                                 <div class="col-md-12" id="additional-checkboxes" style="display: none;">
@@ -288,7 +326,8 @@
                             </span>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="kurumkarti" name="kurumkarti">
+                                        <input class="form-check-input" type="checkbox" id="kurumkarti"
+                                               name="kurumkarti">
                                         <label class="form-check-label" for="kurumkarti">
                                             Kurum Kartı
                                         </label>
@@ -316,11 +355,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 
 @endsection
 
@@ -365,7 +399,7 @@
 
 
     <script>
-        document.getElementById('kesin_kayit').addEventListener('change', function() {
+        document.getElementById('kesin_kayit').addEventListener('change', function () {
             var additionalCheckboxes = document.getElementById('additional-checkboxes');
             if (this.checked) {
                 additionalCheckboxes.style.display = 'block';
@@ -375,7 +409,7 @@
         });
 
         // Formun ilk yüklenmesinde kesin_kayit checkbox'ı kontrol edilir
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var kesinKayit = document.getElementById('kesin_kayit');
             var additionalCheckboxes = document.getElementById('additional-checkboxes');
             if (kesinKayit.checked) {

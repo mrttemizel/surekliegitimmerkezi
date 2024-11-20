@@ -14,7 +14,7 @@ class EgitimController extends Controller
     public function egitim_detay($slug)
     {
         // Slug'a göre kursu bulun
-        $data = Courses::where('slug', $slug)->firstOrFail();
+        $data = Courses::where('slug', $slug)->orderBy('order', 'asc')->firstOrFail();
         $studentCount = KesinKayitForm::where('kurs_adi', $data->egitim_adi)->count();
         $category = Categories::where('status', 1)
             ->orderBy('name', 'asc')
@@ -31,7 +31,7 @@ class EgitimController extends Controller
     {
 
         $data = Courses::where('status', 1)
-            ->orderBy('egitim_adi', 'asc')
+            ->orderBy('order', 'asc')
             ->paginate(4);
 
         $category = Categories::where('status', 1)
@@ -94,7 +94,7 @@ class EgitimController extends Controller
             ->get();
 
         $data = Courses::where('category_id', $id)->where('status', 1)
-            ->orderBy('egitim_adi', 'asc')->paginate(4);
+            ->orderBy('order', 'asc')->paginate(4);
 
         return view('frontend.course.filter-course-resutls',compact('data','category'));
 

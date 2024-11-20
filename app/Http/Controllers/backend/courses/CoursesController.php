@@ -32,18 +32,19 @@ class CoursesController extends Controller
         $class = Siniflar::where('egitim_id', $data->id)->get();
 
         if (!$class->isEmpty()) {
-            $data->status = $request->status == "true" ? 1 : 0;
+            $data->status = $request->status == 1 ? 1 : 0; // Boolean kontrolü
             $data->save();
 
             return response()->json(['success' => true]);
         } else {
-            $data->status = $request->status == "true" ? 1 : 0;
+            $data->status = $request->status == 1 ? 1 : 0; // Boolean kontrolü
             $data->kesin_kayit = "off";
             $data->kimlik = "off";
             $data->diploma = "off";
             $data->kurumkarti = "off";
             $data->save();
-            return response()->json(['success' => false, 'message' => 'Sınıfınız yoktur.Sadece Ön Kayıt Açabilirsiniz.']);
+
+            return response()->json(['success' => false, 'message' => 'Sınıfınız yoktur. Sadece Ön Kayıt Açabilirsiniz.']);
         }
     }
     public function index()
@@ -86,7 +87,7 @@ class CoursesController extends Controller
         $data->egitim_ücreti = $request->input('egitim_ücreti');
         $data->egitim_katilim_sarti = $request->input('egitim_katilim_sarti');
         $data->egitim_kontejyani = $request->input('egitim_kontejyani');
-
+        $data->order = $request->input('order');
         $data->detay = $request->input('detay');
         $data->status = 0;
         $data->on_basvuru = $request->input('on_basvuru') === 'on' ? 'on' : 'off';
@@ -100,7 +101,7 @@ class CoursesController extends Controller
 
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:4048',
             ]);
 
             $file = $request->file('image');
@@ -168,7 +169,7 @@ class CoursesController extends Controller
         $data->egitim_ücreti = $request->input('egitim_ücreti');
         $data->egitim_katilim_sarti = $request->input('egitim_katilim_sarti');
         $data->egitim_kontejyani = $request->input('egitim_kontejyani');
-
+        $data->order = $request->input('order');
         $data->detay = $request->input('detay');
 
 
@@ -176,7 +177,7 @@ class CoursesController extends Controller
 
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:4048',
             ]);
 
             $path = public_path() . '/courses/' . $data->image;
