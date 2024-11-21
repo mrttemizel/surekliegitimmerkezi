@@ -67,6 +67,7 @@ class CoursesController extends Controller
         $request->validate([
             'egitim_adi' => 'required',
             'category_id' => 'required',
+            'order' => 'required',
         ]);
         if ($request->input('kesin_kayit') === 'on' && !$request->hasAny(['kimlik', 'diploma', 'kurumkarti'])) {
             return back()->withErrors(['belgeler' => 'Kesin kayıt seçilmişse, formda istenilen belgelerden en az bir tanesinin seçilmesi gerekmektedir.'])->withInput();
@@ -154,6 +155,7 @@ class CoursesController extends Controller
         $request->validate([
             'egitim_adi' => 'required',
             'category_id' => 'required',
+            'order' => 'required',
         ]);
 
         $data->egitim_adi = $request->input('egitim_adi');
