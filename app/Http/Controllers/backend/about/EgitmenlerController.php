@@ -57,7 +57,7 @@ class EgitmenlerController extends Controller
 
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
             ]);
 
             $file = $request->file('image');
@@ -92,7 +92,7 @@ class EgitmenlerController extends Controller
 
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
             ]);
 
             $path = public_path('egitmenlerimiz/' . $data->image);
