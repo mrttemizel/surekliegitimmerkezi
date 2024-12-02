@@ -47,36 +47,24 @@
                                    style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Eğitim Resmi</th>
-                                    <th>Eğitim Adı</th>
-                                    <th>Eğitim Kategorisi</th>
-                                    <th>Eğitim Durumu</th>
-                                    <th>Sıra</th>
-                                    <th>Toplu Öğrenci Yükle</th>
+
+                                    <th>Adı</th>
+                                    <th>Kategorisi</th>
                                     <th>Düzenle</th>
+                                    <th>Durumu</th>
+                                    <th>Sıra</th>
+                                    <th>Resmi</th>
+                                    <th>Ö. Yükle</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($data as $datas)
                                     <tr>
-                                        <td style="width: 10%"><img
-                                                src="{{ $datas->image ? asset('courses/'.$datas->image) : asset('courses/no_name.jpg') }}"
-                                                alt="" class="rounded-circle avatar-xs"></td>
-                                        <td>{{ $datas->egitim_adi ?? 'Değer girişmemiş' }}</td>
-                                        <td>{{ $datas->getCategory->name ?? 'Değer girişmemiş' }}</td>
-                                        <td>
-                                            <button class="btn btn-sm toggle-status {{ $datas->status == 1 ? 'btn-success' : 'btn-danger' }}"
-                                                    data-id="{{ $datas->id }}">
-                                                {{ $datas->status == 1 ? 'Aktif' : 'Pasif' }}
-                                            </button>
-                                        </td>
-                                        <td>{{ $datas->order ?? 'Değer girişmemiş' }}</td>
-                                        <td>
-                                            @if($datas->status == 1)
-                                                <a href="javascript:void(0)" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#uploadExcelModal" data-id="{{ $datas->id }}">Sınıf Seç & Excel Yükle</a>
-                                            @endif
-                                        </td>
-                                        <td>
+
+                                        <td style="width: 4%;font-size: x-small">{{ $datas->egitim_adi ?? 'Değer girişmemiş' }}</td>
+                                        <td style="width: 4%;font-size: x-small">{{ $datas->getCategory->name ?? 'Değer girişmemiş' }}</td>
+                                        <td  style="width: 1%">
                                             <div class="hstack gap-3 fs-15">
                                                 <a href="{{route('courses.edit', ['id' => $datas->id])}}"
                                                    class="btn btn-sm btn-success"><i class="ri-settings-4-line"></i></a>
@@ -86,6 +74,22 @@
                                                     class="ri-delete-bin-2-fill"></i></a>
                                             </div>
                                         </td>
+                                        <td style="width: 1%">
+                                            <button class="btn btn-sm toggle-status {{ $datas->status == 1 ? 'btn-success' : 'btn-danger' }}"
+                                                    data-id="{{ $datas->id }}">
+                                                {{ $datas->status == 1 ? 'Aktif' : 'Pasif' }}
+                                            </button>
+                                        </td>
+                                        <td  style="width: 1%">{{ $datas->order ?? 'Değer girişmemiş' }}</td>
+                                        <td style="width: 2%"><img
+                                                src="{{ $datas->image ? asset('courses/'.$datas->image) : asset('courses/no_name.jpg') }}"
+                                                alt="" class="rounded-circle avatar-xs"></td>
+                                        <td  style="width: 1%">
+                                            @if($datas->status == 1)
+                                                <a href="javascript:void(0)" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#uploadExcelModal" data-id="{{ $datas->id }}">Sınıf Seç & Excel Yükle</a>
+                                            @endif
+                                        </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>
