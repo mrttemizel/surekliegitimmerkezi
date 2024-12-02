@@ -69,9 +69,9 @@ class CoursesController extends Controller
             'category_id' => 'required',
             'order' => 'required',
         ]);
-        if ($request->input('kesin_kayit') === 'on' && !$request->hasAny(['kimlik', 'diploma', 'kurumkarti'])) {
+       /* if ($request->input('kesin_kayit') === 'on' && !$request->hasAny(['kimlik', 'diploma', 'kurumkarti'])) {
             return back()->withErrors(['belgeler' => 'Kesin kayıt seçilmişse, formda istenilen belgelerden en az bir tanesinin seçilmesi gerekmektedir.'])->withInput();
-        }
+        }*/
 
 
         $data = new Courses();
