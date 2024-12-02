@@ -103,7 +103,6 @@
                                 </tbody>
                             </table>
                             <button id="generate-certificates-btn" class="btn-info btn mt-2"
-                                    onclick="if (!this.disabled) window.location.href = '{{ route('class.list') }}';"
                                 {{ $isAnyActive ? '' : 'disabled' }}>
                                 Kursu Bitir - Sertifikaları Gönder
                             </button>
