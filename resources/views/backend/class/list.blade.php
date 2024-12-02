@@ -68,8 +68,7 @@
                                     <th>TC</th>
                                     <th>Sınıf</th>
                                     <th>Eğitim</th>
-                                    <th>Adres</th>
-                                    <th>Başarı Durumu</th>
+                                    <th>Durumu</th>
                                     <th>Düzenle</th>
                                 </tr>
                                 </thead>
@@ -90,7 +89,6 @@
                                         <td>{{$classList->tc}}</td>
                                         <td>{{$classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{$classList->kurs_adi}}</td>
-                                        <td>{{$classList->address}}</td>
                                         <td><input onchange="window.location.reload();" class="switchStatus" data-id={{ $classList->id }} type="checkbox" {{$classList->status == 0 ? '' : 'checked' }} data-toggle="toggle" data-on="Başarılı" data-off="Başarısız" data-onstyle="success" data-offstyle="danger"></td>
                                         <td>
                                             <div class="hstack gap-3 fs-15">
