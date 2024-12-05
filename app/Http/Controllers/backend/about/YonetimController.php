@@ -56,9 +56,9 @@ class YonetimController extends Controller
         $data->title = $request->input('title');
 
         if ($request->hasFile('image')) {
-            $request->validate([
+           /* $request->validate([
                 'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
-            ]);
+            ]); */
 
             $file = $request->file('image');
             $imagename = Str::slug($request->input('name')).'.'.time(). '.'.$file->getClientOriginalExtension();
