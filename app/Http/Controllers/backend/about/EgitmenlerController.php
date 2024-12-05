@@ -91,9 +91,9 @@ class EgitmenlerController extends Controller
         $data->title = $request->input('title');
 
         if ($request->hasFile('image')) {
-            $request->validate([
+           /* $request->validate([
                 'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
-            ]);
+            ]); */
 
             $path = public_path('egitmenlerimiz/' . $data->image);
 

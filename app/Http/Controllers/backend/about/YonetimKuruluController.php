@@ -58,9 +58,9 @@ class YonetimKuruluController extends Controller
 
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
             ]);
-
+dd($request->file());
             $file = $request->file('image');
             $imagename = Str::slug($request->input('name')).'.'.time(). '.'.$file->getClientOriginalExtension();
             $file->move(public_path('yonetimkurulu'), $imagename);
@@ -120,15 +120,16 @@ class YonetimKuruluController extends Controller
         $data->pozisyon = $request->input('pozisyon');
 
         if ($request->hasFile('image')) {
-            $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
-            ]);
+          /*  $request->validate([
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
+            ]);*/
 
             $path = public_path('yonetimkurulu/' . $data->image);
 
             if (\File::exists($path)) {
                 \File::delete($path);
             }
+
             $file = $request->file('image');
             $imagename = Str::slug($request->input('name')) . '_' . time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('yonetimkurulu'), $imagename);
