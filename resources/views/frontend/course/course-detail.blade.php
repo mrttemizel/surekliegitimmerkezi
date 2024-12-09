@@ -62,7 +62,7 @@
                                         <li> <i class="icon_profile"></i> Eğitici Adı <b>{{$data -> egitici_adi }}</b></li>
                                         <li><i class="icon_tag_alt"></i> Eğitim Platformu <b>{{$data -> egitim_platformu }}</b></li>
                                         <li> <i class="icon_clock_alt"></i> Eğitim Saati <b>{{$data -> egitim_saati }}</b></li>
-                                        <li><i class="icon_clock_alt"></i> Eğitim Kontejyanı <b>{{$data -> egitim_kontejyani }}</b></li>
+                                        <li><i class="icon_clock_alt"></i> Eğitim Kontenjanı <b>{{$data -> egitim_kontejyani }}</b></li>
                                         <li><i class="icon_map_alt"></i> Eğitim Yeri <b> {{$data -> egitim_yeri }}</b></li>
                                     </ul>
                                     <div class="d-flex flex-column justify-content-between" style="width: 100%">

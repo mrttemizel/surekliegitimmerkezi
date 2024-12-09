@@ -216,7 +216,7 @@
 
                                 <div class="col-md-6">
                                     <div>
-                                        <label class="form-label">Eğitim Kontejyanı </label>
+                                        <label class="form-label">Eğitim Kontenjanı </label>
                                         <input type="text" name="egitim_kontejyani" placeholder="Eğitim Kontejyanı"
                                                class="form-control" value="{{ old('egitim_kontejyani') }}">
                                         <span class="text-danger">
