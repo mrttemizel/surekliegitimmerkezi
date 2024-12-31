@@ -162,102 +162,106 @@
         </div>
     </div>
 
-
-
     <!-- Default Modals -->
 
-    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{route('yonetimkurulu.update')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('yonetimkurulu.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="myModalLabel">Kişi Düzenle</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                     </div>
-
                     <div class="modal-body">
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-3">
-                                    <input type="hidden" name="id" id="category_id">
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Ad Soyad</label>
-                                            <input type="text"  id="name" name="name" placeholder="Kategori Adı" class="form-control" value="{{ old('name') }}">
-                                            <span class="text-danger">
-                                            @error('name')
-                                                {{ $message }}
-                                                @enderror
-                                             </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Unvan <span class="text-danger">*</span></label>
-                                            <input type="text"  id="title" name="title" placeholder="Unvan" class="form-control" value="{{ old('title') }}">
-                                            <span class="text-danger">
-                                    @error('title')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Pozisyon <span class="text-danger">*</span></label>
-                                            <input type="text" name="pozisyon" id="pozisyon" placeholder="Unvan" class="form-control" value="{{ old('pozisyon') }}">
-                                            <span class="text-danger">
-                                    @error('pozisyon')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">E-Posta</label>
-                                            <input type="text" id="email" name="email" placeholder="E-Posta" class="form-control" value="{{ old('email') }}">
-                                            <span class="text-danger">
-                                    @error('email')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
-                                    <img src="" id="image" alt="" class="img-thumbnail avatar-xl">
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Resim<span class="text-danger"> 270 x 400 px</span></label>
-                                            <input type="file"  name="image"  class="form-control">
-                                            <span class="text-danger">
-                                    @error('image')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
 
+                                    <!-- Kayıt ID'si -->
+                                    <input type="hidden" name="id" id="category_id">
+
+                                    <!-- Ad Soyad -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Ad Soyad</label>
+                                        <input type="text" id="name" name="name" placeholder="Kategori Adı"
+                                               class="form-control" value="{{ old('name') }}">
+                                        <span class="text-danger">
+                                        @error('name') {{ $message }} @enderror
+                                    </span>
+                                    </div>
+
+                                    <!-- Unvan -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Unvan <span class="text-danger">*</span></label>
+                                        <input type="text" id="title" name="title" placeholder="Unvan"
+                                               class="form-control" value="{{ old('title') }}">
+                                        <span class="text-danger">
+                                        @error('title') {{ $message }} @enderror
+                                    </span>
+                                    </div>
+
+                                    <!-- Pozisyon -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Pozisyon <span class="text-danger">*</span></label>
+                                        <input type="text" id="pozisyon" name="pozisyon" placeholder="Pozisyon"
+                                               class="form-control" value="{{ old('pozisyon') }}">
+                                        <span class="text-danger">
+                                        @error('pozisyon') {{ $message }} @enderror
+                                    </span>
+                                    </div>
+
+                                    <!-- E-posta -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">E-Posta</label>
+                                        <input type="text" id="email" name="email" placeholder="E-Posta"
+                                               class="form-control" value="{{ old('email') }}">
+                                        <span class="text-danger">
+                                        @error('email') {{ $message }} @enderror
+                                    </span>
+                                    </div>
+
+                                    <!-- Mevcut görsel önizlemesi -->
+                                    <div class="col-md-12">
+                                        <img src="" id="image" alt="" class="img-thumbnail avatar-xl d-none">
+                                    </div>
+
+                                    <!-- Mevcut Görseli Sil (Checkbox) -->
+                                    <!-- Bu alanı ekledik: -->
+                                    <div class="col-md-12 d-none" id="deleteImageWrapper">
+                                        <div class="form-check my-2">
+                                            <input class="form-check-input" type="checkbox"
+                                                   id="delete_image" name="delete_image" value="1">
+                                            <label class="form-check-label" for="delete_image">
+                                                Mevcut görseli sil
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Yeni Resim -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Resim
+                                            <span class="text-danger">270 x 400 px</span>
+                                        </label>
+                                        <input type="file" name="image" class="form-control">
+                                        <span class="text-danger">
+                                        @error('image') {{ $message }} @enderror
+                                    </span>
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
-                        <button type="submit" class="btn btn-success ">Kaydet</button>
+                        <button type="submit" class="btn btn-success">Kaydet</button>
                     </div>
                 </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-
-
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
 @endsection
 
 @section('addjs')
@@ -267,21 +271,41 @@
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
     <script>
-        $(function (){
-            $('.edit-click').click(function (){
+        $(function () {
+            $('.edit-click').click(function () {
                 var id = $(this).attr('data-id');
                 $.ajax({
                     type: 'GET',
                     url: '{{ route('yonetimkurulu.getData') }}',
                     data: { id: id },
                     success: function (data) {
+                        // Modal'ı aç
                         $('#editModal').modal('show');
+
+                        // Inputları doldur
                         $('#name').val(data.name);
                         $('#title').val(data.title);
-                        $('#email').val(data.email);
                         $('#pozisyon').val(data.pozisyon);
-                        $('#image').attr('src', '{{ asset("yonetimkurulu") }}/' + data.image);
+                        $('#email').val(data.email);
                         $('#category_id').val(data.id);
+
+                        // Resim kontrolü
+                        if (data.image) {
+                            // Resim varsa, önizleme göster
+                            $('#image')
+                                .removeClass('d-none')
+                                .attr('src', '{{ asset("yonetimkurulu") }}/' + data.image);
+
+                            // "Mevcut görseli sil" checkbox alanını göster, checkbox'ı unchecked yap
+                            $('#deleteImageWrapper').removeClass('d-none');
+                            $('#delete_image').prop('checked', false);
+                        } else {
+                            // Resim yoksa önizleme sakla, sil checkbox'ını sakla
+                            $('#image')
+                                .addClass('d-none')
+                                .attr('src', '');
+                            $('#deleteImageWrapper').addClass('d-none');
+                        }
                     },
                     error: function (xhr, status, error) {
                         console.error('AJAX Error: ', status, error);

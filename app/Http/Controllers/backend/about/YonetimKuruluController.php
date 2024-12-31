@@ -108,40 +108,59 @@ dd($request->file()); */
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'title' => 'required',
+            'name'     => 'required',
+            'title'    => 'required',
             'pozisyon' => 'required',
         ]);
-        $data = YonetimKurulu::where('id', $request->id)->first();
 
-        $data->name = $request->input('name');
-        $data->email = $request->input('email');
-        $data->title = $request->input('title');
+        $data = YonetimKurulu::findOrFail($request->id);
+
+        // Alanlar
+        $data->name     = $request->input('name');
+        $data->email    = $request->input('email');
+        $data->title    = $request->input('title');
         $data->pozisyon = $request->input('pozisyon');
 
-        if ($request->hasFile('image')) {
-          /*  $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
-            ]);*/
-
+        // 1) “Mevcut görseli sil” checkbox işaretlenmişse
+        if ($request->has('delete_image') && $data->image) {
             $path = public_path('yonetimkurulu/' . $data->image);
-
             if (\File::exists($path)) {
                 \File::delete($path);
             }
-
-            $file = $request->file('image');
-            $imagename = Str::slug($request->input('name')) . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('yonetimkurulu'), $imagename);
-            $data->image = $imagename;
+            $data->image = null;
         }
 
+        // 2) Yeni resim yüklenmişse
+        if ($request->hasFile('image')) {
+            // (isteğe bağlı) Resim validation (mime / boyut)
+            /*
+            $request->validate([
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:2048'
+            ]);
+            */
+
+            // Eski resmi sil (eğer varsa)
+            if ($data->image) {
+                $oldPath = public_path('yonetimkurulu/' . $data->image);
+                if (\File::exists($oldPath)) {
+                    \File::delete($oldPath);
+                }
+            }
+
+            // Yeni resmi kaydet
+            $file = $request->file('image');
+            $imageName = Str::slug($request->input('name')) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('yonetimkurulu'), $imageName);
+            $data->image = $imageName;
+        }
+
+        // Veritabanında güncelle
         $query = $data->update();
 
         if (!$query) {
-            return back()->with($this->toastr('Kişi Güncelleme Başarısız','error'));
+            return back()->with($this->toastr('Kişi Güncelleme Başarısız', 'error'));
         } else {
-            return back()->with($this->toastr('Kişi Güncelleme Başarılı','success'));
+            return back()->with($this->toastr('Kişi Güncelleme Başarılı', 'success'));
         }
     }
 
