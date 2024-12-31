@@ -153,7 +153,7 @@
     <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{route('egitmenler.update')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('egitmenler.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="myModalLabel">Kişi Düzenle</h5>
@@ -164,72 +164,84 @@
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-3">
-                                    <input type="hidden" name="id" id="category_id">
+                                    <!-- Güncellenecek kaydın ID'sini gizli olarak taşıyoruz -->
+                                    <input type="hidden" name="id" id="edit_id">
+
+                                    <!-- Ad Soyad -->
                                     <div class="col-md-12">
                                         <div>
                                             <label class="form-label">Ad Soyad</label>
-                                            <input type="text"  id="name" name="name" placeholder="Kategori Adı" class="form-control" value="{{ old('name') }}">
+                                            <input type="text" id="edit_name" name="name" placeholder="Ad Soyad" class="form-control" value="{{ old('name') }}">
                                             <span class="text-danger">
-                                            @error('name')
-                                                {{ $message }}
-                                                @enderror
-                                             </span>
+                                            @error('name') {{ $message }} @enderror
+                                        </span>
                                         </div>
                                     </div>
+
+                                    <!-- Unvan -->
                                     <div class="col-md-12">
                                         <div>
                                             <label class="form-label">Unvan <span class="text-danger">*</span></label>
-                                            <input type="text"  id="title" name="title" placeholder="Unvan" class="form-control" value="{{ old('title') }}">
+                                            <input type="text" id="edit_title" name="title" placeholder="Unvan" class="form-control" value="{{ old('title') }}">
                                             <span class="text-danger">
-                                    @error('title')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
+                                            @error('title') {{ $message }} @enderror
+                                        </span>
                                         </div>
                                     </div>
-                                    <!--end col-->
 
+                                    <!-- E-Posta -->
                                     <div class="col-md-12">
                                         <div>
                                             <label class="form-label">E-Posta <span class="text-danger">*</span></label>
-                                            <input type="text" id="email" name="email" placeholder="E-Posta" class="form-control" value="{{ old('email') }}">
+                                            <input type="text" id="edit_email" name="email" placeholder="E-Posta" class="form-control" value="{{ old('email') }}">
                                             <span class="text-danger">
-                                    @error('email')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
+                                            @error('email') {{ $message }} @enderror
+                                        </span>
                                         </div>
                                     </div>
-                                    <!--end col-->
-                                    <img src="" id="image" alt="" class="img-thumbnail avatar-xl">
+
+                                    <!-- Mevcut Görsel Önizlemesi (JS ile src ayarlanacak) -->
+                                    <div class="col-md-12">
+                                        <img src="" id="edit_image_preview" alt="" class="img-thumbnail avatar-xl d-none">
+                                    </div>
+
+                                    <!-- Yeni Görsel Seç -->
                                     <div class="col-md-12">
                                         <div>
-                                            <label class="form-label">Resim<span class="text-danger"> 270 x 400 px</span></label>
-                                            <input type="file"  name="image"  class="form-control">
+                                            <label class="form-label">
+                                                Resim
+                                                <span class="text-danger">270 x 400 px</span>
+                                            </label>
+                                            <input type="file" name="image" class="form-control">
                                             <span class="text-danger">
-                                    @error('image')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
+                                            @error('image') {{ $message }} @enderror
+                                        </span>
                                         </div>
                                     </div>
-                                    <!--end col-->
 
+                                    <!-- Mevcut Görseli Silme Checkbox -->
+                                    <div class="col-md-12">
+                                        <div class="form-check d-none" id="deleteImageWrapper">
+                                            <input class="form-check-input" type="checkbox" id="edit_delete_image" name="delete_image" value="1">
+                                            <label class="form-check-label" for="edit_delete_image">
+                                                Mevcut görseli sil
+                                            </label>
+                                        </div>
+                                    </div>
 
-                                </div>
-                            </div>
-                        </div>
+                                </div> <!-- row -->
+                            </div> <!-- live-preview -->
+                        </div> <!-- card-body -->
+                    </div> <!-- modal-body -->
 
-                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
-                        <button type="submit" class="btn btn-success ">Kaydet</button>
+                        <button type="submit" class="btn btn-success">Kaydet</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
 
 
 @endsection
@@ -241,20 +253,44 @@
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
     <script>
-        $(function (){
-            $('.edit-click').click(function (){
+        $(function () {
+            $('.edit-click').click(function () {
                 var id = $(this).attr('data-id');
                 $.ajax({
                     type: 'GET',
                     url: '{{ route('egitmenler.getData') }}',
                     data: { id: id },
                     success: function (data) {
+                        // Modal aç
                         $('#editModal').modal('show');
-                        $('#name').val(data.name);
-                        $('#title').val(data.title);
-                        $('#email').val(data.email);
-                        $('#image').attr('src', '{{ asset("egitmenlerimiz") }}/' + data.image);
-                        $('#category_id').val(data.id);
+
+                        // Gözden geçirelim: data.name, data.title, data.email, data.image, data.id geliyor mu?
+                        console.log(data);
+
+                        // Artık yeni ID'lere atama yapıyoruz:
+                        $('#edit_id').val(data.id);
+                        $('#edit_name').val(data.name);
+                        $('#edit_title').val(data.title);
+                        $('#edit_email').val(data.email);
+
+                        // Resim için:
+                        if (data.image) {
+                            // Resmi göster
+                            $('#edit_image_preview')
+                                .attr('src', '{{ asset("egitmenlerimiz") }}/' + data.image)
+                                .removeClass('d-none');
+
+                            // "Mevcut görseli sil" checkbox wrapper'ını da gösterelim
+                            $('#deleteImageWrapper').removeClass('d-none');
+                        } else {
+                            // Görsel yoksa preview'ı sakla
+                            $('#edit_image_preview').addClass('d-none');
+                            // Mevcut görseli sil checkbox'ını da sakla
+                            $('#deleteImageWrapper').addClass('d-none');
+                        }
+
+                        // Checkbox'ı default olarak unchecked yapalım
+                        $('#edit_delete_image').prop('checked', false);
                     },
                     error: function (xhr, status, error) {
                         console.error('AJAX Error: ', status, error);

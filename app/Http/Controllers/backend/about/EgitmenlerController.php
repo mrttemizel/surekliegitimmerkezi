@@ -80,38 +80,49 @@ class EgitmenlerController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name'  => 'required',
             'email' => 'required',
             'title' => 'required',
         ]);
-        $data = Egitmenlerimiz::where('id', $request->id)->first();
 
-        $data->name = $request->input('name');
+        // İlgili kaydı veritabanından bul
+        $data = Egitmenlerimiz::findOrFail($request->id);
+
+        // Formdan gelen verileri set et
+        $data->name  = $request->input('name');
         $data->email = $request->input('email');
         $data->title = $request->input('title');
 
-        if ($request->hasFile('image')) {
-           /* $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
-            ]); */
-
+        // 1) Eğer "Görsel Sil" checkbox işaretlenmişse, eski dosyayı sil ve DB alanını null yap
+        if ($request->has('delete_image') && $data->image) {
             $path = public_path('egitmenlerimiz/' . $data->image);
-
             if (\File::exists($path)) {
                 \File::delete($path);
             }
+            $data->image = null;
+        }
+
+        // 2) Yeni bir görsel yüklenmişse
+        if ($request->hasFile('image')) {
+            // Eski resmi sil
+            if ($data->image) {
+                $oldPath = public_path('egitmenlerimiz/' . $data->image);
+                if (\File::exists($oldPath)) {
+                    \File::delete($oldPath);
+                }
+            }
             $file = $request->file('image');
-            $imagename = Str::slug($request->input('name')) . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('egitmenlerimiz'), $imagename);
-            $data->image = $imagename;
+            $imageName = Str::slug($request->input('name')) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('egitmenlerimiz'), $imageName);
+            $data->image = $imageName;
         }
 
         $query = $data->update();
 
         if (!$query) {
-            return back()->with($this->toastr('Kişi Güncelleme Başarısız','error'));
+            return back()->with($this->toastr('Kişi Güncelleme Başarısız', 'error'));
         } else {
-            return back()->with($this->toastr('Kişi Güncelleme Başarılı','success'));
+            return back()->with($this->toastr('Kişi Güncelleme Başarılı', 'success'));
         }
     }
 
