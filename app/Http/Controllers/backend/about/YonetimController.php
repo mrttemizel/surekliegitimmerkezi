@@ -80,34 +80,54 @@ class YonetimController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name'  => 'required',
             'email' => 'required',
             'title' => 'required',
         ]);
-        $data = Yonetim::where('id', $request->id)->first();
 
-        $data->name = $request->input('name');
+        $data = Yonetim::findOrFail($request->id);
+
+        $data->name  = $request->input('name');
         $data->email = $request->input('email');
         $data->title = $request->input('title');
 
-        if ($request->hasFile('image')) {
-           /* $request->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048',
-            ]);*/
-
+        // 1) Eğer "Mevcut resmi sil" checkbox'ı işaretlendiyse
+        if ($request->has('delete_image') && $data->image) {
             $path = public_path('yonetim/' . $data->image);
-
             if (\File::exists($path)) {
                 \File::delete($path);
             }
+            $data->image = null;
+        }
+
+        // 2) Yeni resim yüklendiyse
+        if ($request->hasFile('image')) {
+            /*
+            // İsteğe bağlı validation (mime / boyut)
+            $request->validate([
+                'image' => 'image|mimes:jpg,jpeg,png,svg|max:8048'
+            ]);
+            */
+
+            // Eski resim varsa sil
+            if ($data->image) {
+                $oldPath = public_path('yonetim/' . $data->image);
+                if (\File::exists($oldPath)) {
+                    \File::delete($oldPath);
+                }
+            }
+
+            // Yeni resmi kaydet
             $file = $request->file('image');
             $imagename = Str::slug($request->input('name')) . '_' . time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('yonetim'), $imagename);
             $data->image = $imagename;
         }
 
+        // Değişiklikleri kaydet
         $query = $data->update();
 
+        // Kullanıcıya sonuç dön
         if (!$query) {
             return back()->with($this->toastr('Kişi Güncelleme Başarısız','error'));
         } else {

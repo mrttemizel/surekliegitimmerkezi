@@ -150,10 +150,10 @@
 
     <!-- Default Modals -->
 
-    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{route('yonetim.update')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('yonetim.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="myModalLabel">Kişi Düzenle</h5>
@@ -164,72 +164,75 @@
                         <div class="card-body">
                             <div class="live-preview">
                                 <div class="row gy-3">
+
+                                    <!-- ID (hidden) -->
                                     <input type="hidden" name="id" id="category_id">
+
+                                    <!-- Ad Soyad -->
                                     <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Ad Soyad</label>
-                                            <input type="text"  id="name" name="name" placeholder="Kategori Adı" class="form-control" value="{{ old('name') }}">
-                                            <span class="text-danger">
-                                            @error('name')
-                                                {{ $message }}
-                                                @enderror
-                                             </span>
+                                        <label class="form-label">Ad Soyad</label>
+                                        <input type="text" id="name" name="name"
+                                               placeholder="Ad Soyad" class="form-control"
+                                               value="{{ old('name') }}">
+                                        <span class="text-danger">@error('name') {{ $message }} @enderror</span>
+                                    </div>
+
+                                    <!-- Unvan -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Unvan <span class="text-danger">*</span></label>
+                                        <input type="text" id="title" name="title"
+                                               placeholder="Unvan" class="form-control"
+                                               value="{{ old('title') }}">
+                                        <span class="text-danger">@error('title') {{ $message }} @enderror</span>
+                                    </div>
+
+                                    <!-- E-Posta -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">E-Posta <span class="text-danger">*</span></label>
+                                        <input type="text" id="email" name="email"
+                                               placeholder="E-Posta" class="form-control"
+                                               value="{{ old('email') }}">
+                                        <span class="text-danger">@error('email') {{ $message }} @enderror</span>
+                                    </div>
+
+                                    <!-- Mevcut Görsel (Önizleme) -->
+                                    <div class="col-md-12">
+                                        <img src="" id="image" alt="" class="img-thumbnail avatar-xl d-none">
+                                    </div>
+
+                                    <!-- Mevcut Görseli Sil (checkbox) -->
+                                    <div class="col-md-12" id="deleteImageWrapper" style="display: none;">
+                                        <div class="form-check my-2">
+                                            <input class="form-check-input" type="checkbox"
+                                                   id="delete_image" name="delete_image" value="1">
+                                            <label class="form-check-label" for="delete_image">
+                                                Mevcut görseli sil
+                                            </label>
                                         </div>
                                     </div>
+
+                                    <!-- Yeni Resim Yükleme -->
                                     <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Unvan <span class="text-danger">*</span></label>
-                                            <input type="text"  id="title" name="title" placeholder="Unvan" class="form-control" value="{{ old('title') }}">
-                                            <span class="text-danger">
-                                    @error('title')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
+                                        <label class="form-label">Resim
+                                            <span class="text-danger">270 x 400 px</span>
+                                        </label>
+                                        <input type="file" name="image" class="form-control">
+                                        <span class="text-danger">@error('image') {{ $message }} @enderror</span>
                                     </div>
-                                    <!--end col-->
 
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">E-Posta <span class="text-danger">*</span></label>
-                                            <input type="text" id="email" name="email" placeholder="E-Posta" class="form-control" value="{{ old('email') }}">
-                                            <span class="text-danger">
-                                    @error('email')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
-                                    <img src="" id="image" alt="" class="img-thumbnail avatar-xl">
-                                    <div class="col-md-12">
-                                        <div>
-                                            <label class="form-label">Resim <span class="text-danger"> 270 x 400 px</span></label>
-                                            <input type="file"  name="image"  class="form-control">
-                                            <span class="text-danger">
-                                    @error('image')
-                                                {{ $message }}
-                                                @enderror
-                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end col-->
+                                </div> <!-- row -->
+                            </div> <!-- live-preview -->
+                        </div> <!-- card-body -->
+                    </div> <!-- modal-body -->
 
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
-                        <button type="submit" class="btn btn-success ">Kaydet</button>
+                        <button type="submit" class="btn btn-success">Kaydet</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
 
 
 @endsection
@@ -249,12 +252,30 @@
                     url: '{{ route('yonetim.getData') }}',
                     data: { id: id },
                     success: function (data) {
+                        // Modal'ı göster
                         $('#editModal').modal('show');
+
+                        // Form alanlarını doldur
                         $('#name').val(data.name);
                         $('#title').val(data.title);
                         $('#email').val(data.email);
-                        $('#image').attr('src', '{{ asset("yonetim") }}/' + data.image);
                         $('#category_id').val(data.id);
+
+                        // Resim için kontrol yap
+                        if (data.image) {
+                            // Mevcut resim varsa
+                            $('#image')
+                                .removeClass('d-none')
+                                .attr('src', '{{ asset("yonetim") }}/' + data.image);
+
+                            // "Resim Sil" checkbox'ını göster, default olarak unchecked
+                            $('#deleteImageWrapper').show();
+                            $('#delete_image').prop('checked', false);
+                        } else {
+                            // Resim yoksa
+                            $('#image').addClass('d-none').attr('src', '');
+                            $('#deleteImageWrapper').hide();
+                        }
                     },
                     error: function (xhr, status, error) {
                         console.error('AJAX Error: ', status, error);
