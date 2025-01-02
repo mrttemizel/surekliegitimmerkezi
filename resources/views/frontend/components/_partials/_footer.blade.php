@@ -63,7 +63,7 @@
                                 <li><a href="{{route('hakkimizda_yonetim_kurulu.index')}}">Yönetim Kurulu</a></li>
                                 <li><a href="{{route('hakkimizda_egitmenler.index')}}">Eğitmenler</a></li>
                                 <li><a href="{{route('hakkimizda_formlar.index')}}">Formlar</a></li>
-                                <li><a href="{{route('hakkimizda_formlar.index')}}">Banka Hesap Bilgileri</a></li>
+                                <li><a href="{{route('hakkimizda_banka_hesap.index')}}">Banka Hesap Bilgileri</a></li>
                             </ul>
                         </div>
                     </div>
@@ -264,7 +264,7 @@ function rejectCookies() {
 
 function showCookieSettings() {
     document.getElementById('cookie-settings-modal').style.display = 'flex';
-    
+
     // Mevcut cookie ayarlarını yükle
     const optional = getCookie('optionalCookies') !== 'false';
     document.getElementById('optional-cookies').checked = optional;
@@ -272,10 +272,10 @@ function showCookieSettings() {
 
 function saveCookieSettings() {
     const optional = document.getElementById('optional-cookies').checked;
-    
+
     setCookie('cookieConsent', 'custom', 365);
     setCookie('optionalCookies', optional, 365);
-    
+
     document.getElementById('cookie-settings-modal').style.display = 'none';
     document.getElementById('cookie-consent-banner').style.display = 'none';
 }
