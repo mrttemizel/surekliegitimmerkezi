@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\about\EducationRequestController;
 use App\Http\Controllers\backend\about\EgitmenlerController;
 use App\Http\Controllers\backend\about\FormlarController;
 use App\Http\Controllers\backend\about\OrganizationChartController;
+use App\Http\Controllers\backend\about\RefundFormController;
 use App\Http\Controllers\backend\about\YonetimController;
 use App\Http\Controllers\backend\about\YonetimKuruluController;
 use App\Http\Controllers\backend\auth\AuthController;
@@ -144,6 +145,11 @@ Route::middleware('auth')->group(function (){
         Route::get('/organization-chart',[OrganizationChartController::class,'index'])->name('organization-chart.index');
         Route::post('/organization-chart',[OrganizationChartController::class,'update'])->name('organization-chart.update');
         Route::post('/organization-chart/upload', [OrganizationChartController::class, 'uploadImage'])->name('organization-chart.upload');
+
+
+        Route::get('/refund-form',[RefundFormController::class,'index'])->name('refund-form.index');
+        Route::post('/refund-form',[RefundFormController::class,'update'])->name('refund-form.update');
+        Route::post('/refund-form/upload', [RefundFormController::class, 'uploadImage'])->name('refund-form.upload');
 
         Route::get('/on-kayit-basvurulari',[OnKayitBasvurulariController::class,'index'])->name('on-kayit-basvurulari.index');
         Route::get('/on-kayit', [OnKayitBasvurulariController::class, 'index'])->name('on-kayit.index');

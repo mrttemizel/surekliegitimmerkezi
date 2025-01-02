@@ -104,7 +104,7 @@
 
                 <li class="nav-item">
                     @php
-                        $aboutRoutes = ['yonetim.index', 'yonetimkurulu.index', 'egitmenler.index','formlar.index','banka-is.index','education-request.index','organization-chart.index'];
+                        $aboutRoutes = ['yonetim.index', 'yonetimkurulu.index', 'egitmenler.index','formlar.index','banka-is.index','education-request.index','organization-chart.index','refund-form.index'];
                     @endphp
                     <a class="nav-link menu-link {{ in_array($currentRoute, $aboutRoutes) ? 'active' : '' }}" href="#sidebarAbout" data-bs-toggle="collapse" role="button" aria-expanded="{{ in_array($currentRoute, $aboutRoutes) ? 'true' : 'false' }}" aria-controls="sidebarAbout">
                         <i class="ri-chat-poll-line"></i> <span data-key="t-dashboards">Hakkımızda</span>
@@ -144,6 +144,11 @@
                             <li class="nav-item">
                                 <a href="{{ route('organization-chart.index') }}" class="nav-link {{ $currentRoute == 'organization-chart.index' ? 'active' : '' }}">
                                     <span data-key="t-job">Organizasyon Şeması</span> <span class="badge badge-pill bg-success" data-key="t-new">+</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('refund-form.index') }}" class="nav-link {{ $currentRoute == 'refund-form.index' ? 'active' : '' }}">
+                                    <span data-key="t-job">Ücret İade Formları</span> <span class="badge badge-pill bg-success" data-key="t-new">+</span>
                                 </a>
                             </li>
                         </ul>

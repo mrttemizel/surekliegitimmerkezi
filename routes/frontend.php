@@ -46,6 +46,7 @@ Route::get('/hakkimizda/egitmenler',[AboutController::class,'egitmenler'])->name
 Route::get('/hakkimizda/yonetim-kurulu',[AboutController::class,'yonetim_kurulu'])->name('hakkimizda_yonetim_kurulu.index');
 Route::get('/hakkimizda/education-request',[AboutController::class,'education_request'])->name('education_request.index');
 Route::get('/hakkimizda/organization-chart',[AboutController::class,'organization_chart'])->name('organization_chart.index');
+Route::get('/hakkimizda/refund-form',[AboutController::class,'refund_form'])->name('refund_form.index');
 
 Route::get('/hakkimizda/banka-hesap-bilgileri',[AboutController::class,'banka_hesap'])->name('hakkimizda_banka_hesap.index');
 Route::get('/hakkimizda/is-birligi-yaptigimiz-kurumlar',[AboutController::class,'is_birligi_yaptigimiz_kurumlar'])->name('hakkimizda_is_birligi_yaptigimiz_kurumlar.index');

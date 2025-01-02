@@ -8,6 +8,7 @@ use App\Models\BankaIs;
 use App\Models\Egitmenlerimiz;
 use App\Models\Formlar;
 use App\Models\OrganizationChart;
+use App\Models\RefundForm;
 use App\Models\Settings;
 use App\Models\Yonetim;
 use App\Models\YonetimKurulu;
@@ -104,6 +105,15 @@ class AboutController extends Controller
 
 
         return view('frontend.about.organization_chart',compact('data'));
+    }
+
+    public  function refund_form()
+    {
+
+        $data = RefundForm::find(1);
+
+
+        return view('frontend.about.refund_form',compact('data'));
     }
 
     public function sendMail(Request $request)
