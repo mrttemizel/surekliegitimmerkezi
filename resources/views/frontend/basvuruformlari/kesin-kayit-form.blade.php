@@ -82,9 +82,11 @@
                                                         <th>IBAN</th>
                                                         <td>TR440001500158007317484665</td>
                                                     </tr>
+
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <b>Kurumsal fatura istiyorsanız sem@antalya.edu.tr adresine mail atınız...</b>
                                         </div>
                                     @endif
 
