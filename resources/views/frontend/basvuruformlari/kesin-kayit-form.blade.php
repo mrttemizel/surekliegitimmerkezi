@@ -91,7 +91,7 @@
                                     @endif
 
 
-
+                                    <h5>Kullanıcı tarafından bildirilen verilerin doğruluğu tamamen kendisine aittir.</h5>
                                     @if(session('error'))
                                         <div class="alert alert-danger">
                                             <b>{{ session('error') }}</b>
@@ -243,8 +243,6 @@
                                             <polyline points="12 5 19 12 12 19"></polyline>
                                         </svg>
                                     </button>
-
-
                                 </form>
                             </div>
                         </div>
