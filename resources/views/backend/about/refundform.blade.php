@@ -1,6 +1,6 @@
 @extends('backend.components.master')
 @section('title')
-    Organizasyon Şema Sayfası
+    Ücret İade Formları Sayfası
 @endsection
 
 @section('css')

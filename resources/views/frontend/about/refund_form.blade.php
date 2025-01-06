@@ -2,7 +2,7 @@
 
 @extends('frontend.components.master')
 @section('title')
-   Organizasyon Şeması
+    Ücret İade Formları Sayfası
 @endsection
 
 @section('addcss')
@@ -23,11 +23,11 @@
                     <div class="breadcrumbs-inner">
                         <div class="container">
                             <div class="breadcrumbs-text">
-                                <h1 class="breadcrumbs-title">Organizasyon Şeması</h1>
+                                <h1 class="breadcrumbs-title">Ücret İade Formları Sayfası</h1>
                                 <div class="back-nav">
                                     <ul>
                                         <li><a href="{{route('home.index')}}">Anasayfa</a></li>
-                                        <li>Organizasyon Şeması</li>
+                                        <li>Ücret İade Formları Sayfası</li>
                                     </ul>
                                 </div>
                             </div>
