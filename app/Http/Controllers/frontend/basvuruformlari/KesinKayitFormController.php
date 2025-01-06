@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Mail\KesinKayitBilgilendirme;
 use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Illuminate\Support\Facades\Log;
 
 class KesinKayitFormController extends Controller
 {
@@ -91,6 +92,11 @@ class KesinKayitFormController extends Controller
             return back()->with('error', 'Eklenirken bir hata oluştu!');
         } else {
             try {
+                Log::info('Word dokümanı işlemi başlıyor', [
+                    'user_email' => $data->email,
+                    'template_path' => public_path('word-templates/Satis.docx')
+                ]);
+
                 // Word dokümanını düzenle
                 $templateProcessor = new TemplateProcessor(public_path('word-templates/Satis.docx'));
                 $templateProcessor->setValue('AdSoyad', $data->name . ' ' . $data->surname);
@@ -99,20 +105,43 @@ class KesinKayitFormController extends Controller
                 $tempFile = storage_path('app/public/temp/' . uniqid() . '_Satis.docx');
                 $templateProcessor->saveAs($tempFile);
 
-                // Mail gönderme işlemi
-                Mail::to($data->email)->send(new KesinKayitBilgilendirme([
-                    'name' => $data->name,
-                    'surname' => $data->surname,
-                    'kurs_adi' => $data->kurs_adi,
-                    'wordFile' => $tempFile
-                ]));
+                Log::info('Word dokümanı oluşturuldu', [
+                    'temp_file' => $tempFile
+                ]);
+
+                try {
+                    // Mail gönderme işlemi
+                    Mail::to($data->email)->send(new KesinKayitBilgilendirme([
+                        'name' => $data->name,
+                        'surname' => $data->surname,
+                        'kurs_adi' => $data->kurs_adi,
+                        'wordFile' => $tempFile
+                    ]));
+
+                    Log::info('Mail başarıyla gönderildi', [
+                        'to' => $data->email
+                    ]);
+                } catch (\Exception $mailError) {
+                    Log::error('Mail gönderme hatası', [
+                        'error' => $mailError->getMessage(),
+                        'trace' => $mailError->getTraceAsString()
+                    ]);
+                    throw $mailError;
+                }
 
                 // Geçici dosyayı sil
-                unlink($tempFile);
+                if (file_exists($tempFile)) {
+                    unlink($tempFile);
+                    Log::info('Geçici dosya silindi');
+                }
 
                 return back()->with('success', 'Ön Başvurunuz Başarılı Bir Şekilde Alınmıştır.');
             } catch (\Exception $e) {
-                return back()->with('error', 'Mail gönderilirken bir hata oluştu!');
+                Log::error('Genel hata', [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString()
+                ]);
+                return back()->with('error', 'Mail gönderilirken bir hata oluştu: ' . $e->getMessage());
             }
         }
     }
