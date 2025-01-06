@@ -9,6 +9,9 @@ use App\Models\Siniflar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Mail\KesinKayitBilgilendirme;
+use Illuminate\Support\Facades\Mail;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class KesinKayitFormController extends Controller
 {
@@ -87,8 +90,30 @@ class KesinKayitFormController extends Controller
         if (!$query) {
             return back()->with('error', 'Eklenirken bir hata oluştu!');
         } else {
-            return back()->with('success', 'Ön Başvurunuz Başarılı Bir Şekilde Alınmıştır.');
-        }
+            try {
+                // Word dokümanını düzenle
+                $templateProcessor = new TemplateProcessor(public_path('word-templates/Satis.docx'));
+                $templateProcessor->setValue('AdSoyad', $data->name . ' ' . $data->surname);
+                
+                // Geçici dosya oluştur
+                $tempFile = storage_path('app/public/temp/' . uniqid() . '_Satis.docx');
+                $templateProcessor->saveAs($tempFile);
 
+                // Mail gönderme işlemi
+                Mail::to($data->email)->send(new KesinKayitBilgilendirme([
+                    'name' => $data->name,
+                    'surname' => $data->surname,
+                    'kurs_adi' => $data->kurs_adi,
+                    'wordFile' => $tempFile
+                ]));
+
+                // Geçici dosyayı sil
+                unlink($tempFile);
+
+                return back()->with('success', 'Ön Başvurunuz Başarılı Bir Şekilde Alınmıştır.');
+            } catch (\Exception $e) {
+                return back()->with('error', 'Mail gönderilirken bir hata oluştu!');
+            }
+        }
     }
 }
