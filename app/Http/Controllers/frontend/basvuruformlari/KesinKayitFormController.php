@@ -99,7 +99,9 @@ class KesinKayitFormController extends Controller
 
                 // Word dokümanını düzenle
                 $templateProcessor = new TemplateProcessor(public_path('word-templates/Satis.docx'));
-                $templateProcessor->setValue('AdSoyad', $data->name . ' ' . $data->surname);
+                
+                // Sadece Ad-Soyad değişkenini set et
+                $templateProcessor->setValue('AdSoyad', mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8'));
                 
                 // Geçici dosya oluştur
                 $tempFile = storage_path('app/public/temp/' . uniqid() . '_Satis.docx');
