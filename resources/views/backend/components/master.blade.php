@@ -10,6 +10,7 @@
     <meta content="murattemizel" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{asset('backend/my-image/favicon.png')}}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     @include('backend.components._partials._head-css')
 
@@ -45,6 +46,9 @@
 
 
 @include('backend.components._partials._vendor-scripts')
+
+<!-- Scripts -->
+@yield('js')
 
 </body>
 
