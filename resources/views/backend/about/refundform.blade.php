@@ -4,8 +4,9 @@
 @endsection
 
 @section('css')
-    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('backend/assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.css')}}" rel="stylesheet"
+          type="text/css"/>
 @endsection
 
 @section('content')
@@ -32,9 +33,10 @@
                                 <div class="col-md-12">
                                     <div>
                                         <label class="form-label">Form Adı <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}"
+                                               required>
                                         @error('name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -43,7 +45,7 @@
                                         <label class="form-label">Dosya <span class="text-danger">*</span></label>
                                         <input type="file" name="file" class="form-control" required>
                                         @error('file')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -68,55 +70,54 @@
                     @if($data->count() > 0)
                         <table class="table nowrap dt-responsive align-middle table-hover table-bordered">
                             <thead>
-                                <tr>
-                                    <th>Dosya</th>
-                                    <th>Form Adı</th>
-                                    <th>Gösterim</th>
-                                    <th>İşlemler</th>
-                                </tr>
+                            <tr>
+                                <th>Dosyadfsf</th>
+                                <th>Form Adı</th>
+                                <th>Gösterim</th>
+                                <th>İşlemler</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach($data as $item)
-                                    <tr>
-                                        <td>
-                                            @if($item->file && file_exists(public_path('formlar/' . $item->file)))
-                                                <a href="{{ asset('formlar/'.$item->file) }}" target="_blank"
-                                                   class="btn btn-sm btn-secondary">
-                                                    <i class="ri-download-2-fill"></i> İndir
-                                                </a>
-                                            @else
-                                                <span class="text-muted">Dosya Yok</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>
-                                            <input type="checkbox" class="switchStatus"
-                                                   data-id="{{ $item->id }}"
-                                                   {{ $item->status ? 'checked' : '' }}
-                                                   data-toggle="toggle"
-                                                   data-on="Aktif"
-                                                   data-off="Pasif"
-                                                   data-onstyle="success"
-                                                   data-offstyle="danger">
-                                        </td>
-                                        <td>
-                                            <div class="hstack gap-3 fs-15">
-                                                <button type="button"
-                                                        class="btn btn-sm btn-success edit-form"
-                                                        data-id="{{ $item->id }}">
-                                                    <i class="ri-settings-4-line"></i>
-                                                </button>
-                                                <button type="button"
-                                                        class="btn btn-sm btn-danger"
-                                                        id="delete-form"
-                                                        data-id="{{ $item->id }}"
-                                                        data-url="{{ route('refundform.delete', $item->id) }}">
-                                                    <i class="ri-delete-bin-2-fill"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            @foreach($data as $item)
+                                <tr>
+                                    <td>
+                                        @if($item->file && file_exists(public_path('formlar/' . $item->file)))
+                                            <a href="{{ asset('formlar/'.$item->file) }}" target="_blank"
+                                               class="btn btn-sm btn-secondary">
+                                                <i class="ri-download-2-fill"></i> İndir
+                                            </a>
+                                        @else
+                                            <span class="text-muted">Dosya Yok</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>
+                                        <input type="checkbox" class="switchStatus"
+                                               data-id="{{ $item->id }}"
+                                               {{ $item->status ? 'checked' : '' }}
+                                               data-toggle="toggle"
+                                               data-on="Aktif"
+                                               data-off="Pasif"
+                                               data-onstyle="success"
+                                               data-offstyle="danger">
+                                    </td>
+                                    <td>
+                                        <div class="hstack gap-3 fs-15">
+                                            <button type="button"
+                                                    class="btn btn-sm btn-success edit-form"
+                                                    data-id="{{ $item->id }}">
+                                                <i class="ri-settings-4-line"></i>
+                                            </button>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-danger delete-form"
+                                                    data-id="{{ $item->id }}"
+                                                    data-url="{{ route('refundform.delete', $item->id) }}">
+                                                <i class="ri-delete-bin-2-fill"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     @else
@@ -161,32 +162,22 @@
     </div>
 @endsection
 
+@section('js')
     <script src="{{ asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.js') }}"></script>
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            // Form düzenleme
-            $('.edit-form').click(function() {
-                const id = $(this).data('id');
-                $.get("{{ route('refundform.getData') }}", { id: id }, function(data) {
-                    $('#edit_id').val(data.id);
-                    $('#edit_name').val(data.name);
-                    $('#editModal').modal('show');
-                });
-            });
-
-            // Durum değiştirme
-            $('.switchStatus').change(function() {
-                const id = $(this).data('id');
-                const status = $(this).prop('checked');
-                $.get("{{ route('refundform.switch') }}", { id: id, status: status });
-            });
+    <script type="text/javascript">
+        // jQuery hazır olduğunda çalışacak
+        jQuery(function($) {
+            console.log('jQuery is loaded');
 
             // Silme işlemi
-            $(document).on('click', '#delete-form', function() {
-                var user_id = $(this).data('id');
-                const url = $(this).data('url');
+            $(document).on('click', '.delete-form', function(e) {
+                e.preventDefault();
+                console.log('Delete button clicked');
+                
+                var url = $(this).data('url');
+                console.log('Delete URL:', url);
                 
                 Swal.fire({
                     title: 'Emin misiniz?',
@@ -203,5 +194,23 @@
                     }
                 });
             });
+
+            // Durum değiştirme
+            $(document).on('change', '.switchStatus', function() {
+                var id = $(this).data('id');
+                var status = $(this).prop('checked');
+                $.get("{{ route('refundform.switch') }}", { id: id, status: status });
+            });
+
+            // Form düzenleme
+            $(document).on('click', '.edit-form', function() {
+                var id = $(this).data('id');
+                $.get("{{ route('refundform.getData') }}", { id: id }, function(data) {
+                    $('#edit_id').val(data.id);
+                    $('#edit_name').val(data.name);
+                    $('#editModal').modal('show');
+                });
+            });
         });
     </script>
+@endsection
