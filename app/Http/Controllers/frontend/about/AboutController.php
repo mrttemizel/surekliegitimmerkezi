@@ -109,8 +109,7 @@ class AboutController extends Controller
 
     public  function refund_form()
     {
-
-        $data = RefundForm::find(1);
+        $data = RefundForm::orderBy('name')->get();
 
 
         return view('frontend.about.refund_form',compact('data'));

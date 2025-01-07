@@ -148,6 +148,7 @@ Route::middleware('auth')->group(function (){
 
 
         Route::get('/refund-form',[RefundFormController::class,'index'])->name('refund-form.index');
+        Route::post('/refund-form',[RefundFormController::class,'store'])->name('refund-form.store');
         Route::post('/refund-form',[RefundFormController::class,'update'])->name('refund-form.update');
         Route::post('/refund-form/upload', [RefundFormController::class, 'uploadImage'])->name('refund-form.upload');
 
@@ -207,3 +208,19 @@ Route::middleware('auth')->group(function (){
 
     });
 });
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/refund-forms', [RefundformController::class, 'index'])->name('refundform.index');
+    Route::post('/refund-forms/store', [RefundformController::class, 'store'])->name('refundform.store');
+    Route::get('/refund-forms/get-data', [RefundformController::class, 'getData'])->name('refundform.getData');
+    Route::post('/refund-forms/update', [RefundformController::class, 'update'])->name('refundform.update');
+    Route::get('/refund-forms/delete/{id}', [RefundformController::class, 'delete'])->name('refundform.delete');
+    Route::get('/refund-forms/switch', [RefundformController::class, 'switch'])->name('refundform.switch');
+});
+
+Route::get('/ucret-iade-formlari', [App\Http\Controllers\frontend\RefundformController::class, 'index'])
+    ->name('frontend.refundform.index');
+
+Route::get('/ucret-iade-formlari/{id}/delete', [App\Http\Controllers\frontend\RefundformController::class, 'delete'])
+    ->name('frontend.refundform.delete')
+    ->middleware('auth');

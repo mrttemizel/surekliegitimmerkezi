@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RefundForm extends Model
+class Refundform extends Model
 {
-    use HasFactory;
+    protected $table = 'refund_forms';
+    
+    protected $fillable = ['name', 'file', 'status'];
 }
