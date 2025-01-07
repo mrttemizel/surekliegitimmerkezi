@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\backend\about;
 
 use App\Http\Controllers\Controller;
-use App\Models\Refundform;
+use App\Models\RefundForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class RefundformController extends Controller
+class RefundFormController extends Controller
 {
     public function index()
     {
-        $data = Refundform::orderBy('id', 'DESC')->get();
+        $data = RefundForm::orderBy('id', 'DESC')->get();
         return view('backend.about.refundform', compact('data'));
     }
 
@@ -22,9 +22,9 @@ class RefundformController extends Controller
             'file' => 'required|mimes:pdf,doc,docx|max:2048'
         ]);
 
-        $data = new Refundform();
+        $data = new RefundForm();
         $data->name = $request->name;
-        
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -38,7 +38,7 @@ class RefundformController extends Controller
 
     public function getData(Request $request)
     {
-        $data = Refundform::find($request->id);
+        $data = RefundForm::find($request->id);
         return response()->json($data);
     }
 
@@ -49,7 +49,7 @@ class RefundformController extends Controller
             'file' => 'nullable|mimes:pdf,doc,docx|max:2048'
         ]);
 
-        $data = Refundform::find($request->id);
+        $data = RefundForm::find($request->id);
         if (!$data) {
             return redirect()->back()->with('error', 'Form bulunamadı.');
         }
@@ -75,7 +75,7 @@ class RefundformController extends Controller
 
     public function delete($id)
     {
-        $form = Refundform::find($id);
+        $form = RefundForm::find($id);
         if (!$form) {
             return redirect()->back()->with('error', 'Form bulunamadı.');
         }
@@ -91,7 +91,7 @@ class RefundformController extends Controller
 
     public function switch(Request $request)
     {
-        $data = Refundform::find($request->id);
+        $data = RefundForm::find($request->id);
         $data->status = $request->status == "true" ? 1 : 0;
         $data->save();
     }
