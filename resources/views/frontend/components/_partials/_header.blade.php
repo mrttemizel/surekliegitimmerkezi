@@ -69,7 +69,7 @@
                                     <li> <a href="{{route('education_request.index')}}">Eğitim İstek</a></li>
                                     <li> <a href="{{route('organization_chart.index')}}">Organizasyon Şeması</a></li>
                                     <li><a href="http://sikayet.antalya.edu.tr/portal" target="_blank">Şikayet Yönetim Sistemi</a></li>
-                                    <li><a href="{{route('refund_form.index')}}">Ücret İade Formları</a></li>
+                                    <li><a href="{{route('refund_form.index')}}">Ücret İadeleri İş Akışı ve Formları</a></li>
                                 </ul>
                             </li>
 
