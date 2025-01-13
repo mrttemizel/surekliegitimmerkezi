@@ -90,13 +90,46 @@
                             </span>
                                     </p>
                                     <div class="back-check-box">
-                                        <input type="checkbox" id="box-1" name="kvkk" {{ old('kvkk') ? 'checked' : '' }}><em><a href="{{ route('kvkk') }}" target="_blank"><span class="text-danger">*</span> Kişisel verilerin korunması ve işlenmesi</em>&nbsp;  hakkında bilgilendirme metnini ve haklarımı okudum.</a><br>
+                                        <input type="checkbox" id="box-1" name="kvkk" {{ old('kvkk') ? 'checked' : '' }}>
+                                        <em><a href="{{ route('kvkk') }}" target="_blank">
+                                            <span class="text-danger">*</span> Kişisel verilerin korunması ve işlenmesi</em>&nbsp;
+                                            hakkında bilgilendirme metnini ve haklarımı okudum.</a><br>
                                         <p></p>
                                         <span class="text-danger">
-                                    @error('kvkk')
-                                            {{ $message }}
+                                            @error('kvkk')
+                                                {{ $message }}
                                             @enderror
-                            </span>
+                                        </span>
+                                    </div>
+
+                                    <div class="back-check-box">
+                                        <input type="checkbox" id="box-2" name="electronic" checked disabled>
+                                        <input type="hidden" name="electronic" value="on">
+                                        <em>
+                                            <span class="text-danger">*</span>
+                                            E-Bültene kayıt olmak istiyorum. Antalya Bilim Üniversitesi Sürekli
+                                            Eğitim Merkezi faaliyetleriyle ilgili olarak elektronik araçlar da dahil olmak üzere her türlü iletişim aracı ile benimle
+                                        </em>
+                                        &nbsp; iletişime geçilmesine izin veriyorum.
+                                        <br>
+                                        <p></p>
+                                        <span class="text-danger">
+                                            @error('electronic')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+
+                                    <div class="back-check-box">
+                                        <input type="checkbox" id="box-3" name="explicit" {{ old('explicit') ? 'checked' : '' }}>
+                                        <em><span class="text-danger">*</span></em>
+                                        <a href="{{ route('kvkk') }}" target="_blank">SEM Açık Rıza Metni</a>&nbsp;Okudum ve Onaylıyorum.<br>
+                                        <p></p>
+                                        <span class="text-danger">
+                                            @error('explicit')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <button type="submit">Ön Başvuru Yap <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
                                 </form>

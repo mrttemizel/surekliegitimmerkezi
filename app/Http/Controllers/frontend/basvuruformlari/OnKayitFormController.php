@@ -26,6 +26,7 @@ class OnKayitFormController extends Controller
             'email' => 'required',
             'phone' => 'required',
             'kvkk' => 'required',
+            'explicit' => 'required',
         ]);
 
         $kurs = Courses::where('id',$request->id)->firstOrFail();
@@ -37,9 +38,10 @@ class OnKayitFormController extends Controller
         $data->email = $request->input('email');
         $data->phone = $request->input('phone');
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
+        $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
+        $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
-
 
         $query = $data->save();
         if (!$query) {

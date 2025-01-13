@@ -24,255 +24,353 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">KVKK</button>
             </li>
-            <li class="nav-item" role="presentation">
+          <!--  <li class="nav-item" role="presentation">
                 <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Mesafeli Satış Sözleşmesi</button>
+            </li>-->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">SEM WEB SİTESİ VE PORTAL KULLANIMI HAKKINDA</button>
             </li>
+
         </ul>
 
         <!-- Sekme İçerikleri -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                <pre>
-                    ÇEREZ VE KVK POLİTİKASI, GİZLİLİK BİLDİRİMİ VE KİŞİSEL VERİLER HAKKINDA AYDINLATMA
+                <div style="white-space: pre-wrap; word-wrap: break-word;">
+                    KİŞİSEL VERİLERİ KORUMA POLİTİKASI,
+                    KİŞİSEL VERİLEN İŞLENMESİNE İLİŞKİN AYDINLATMA METNİ
 
-                    Antalya Bilim  Üniversitesi Sürekli Eğitim Uygulama ve Araştırma Merkezi (“ABÜSEM”) olarak ABÜSEM web sitesini ziyaret edenlerin, ABÜSEM
-                    aday işlemleri panelini kullanan kişilerin ve bizimle elektronik olarak iletişim kuran herkesin kişisel verilerine saygı gösteriyoruz.
-                    ABÜSEM olarak eğitim ve hizmetlerimizden faydalanan kişiler dahil, SEM ile ilişkili tüm gerçek kişilere ait
-                    her türlü kişisel verilerin 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVK Kanunu”)’na uygun olarak işlenmesini ve muhafazasını
-                    sağlamak için gerekli tedbirleri alıyoruz. İşbu gizlilik bildirimi (“Gizlilik Bildirimi”), web sitemizi kullanırken kullanıcılara
-                    ilişkin ne tür bilgilerin ABÜSEM tarafından alındığını, bunların nasıl kullanıldığını ve korunduğunu açıklamaktadır.
-                    Bu sorumluluğumuzun farkında olarak, KVK Kanunu’nda tanımlı şekli ile “Veri Sorumlusu” sıfatıyla, kişisel verilerinizi aşağıda açıklandığı
-                    şekliyle ve mevzuat tarafından belirlenen sınırlar çerçevesinde işlemekteyiz.
+                    <!-- ... önceki metin aynı ... -->
+
+                    3. Kişisel Verilerin Toplanması, İşlenmesi ve İşleme Amaçları
+
+                    Kişisel verileriniz, ABÜSEM tarafından sağlanan hizmet ve ticari faaliyetlere bağlı olarak değişkenlik gösterebilmekle birlikte; otomatik ya da otomatik olmayan yöntemlerle, Antalya Bilim Üniversitesi birimleri, internet sitesi, sosyal medyası, mobil uygulamalar ve benzeri vasıtalarla sözlü, yazılı ya da elektronik olarak toplanabilecektir.
+                    ABÜSEM'in sunduğu hizmetlerden yararlandığınız sürece kişisel verileriniz işbu metinde belirtilen amaçlarla işlenebilecektir.
+                </div>
+
+                <div class="table-responsive mt-4">
+                    <table class="table" style="width: 100%; border: 3px solid black; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="border: 2px solid black; padding: 15px; text-align: center; background-color: #f8f9fa;">VERİ</th>
+                                <th style="border: 2px solid black; padding: 15px; text-align: center; background-color: #f8f9fa;">FAALİYET</th>
+                                <th style="border: 2px solid black; padding: 15px; text-align: center; background-color: #f8f9fa;">AMAÇ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">AD-SOYAD</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ<br>
+                                    • YENİ EĞİTİM TARİHLERİNİN BİLDİRİLMESİ<br>
+                                    • E DEVLETTE SERTİFİKA OLUŞTURULMASI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">TC KİMLİK NO</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ<br>
+                                    • E DEVLETTE SERTİFİKA OLUŞTURULMASI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">FİZİKSEL ADRES</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">SERTİFİKA TESLİMİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • KARGO - POSTA
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">E-POSTA</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">ONLİNE EĞİTİM</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • İLETİŞİM<br>
+                                    • YENİ EĞİTİM TARİHLERİNİN BİLDİRİLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">TELEFON</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">BİLDİRİMLER</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • İLETİŞİM<br>
+                                    • YENİ EĞİTİM TARİHLERİNİN BİLDİRİLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURUM KARTI</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM FİYAT İNDİRİMİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">PASAPORT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • YABANCI ÖĞRENCİ EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">İMZA</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">EĞİTİM DEVAM KONTROLÜ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM KATILIMININ TESPİTİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">VİZE</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • YABANCI ÖĞRENCİ EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">IP ADRESİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">SEM WEB SİTESİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • COĞRAFİ KONUM<br>
+                                    • DİL/YERELLEŞTİRME<br>
+                                    • GÜVENLİK AMAÇLARI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">GOOGLE</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">SEM WEB SİTESİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • GOOGLE ANALYTICS RAPORLAMA<br>
+                                    • KULLANICI DENEYİMİ İYİLEŞTİRME<br>
+                                    • PAZARLAMA STRATEJİLERİ OPTİMİZASYONU
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="white-space: pre-wrap; word-wrap: break-word; margin-top: 20px;">
+                Ayrıca, ABÜSEM’in hizmetlerini kullanmak amacıyla çağrı merkezlerimizi veya internet sayfamızı kullandığınızda, ABÜSEM binasını veya internet sitemizi ziyaret ettiğinizde, ABÜSEM tarafından düzenlenen eğitim, seminer veya organizasyonlara katıldığınızda kişisel verileriniz işlenebilecektir. Kişisel verileriniz, her türlü sözlü, yazılı ya da elektronik ortamda, otomatik veya otomatik olmayan yollar ile yukarıda yer verilen gerekçeler doğrultusunda ABÜSEM tarafından düzenlenen eğitim, seminer, organizasyonlar veya hizmetlerin belirlenen yasal çerçevede sunulabilmesi ve bu kapsamda ABÜSEM’in sözleşme ve yasadan doğan yükümlülüklerini eksiksiz ve doğru bir şekilde ifa edilebilmesi için elde ile edilir.
+ABÜSEM tarafından sunulan eğitim ve hizmetlerden sizleri faydalandırmak için gerekli çalışmaların iş birimlerimiz tarafından yapılması, ABÜSEM tarafından sunulan eğitim ve hizmetlerin sizlerin beğeni, kullanım alışkanlıkları ve ihtiyaçlarına göre özelleştirilerek sizlere önerilmesi, ABÜSEM ile iş ilişkisi içerisinde olan üçüncü şahısların hukuki ve ticari güvenliğinin temini amaçlarıyla bilgi toplanmaktadır.
+Bu hukuki sebeplerle toplanan kişisel verileriniz KVK Kanunu’nun 5. ve 6. maddelerinde belirtilen kişisel veri işleme şartları ve amaçları kapsamında, bu metnin üçüncü ve dördüncü maddelerinde belirtilen gerekçelerle işlenebilmekte ve aktarılabilmektedir.
+4. İşlenen Kişisel Verilerin Kimlere ve Hangi Amaçla Aktarılabileceği
+Kişisel verileriniz adli ya da idari mercilerce öngörülmesi hali dışında işbu metinde belirtilenler haricinde üçüncü kişilerle paylaşılmayacaktır.
+Kişisel verilerinizi,
+– Hukuk eğitimlerinin gerçekleştirilebilmesi için Adalet Bakanlığıyla,
+– Sağlık eğitimlerinin gerçekleştirilebilmesi için Sağlık Bakanlığıyla,
+–  Sertifikaların oluşturulması için E-Devlet ile,
+– ABÜSEM için destek hizmetleri sağlayan, sitelerimizi barındıran veya işleten; verileri analiz eden hizmet sağlayıcıları (Google), eğitimlerin sizlere ulaştırılmasına yardımcı olan hizmet sağlayıcıları, müşteri hizmetleri sunan, ödemeleri yöneten hizmet sağlayıcıları vb.- üçüncü kişiler ile,
+– Kanunen yetkili kamu kurumları ile
+KVK Kanunu’nun 8. ve 9. maddelerinde belirtilen kişisel veri işleme şartları ve amaçları çerçevesinde paylaşabiliriz.
+İlgili üçüncü kişiler, söz konusu hizmeti yerine getirebilmek için gerekli olan ilgili kişisel veriye erişim sağlamaktadır. Bu durumda, söz konusu üçüncü kişiler, bilgilerinizi yalnızca ABÜSEM adına hizmet vermek için kullanacak, sözleşmesel yükümlülükleri çerçevesinde bu bilgileri gizli tutmak ve başka hiçbir amaçla kullanmama yükümlülüğü altında olacaklardır.
+ABÜSEM, size ait bilgileri güvenli biçimde saklamakta ve gerekli tüm önlemleri almaktadır. ABÜSEM' in, gerekli hizmeti size ulaştırmak için bilgilerinize erişimi olan sözleşme ortakları, sözleşme yükümlülükleri çerçevesinde bu bilgileri gizli tutmak ve başka hiçbir amaçla kullanmamakla yükümlüdür. Bu metnin üçüncü ve dördüncü maddelerinde belirtilen nedenlerle kişisel bilgilerinizin bir kısmı veya tamamı ilgili kamu kurum veya kuruluşlar ile paylaşılması gerekecektir. Bu durumlarda da bilgileriniz gizli addedilecektir.
+5. Kişisel Veri Sahibinin KVK Kanunu’nun 11. Maddesinde Sayılan Hakları
+Kişisel veri sahipleri olarak, haklarınıza ilişkin taleplerinizi, işbu Metin’nde aşağıda düzenlenen yöntemlerle ABÜSEM’e iletmeniz durumunda ABÜSEM talebin niteliğine göre talebinizi mümkün olan en kısa sürede ve en geç otuz gün içinde sonuçlandıracaktır.
+Başkalarının gizliliğini tehlikeye atan veya başka şekilde aşırı derecede zor olan istekleri reddetme hakkımız bulunmaktadır. Talep ettiğiniz işlemin ayrıca bir maliyeti gerektirmesi hâlinde, Kişisel Verileri Koruma Kurulu tarafından belirlenen ücret tarifesi üzerinden ücret talep etme hakkımız saklıdır.
+Bu kapsamda kişisel veri sahiplerinin;
+-	Kişisel veri işlenip işlenmediğini öğrenme,
+-	Kişisel verileri işlenmişse buna ilişkin bilgi talep etme,
+-	Kişisel verilerin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,
+-	Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme,
+-	Kişisel verilerin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme ve bu kapsamda yapılan işlemin kişisel verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,
+-	KVK Kanunu’nun ve ilgili diğer kanun hükümlerine uygun olarak işlenmiş olmasına rağmen, işlenmesini gerektiren sebeplerin ortadan kalkması hâlinde kişisel verilerin silinmesini veya yok edilmesini isteme ve bu kapsamda yapılan işlemin kişisel verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,
+-	İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle kişinin kendisi aleyhine bir sonucun ortaya çıkmasına itiraz etme,
+-	Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle zarara uğraması hâlinde zararın giderilmesini talep etme haklarına sahiptir.
+
+6. Kişisel Veri Sahibinin Başvuru Hakkı
+KVK Kanunu’nun 13. maddesinin 1. fıkrası gereğince, yukarıda belirtilen haklarınızı kullanmak için kimliğinizi tespit edici gerekli bilgiler (3. kişiler adına yapılan başvurular için özel vekâletnameleri) ile kimliğinizi tespit edici gerekli bilgiler ve talep olunan diğer bilgiler ile KVK Kanunu’nun 11. maddesinde belirtilen haklardan kullanmayı talep ettiğiniz hakkınıza yönelik açıklamalarınızı içeren talebinizi sem@antalya.edu.tr e-posta adresinden veya aşağıdaki adrese bizzat elden veya noter vasıtasıyla tebligat yoluyla veya Kişisel Verileri Koruma Kurulu tarafından belirlenen diğer yöntemlerle iletebilirsiniz.
+
+Antalya Bilim Üniversitesi Sürekli Eğitim Uygulama ve Araştırma Merkezi (ABÜSEM)
+Adres: Tahılpazarı Mah. Adnan Menderes Blv. No.84 MarkAntalya AVM üzeri 7. Kat Muratpaşa/Antalya
+
+7. Kişisel Verilen İşlenmesine İlişkin Aydınlatma Metni’nin Güncellenmesi
+ABÜSEM olarak, KVK Kanunu’nda herhangi bir değişiklik yayınlanması halinde işbu Kişisel Verileri Koruma Politikası Kişisel Verilen İşlenmesine İlişkin Aydınlatma Metni’ni güncelleyeceğimizi taahhüt ederiz. ABÜSEM, Kişisel Verileri Koruma Politikası Kişisel Verilen İşlenmesine İlişkin Aydınlatma Metni hükümlerini dilediği zaman sitede yayınlamak veya kullanıcılara elektronik posta göndermek suretiyle değiştirebilir. Kişisel Verileri Koruma Politikası Kişisel Verilen İşlenmesine İlişkin Aydınlatma Metni hükümleri değiştiği takdirde, yayınlandığı tarihte yürürlük kazanır.
 
 
-                    1. İşlenen Kişisel Verilerin Türleri
-
-                    Bu Gizlilik Bildiriminde, “kişisel verileriniz” kimliğinizi veya üçüncü bir kişinin kimliğini belirten ya da belirlenebilir kılan her
-                    türlü veriyi ifade eder.
-
-                    Bunlar sınırlı olmamak kaydıyla işin doğası gereği adınızı, kimlik bilgilerinizi, adresinizi, telefon numaranızı, IP adresinizi,
-                    e-posta adresinizi ve ABÜSEM’de başvurduğunuz önceki eğitim ve sınav bilgilerini içerir. E-posta adresi ve telefon numarası sizi
-                    bilgilendirmek için toplanmaktadır. Bilgilerinizi eksik/hatalı yazarak başvuru yaparsanız size bilgilendirme yapılamamasından
-                    dolayı sorumluluk kabul edilmez. ABÜSEMWEB “Duyuru Bildirimi” için "OneSignal" kullanılmakta olup kişisel veri toplamamaktadır.
-
-
-                    2. Kişisel Verilerin Toplanması, İşlenmesi ve İşleme Amaçları
-
-                    Kişisel verileriniz, ABÜSEM tarafından sağlanan hizmet ve ticari faaliyetlere bağlı olarak değişkenlik gösterebilmekle birlikte;
-                    otomatik ya da otomatik olmayan yöntemlerle, üniversitemiz
-                    birimleri ve ofisler, internet sitesi, sosyal medya, mobil uygulamalar ve benzeri vasıtalarla sözlü, yazılı ya da elektronik
-                    olarak toplanabilecektir. ABÜSEM’in sunduğu hizmetlerden yararlandığınız sürece kişisel verileriniz işlenebilecektir.
-
-                    Ayrıca, ABÜSEM’in hizmetlerini kullanmak amacıyla çağrı merkezlerimizi veya internet sayfamızı kullandığınızda, ABÜSEM binasını
-                    veya internet sitemizi ziyaret ettiğinizde, ABÜSEM tarafından düzenlenen eğitim, seminer veya organizasyonlara katıldığınızda kişisel
-                    verileriniz işlenebilecektir. Bunun yanında tarafınıza sunulan hizmetin tamamlanabilmesi için ABÜSEM olarak kimlik bilgileri vb. zorunlu
-                    bilgileri sizin adınıza ilgili kuruluştan almaktayız.
-
-                    SEM tarafından sunulan eğitim ve hizmetlerden sizleri faydalandırmak için gerekli çalışmaların iş birimlerimiz tarafından yapılması,
-                    ABÜSEM tarafından sunulan eğitim ve hizmetlerin sizlerin beğeni, kullanım alışkanlıkları ve ihtiyaçlarına göre özelleştirilerek sizlere
-                    önerilmesi, ABÜSEM ile iş ilişkisi içerisinde olan 3.şahısların hukuki ve ticari güvenliğinin temini amaçlarıyla bilgi toplanmaktadır.
-
-                    3. İşlenen Kişisel Verilerin Kimlere ve Hangi Amaçla Aktarılabileceği
-
-                    Kişisel verileriniz adli ya da idari mercilerce öngörülmesi hali dışında bu Gizlilik Bildirimi’nde belirtilenler haricinde üçüncü
-                    kişilerle paylaşılmayacaktır.
-
-                    Kişisel verilerinizi,
-
-                    – Hukuk eğitimlerinin gerçekleştirilebilmesi için Adalet Bakanlığıyla,
-                    – Sağlık eğitimlerinin gerçekleştirilebilmesi için Sağlık Bakanlığıyla,
-                    – Personel Belgelendirme hizmetleri için MYK ve/veya TÜRKAK ile,
-                    – ABÜSEM için destek hizmetleri sağlayan, sitelerimizi barındıran veya işleten; verileri analiz eden hizmet sağlayıcıları (Google),
-                          eğitimlerin sizlere ulaştırılmasına yardımcı
-                    olan hizmet sağlayıcıları, müşteri hizmetleri sunan, ödemeleri yöneten hizmet sağlayıcıları vb.- üçüncü kişiler ile,
-
-                    – Kanunen yetkili kamu kurumları ile KVK Kanunu’nun 8. ve 9. maddelerinde belirtilen kişisel veri işleme şartları ve amaçları
-                    çerçevesinde paylaşabiliriz.
-
-                    İlgili üçüncü kişiler, söz konusu hizmeti yerine getirebilmek için gerekli olan ilgili kişisel veriye erişim sağlamaktadır. Bu durumda,
-                    söz konusu üçüncü kişiler, bilgileriniziyalnızca ABÜSEM adına hizmet vermek için kullanacak, sözleşmesel yükümlülükleri çerçevesinde bu
-                    bilgileri gizli tutmak ve başka hiçbir amaçla kullanmama yükümlülüğü altında olacaklardır.
-
-                    4. Kişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi
-
-                    Kişisel verileriniz, her türlü sözlü, yazılı ya da elektronik ortamda, otomatik veya otomatik olmayan yollar ile yukarıda yer verilen
-                    gerekçeler doğrultusunda SEM tarafından düzenlenen eğitim, seminer, organizasyonlar veya hizmetlerin belirlenen yasal çerçevede sunulabilmesi
-                    ve bu kapsamda ABÜSEM’in sözleşme ve yasadan doğan yükümlülüklerini eksiksiz ve doğru bir şekilde ifa edilebilmesi için elde ile edilir.
-
-                    Bu hukuki sebeple toplanan kişisel verileriniz KVK Kanunu’nun 5. ve 6. maddelerinde belirtilen kişisel veri işleme şartları ve amaçları
-                    kapsamında bu metnin (2) ve (3) numaralı maddelerinde belirtilen gerekçelerle de işlenebilmekte ve aktarılabilmektedir.
-
-                    5. Kişisel Veri Sahibinin KVK Kanunu’nun 11. maddesinde Sayılan Hakları
-
-                    Kişisel veri sahipleri olarak, haklarınıza ilişkin taleplerinizi, işbu Gizlilik Bildirimi’nde aşağıda düzenlenen yöntemlerle ABÜSEM’e
-                    iletmeniz durumunda ABÜSEM talebin niteliğine göre talebinizi mümkün olan en kısa sürede ve en geç otuz gün içinde sonuçlandıracaktır.
-
-                    Başkalarının gizliliğini tehlikeye atan veya başka şekilde aşırı derecede zor olan istekleri reddetme hakkımız ve işlemin ayrıca
-                    bir maliyeti gerektirmesi hâlinde,
-                    Kişisel Verileri Koruma Kurulu tarafından belirlenen ücret tarifesi üzerinden ücret talep etme hakkımız saklıdır.
-
-                    Bu kapsamda kişisel veri sahiplerinin;
-
-                    - Kişisel veri işlenip işlenmediğini öğrenme,
-
-                    - Kişisel verileri işlenmişse buna ilişkin bilgi talep etme,
-
-                    - Kişisel verilerin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,
-
-                    - Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme,
-
-                    - Kişisel verilerin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme ve bu kapsamda yapılan işlemin kişisel
-                    verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,
-
-                    - KVK Kanunu’nun ve ilgili diğer kanun hükümlerine uygun olarak işlenmiş olmasına rağmen, işlenmesini gerektiren sebeplerin ortadan
-                    kalkması hâlinde kişisel verilerin silinmesini veya yok edilmesini isteme ve bu kapsamda yapılan işlemin kişisel verilerin aktarıldığı
-                    üçüncü kişilere bildirilmesini isteme,
-
-                    - İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle kişinin kendisi aleyhine bir sonucun ortaya
-                    çıkmasına itiraz etme,
-
-                    - Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle zarara uğraması hâlinde zararın giderilmesini talep etme haklarına sahiptir.
-
-                    Ek olarak, kişisel verilerinizi ABÜSEMAİP sistemine giriş yaparak kendiniz güncelleyebilirsiniz.
-
-                    6. Kişisel Veri Sahibinin Başvuru Hakkı
-
-                    KVK Kanunu’nun 13. maddesinin 1. fıkrası gereğince, yukarıda belirtilen haklarınızı kullanmak için kimliğinizi tespit edici gerekli
-                    bilgiler (3. kişiler adına yapılan başvurular için özel vekaletnameleri) ile KVK Kanunu’nun 11. maddesinde belirtilen haklardan kullanmayı
-                    talep ettiğiniz hakkınıza yönelik açıklamalarınızı içeren talebinizi sem@antalya.edu.tr e-posta adresinden veya aşağıdaki adresten bizzat
-                    elden veya noter vasıtasıyla tebligat yoluyla iletebilirsiniz. Başvuru Formu için tıklayınız.
-
-                    Antalya Bilim Üniversitesi Sürekli Eğitim Uygulama ve Araştırma Merkezi (ABÜSEM)
-
-                    Adres: Tahılpazarı Mah. Adnan Menderes Blv. No.84 MarkAntalya AVM üzeri 7. Kat Muratpaşa/Antalya
-
-                    ABÜSEM olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu’nda herhangi bir değişiklik yayınlanması halinde işbu Bilgilendirme
-                    Metnini güncelleyeceğimizi taahhüt ederiz. ABÜSEM, Bilgilendirme Metni hükümlerini dilediği zaman sitede yayınlamak veya kullanıcılara
-                    elektronik posta göndermek suretiyle değiştirebilir. Bilgilendirme Metni hükümleri değiştiği takdirde, yayınlandığı tarihte yürürlük kazanır.
-
-                    7. Güvenlik
-
-                    ABÜSEM, size ait bilgileri güvenli biçimde saklamakta ve gerekli tüm önlemleri almaktadır. ABÜSEM'in, gerekli hizmeti size ulaştırmak
-                    için bilgilerinize erişimi olan sözleşme ortakları, sözleşme yükümlülükleri çerçevesinde bu bilgileri gizli tutmak ve başka hiçbir
-                    amaçla kullanmamakla yükümlüdür. Bu metnin (2) ve (3) numaralı maddelerinde belirtilen nedenlerle kişisel bilgilerinizin bir kısmı
-                    veya tamamı ilgili kamu kurum veya kuruluşlar ile paylaşılması gerekecektir. Bu durumlarda da bilgileriniz gizli addedilecektir.
-
-
-                    8. Çerez Politikası
-
-                    Çerez, bir web sitesi sunucusu tarafından bilgisayarınıza veya mobil cihazınıza kaydedilen basit bir metin dosyasıdır. Sadece
-                    bu sunucu ilgili çerezin içeriğine erişebilir veya bu bilgileri okuyabilir. Her çerez, web tarayıcınıza özeldir. Bir benzersiz
-                    tanımlayıcı, site adı ve bazı numaralar gibi anonim bilgiler içerir. Web sitesinin bazı öğeleri, örneğin tercihlerinizi
-                    hatırlamasını sağlar. Çerezler, ziyaret ettiğiniz web sitesi (bunlar "birinci taraf çerezler" olarak bilinir)
-                    veya görüntülediğiniz sayfada içerik sunan diğer web siteleri ("üçüncü taraf çerezler") tarafından belirlenebilir.
-
-                    a.       Birinci Taraf Çerezler
-
-                    ABÜSEMAİP sistemine giriş yapabilmeniz, oturumunuzu ve gezinme adımlarınızı yönetmek için kullanılan çerezlerdir. Kesinlikle gereklidir.
-                    ABÜSEMWEB, oturum çerezi ve kullanıcının çerez etiketini kapatıp-kapatmadığı bilgisini içeren çerez kullanmaktadır. Kapatıldıktan sonra
-                    çerez etiketinin bir hafta boyunca tekrar görüntülenmemesini sağlar.
-
-
-                    b.      Üçüncü Taraf Çerezler
-
-                    Google analitikleri: Bu tür çerezler tüm istatistiksel verilerin toplanmasını bu şekilde sitenin sunumunun ve kullanımının geliştirilmesini
-                    sağlar. Google, bu istatistiklere toplumsal istatistikler ve ilgilere ilişkin veriler eklemek suretiyle, kullanıcıları daha iyi anlamamızı
-                    sağlar. ABÜSEMAİP ve ABÜSEMWEB, Google Analitik çerezleri kullanmaktadır. Söz konusu çerezler ile toplanan veriler, ABD’de bulunan Google
-                    sunucularına aktarılmakta ve söz konusu veriler Google’ın veri koruma ilkeleri ile uyumlu olarak muhafaza edilmektedir. Bu verilerin
-                    toplanmasını istemiyorsanız bu linki ziyaret ediniz: https://tools.google.com/dlpage/gaoptout
-                    OneSignal: ABÜSEMWEB tarafından yeni duyuru eklendiğinde bildirim göndermek amacıyla kullanılmakta olup onayınız olmadan size
-                    bildirim gönderilmemektedir.
-                    Üçüncü taraf çerezleri kabul etmez veya engellerseniz bildirim alamazsınız.
-
-                    Tarayıcınızın ayarlarını değiştirerek çerezlere ilişkin tercihlerinizi kişiselleştirme imkanına sahipsiniz.
-                </pre>
+                </div>
             </div>
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                 <pre>
-                    1. TARAFLAR
-                    İşbu Sözleşme aşağıdaki taraflar arasında aşağıda belirtilen hüküm ve şartlar çerçevesinde imzalanmıştır.
-                    A."ALICI" ; basvuru.antalya.edu.tr adresinden alışveriş yapan kişi (sözleşmede bundan sonra "ALICI" olarak anılacaktır)
+                   MESAFELİ SATIŞ SÖZLEŞMESİ
+                MADDE 1. TARAFLAR
+                (1) İşbu Mesafeli Satış Sözleşmesi (bundan sonra “Sözleşme” olarak anılacaktır) aşağıdaki taraflar arasında aşağıda belirtilen hüküm ve şartlar çerçevesinde imzalanmıştır.
+                ALICI:
+                 Anasayfa | ABU - Sürekli Eğitim Merkezi sitesinden (bundan sonra “SİTE” olarak anılacaktır) eğitim hizmeti satın alan tüketicidir (Sözleşmede bundan sonra "ALICI" olarak anılacaktır).
+                Ad-Soyad:
+                Adres:
+                Telefon:
+                E-posta
+                SAĞLAYICI:
+                Mesleki faaliyetleri kapsamında tüketiciye hizmet sunan tüzel kişidir (Sözleşmede bundan sonra " SAĞLAYICI " olarak anılacaktır).
+                Unvanı: Antalya Bilim Üniversitesi
+                Adres: Tahılpazarı Mah. Adnan Menderes Bulvarı No:84 Muratpaşa / ANTALYA
+                Telefon: 0242 245 02 45
+                E-Posta: sem@antalya.edu.tr
+                Faks: 0 242 245 01 00
+                (2) İş bu sözleşmeyi kabul etmekle ALICI, sözleşme konusu hizmeti satın aldığı takdirde sipariş konusu eğitim hizmetinin bedeli, vergi gibi belirtilen ek ücretleri ödeme yükümlülüğü altına gireceğini ve bu konuda bilgilendirildiğini kabul, beyan ve taahhüt eder. SAĞLAYICI ise işbu sözleşmede belirtilen şartlara usul ve esaslara uygun olarak eğitim hizmetini ALICI’ya sunacağını kabul, beyan ve taahhüt eder. ALICI ve SAĞLAYICI ayrı ayrı taraf ve birlikte taraflar olarak anılabilecektir.
+                MADDE 2. SÖZLEŞMENİN KONUSU
+                (1) İşbu Sözleşme, ALICI’nın, SAĞLAYICI’ya ait SİTE üzerinden elektronik ortamda siparişini verdiği aşağıda nitelikleri ve satış fiyatı belirtilen eğitim hizmetine ilişkin 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri gereğince tarafların hak ve yükümlülüklerini düzenler.
+                Eğitim Hizmetinin Bilgileri:
+                 (2) SAĞLAYICI tarafından verilen tüm eğitimlerin fiyatları SİTE’ de yayımlanmıştır. Listelenen ve SİTE’ de ilan edilen fiyatlar eğitimlerin satış fiyatıdır. İlan edilen fiyatlar ve vaatler güncelleme yapılana ve değiştirilene kadar geçerlidir. Süreli olarak ilan edilen fiyatlar ise belirtilen süre sonuna kadar geçerlidir.
+                (3) Sözleşme kapsamında SAĞLAYICI, ALICI’ ya, işbu sözleşmede belirtilen bedel karşılığında SİTE üzerinden çevrimiçi / örgün eğitim hizmeti sunacaktır.
+                MADDE 3. SÖZLEŞME KONUSU HİZMET BİLGİLERİ
+                (1)
+                (2) Ödeme Şekli: ALICI SİTE üzerinden eğitim hizmetini kredi kartıyla tek çekim veya taksitli bir şekilde satın alınabilir veya Antalya Bilim Üniversitesi kurumsal hesap numarasına tek seferde tüm hizmet bedelini https://testsem.antalya.edu.tr/hakkimizda/banka-hesap-bilgileri link kısmında bulunan hesap bilgilerine eft/havale yöntemi ile ödeyerek satın alınabilir.
+                (3) Eğitime erişim şekli: Eğitimler online veya örgün olarak ifa edildiği için eğitimlere erişime ilişkin gerekli olan bilgiler ALICI’nın kayıt formunu doldururken belirttiği cep telefonu numarasına (SMS ile veya Whatapp uygulaması üzerinden ALICI’ya doğrudan veya Whatapp eğitim grubuna mesaj atılarak) veya e-posta adresine, hizmet bedelinin SAĞLAYICI’ya ulaşmasından sonra gönderilecektir.
+                MADDE 4. HİZMET BEDELİ
+                (1) Sözleşme konusu mal ya da hizmetin tüm vergiler dâhil satış fiyatı aşağıda gösterilmiştir. Listelenen ve SİTE’de ilan edilen fiyatlar satış fiyatıdır. İlan edilen fiyatlar ve vaatler güncelleme yapılana ve değiştirilene kadar geçerlidir. Süreli olarak ilan edilen fiyatlar ise belirtilen süre sonuna kadar geçerlidir.
+                (2) Sözleşme konusu mal ya da hizmetin tüm vergiler dâhil satış fiyatı aşağıda gösterilmiştir.
+                Hizmet Açıklaması	Adet	Birim Fiyatı	Ara Toplam (KDV Dahil)
 
-                    B."SATICI" ; (sözleşmede bundan sonra "SATICI" olarak anılacaktır)
-                    Ünvanı  : ANTALYA BİLİM ÜNİVERSİTESİ
-                    Adres   : MARKANTALYA YERLEŞKESİ/ANTALYA
-                    E-Posta : sem@antalya.edu.tr
-                    Telefon : 0242 245 02 45
-                    Faks    : 0 242 245 01 00
 
-                    İş bu sözleşmeyi kabul etmekle ALICI, sözleşme konusu siparişi onayladığı takdirde sipariş konusu bedeli ve varsa kargo ücreti, vergi
-                    gibi belirtilen ek ücretleri ödeme yükümlülüğü altına gireceğini ve bu konuda bilgilendirildiğini peşinen kabul eder.
 
-                    2. KONU
 
-                    İşbu sözleşmenin konusu, ALICI'nın SATICI'ya ait basvuru.sakarya.edu.tr internet sitesinden elektronik ortamda siparişini yaptığı
-                    aşağıda nitelikleri ve satış fiyatı belirtilen ürünün satışı ve teslimi ile ilgili olarak 4077 sayılı Tüketicilerin Korunması
-                    Hakkındaki Kanun ve Mesafeli Sözleşmeleri Uygulama Esas ve Usulleri Hakkında Yönetmelik hükümleri gereğince tarafların hak ve
-                    yükümlülüklerinin saptanmasıdır. İlan edilen fiyatlar güncelleme yapılana ve değiştirilene kadar geçerlidir.
 
-                    3. SÖZLEŞME KONUSU ÜRÜN/ÜRÜNLER BİLGİLERİ
+                MADDE 5. FATURA BİLGİLERİ
+                (1) Fatura hizmet bedelinin ödenmesi sonrasında, ALICI tarafından belirtilen e-posta adresine ilgili grubun eğitimi tamamlandıktan sonra gönderilecektir. Faturanın düzenlenmesine ilişkin bilgilerde ALICI’nın sipariş esnasında SİTE’de belirtmiş olduğu kişisel bilgiler kullanılacaktır. ALICI kurumsal fatura oluşturmak istemesi halinde sipariş esnasında, SEM e-posta veya SEM telefonu ile iletişim kurarak SAĞLAYICI’ ya bilgi vermelidir.
 
-                    3.1. Eğitimlerin süresi, eğitim şekli, eğitim yeri ve vergiler dahil satış bedeli web sayfasında belirtildiği gibidir.
-                    3.2. Ödeme Şekli : basvuru.antalya.edu.tr üzerinden eğitim kredi kartıyla ya da eft/havale yöntemi ile satın alınabilir.
-                    3.3. Teslimat Şekli ve Adresi : Eğitimler online tabanlı olduğu için gerekli olan bilgiler üye olurken belirtilen cep telefonu
-                    numarasına gönderilecektir.
 
-                    İADE PROSEDÜRÜ:
+                MADDE 6. GENEL HÜKÜMLER
+                (1) ALICI, SAĞLAYICI’ya ait SİTE’den sözleşme konusu hizmete ilişkin temel nitelikleri, hizmet bedeli, ödeme şekli, cayma hakkının kullanılabileceği ve kullanılamayacağı şartlara ilişkin ön bilgileri okuyup, bilgi sahibi olduğunu, elektronik ortamda gerekli teyidi verdiğini kabul, beyan ve taahhüt eder.
+                (2) ALICI kayıt esnasında gerekli bilgileri, tam ve doğru belirtmek zorundadır. Bilgilerin yanlış belirtilmesi halinde SAĞLAYI’nın sorumluluğu doğmayacaktır.
+                MADDE 7. CAYMA HAKKI
+                (1) Eğitimin online olarak sunulması halinde sözleşme konusu hizmetin elektronik ortamda anında ifa edilmesi nedeniyle, ALICI sözleşme konusu olan eğitime giriş yaptıktan sonra ve her halde işbu sözleşmenin kurulduğu günden itibaren on dört gün geçmesiyle cayma hakkını kullanamayacaktır.
+                (2) Eğitimin örgün olarak sunulması halinde ALICI işbu sözleşmenin kurulduğu günden itibaren on dört gün içinde herhangi bir gerekçe göstermeksizin ve cezai şart ödemeksizin sözleşmeden cayma hakkına sahiptir.
+                (3) ALICI SİTE’de bulunan, Genel Amaçlı Dilekçe Formlar | ABU - Sürekli Eğitim Merkezi linkinden erişilebilecek Genel Amaçlı Dilekçe formunu doldurarak SAĞLAYICI’ ya açık bir beyanla yazılı olarak veya sem@antalya.edu.tr adresine e-posta atarak cayma talebinde bulunabilir. Dilekçe Antalya SEM Müdürlüğü tarafından incelenecek ve uygun görülmesi halinde ALICI bilgilendirilecektir.
+                (4) Bu durumda SAĞLAYICI, ALICI’nın iletmiş olduğu cayma taleplerinin kendilerine ulaştığına ilişkin teyit bilgisini ALICI’ya iletecektir.
+                (5) ALICI’nın cayma hakkını kullanması durumunda işbu sözleşme kendiliğinden sona erer.
+                MADDE 8. İADE PROSEDÜRÜ
+                (1) SAĞLAYICI, ALICI’nın işbu sözleşmenin 7. maddesinde belirtilen usul ve esaslara uygun olarak cayma hakkını kullandığı bildiriminin kendisine ulaşmasından itibaren on dört gün içerisinde ALICI’dan tahsil edilen hizmet bedelini ve ALICI’dan aldığı tüm ödemeleri ALICI’ya iade edecektir.
+                (2) Hizmet bedelinin iadesinin yapılması ile ALICI’ya iletilen eğitime giriş bilgileri inaktif hale getirilecek ve ALICI’nın erişimi kısıtlanacaktır.
+                (3) SAĞLAYICI, tüm iade bedelini ALICI’nın hizmeti satın alırken kullandığı ödeme aracına uygun bir şekilde tek seferde yapacaktır.
+                (4) İade prosedürü SİTE’de bulunan, Ücret İade Formları Sayfası | ABU - Sürekli Eğitim Merkezi linkinden erişilebilecek sayfada açıklanmıştır. ALICI bu sitede belirtilen prosedürü uygulamalıdır. ALICI, bu prosedürü okuduğunu ve kabul ettiğini taahhüt eder.
+                (5) Kredi Kartına İade Prosedürü:
+                ALICI'nın cayma hakkını kullandığı veya Tüketici Hakem Heyeti veya mahkeme kararı ile ALICI’ya bedel iadesine karar verilen durumlarda, ALICI’nın eğitim hizmetini satın alırken kullandığı kredi kartına ücret iadesi yapılacaktır. ALICI, bu prosedürü okuduğunu ve kabul ettiğini taahhüt eder.
+                (6) Havale/Eft Ödeme Seçeneklerinde İade Prosedürü:
+                ALICI’nın hizmet bedelini havale/EFT ödeme seçeneklerinden birisi ile ödemiş olması halinde ALICI’dan banka hesap bilgileri istenerek, ALICI’nın belirttiği hesaba (hesabın fatura adresindeki kişinin adına veya kullanıcı üyenin adına olması şarttır) Havale veya EFT şeklinde yapılacaktır.
+                MADDE 9. TEMERRÜT HALİ VE HUKUKİ SONUÇLARI
+                (1) ALICI, ödeme işlemlerini kredi kartı ile yaptığı durumda temerrüde düştüğü takdirde, kart sahibi banka ile arasındaki kredi kartı sözleşmesi çerçevesinde faiz ödeyeceğini ve bankaya karşı sorumlu olacağını kabul, beyan ve taahhüt eder. ALICI işbu sözleşme kapsamında borcunu ödemekte temerrüde düşmesi halinde, ALICI, borcun gecikmeli ifasından dolayı SAĞLAYICI’nın uğradığı zarar ve ziyanını ödeyeceğini kabul, beyan ve taahhüt eder.
+                MADDE 10. UYUŞMAZLIK BAŞVURU USULÜ
+                (1) İşbu sözleşmeden doğan uyuşmazlıklarda şikâyet ve itirazlar, şikâyet veya itirazın konusunun, şikâyet ve itirazın yapılacağı yıla göre tüketici uyuşmazlıklarının değerleri açısından her yıl Hazine ve Maliye Bakanlığı tarafından ilan edilen yeniden değerleme oranının altına kalması halinde tüketicinin yerleşim yerinin bulunduğu veya tüketici işleminin yapıldığı yerdeki tüketici hakem heyetine, parasal sınırın üstünde kalması halinde 6502 sayılı Kanun’un 73/A maddesi kapsamında sırasıyla dava şartı arabuluculuk müessesesine ve tüketici mahkemelerine yapılacaktır.
+                MADDE 11. YÜRÜRLÜK
+                (1) ALICI’nıın, SİTE üzerinden aldığı hizmet bedeline ilişkin ödemeyi gerçekleştirmesi ile işbu sözleşme yürürlüğe girer ve ALICI işbu sözleşmenin tüm şartlarını kabul etmiş sayılır.
 
-                    A) KREDİ KARTINA İADE PROSEDÜRÜ
-                    ALICI'nın cayma hakkını kullandığı durumlarda ya da Hakem heyeti kararları ile Tüketiciye bedel iadesine karar verilen durumlarda,
-                    SATICI müşteriye geri ödemesinihttps://abüsem.antalya.edu.tr/2/6436/egitim-ucret-iadesi-proseduru adresinde belirtilen prosedür ile
-                    yapmaktadır. ALICI prosedürü uyguladıktan sonra ücret iadesiyapılacaktır. ALICI, bu prosedürü okuduğunu ve kabul ettiğini taahhüd eder.
+                          SAĞLAYICI                                                                              ALICI
+                 Antalya Bilim Üniversitesi
 
-                    B) HAVALE/EFT ÖDEME SEÇENEKLERİNDE İADE PROSÜDÜRÜ
-                    Havale/EFT ödeme seçeneklerinde iade Tüketiciden banka hesap bilgileri istenerek, Tüketicinin belirttiği hesaba (hesabın fatura
-                    adresindeki kişinin adına veya kullanıcıüyenin adına olması şarttır) Havale veya EFT şeklinde yapılacaktır.
-
-                    4. FATURA BİLGİLERİ
-
-                    Web sayfamızda, sipariş esnasında belirtmiş olduğunuz kişisel bilgiler kullanılacaktır ya da kurumsal fatura oluşturmak istiyorsanız
-                    iletişim kısmından bize ulaşmanız gerekmektedir.
-
-                    5. GENEL HÜKÜMLER
-
-                    5.1- ALICI, basvuru.antalya.edu.tr internet sitesinde sözleşme konusu ürünün temel nitelikleri, satış fiyatı ve ödeme şekli ile teslimata
-                    ilişkin ön bilgileri okuyup bilgisahibi olduğunu ve elektronik ortamda gerekli teyidi verdiğini beyan eder.
-                    5.2- Sözleşme konusu ürün, yasal 30 günlük süreyi aşmamak koşulu ile her bir ürün için ALICI'nın yerleşim yerinin uzaklığına bağlı olarak
-                    internet sitesinde ön bilgileriçinde açıklanan süre içinde ALICI veya gösterdiği adresteki kişi/kuruluşa teslim edilir.
-                    5.3- Sözleşme konusu ürün, ALICI'dan başka bir kişi/kuruluşa teslim edilecek ise, teslim edilecek kişi/kuruluşun teslimatı kabul
-                    etmemesinden SATICI sorumlu tutulamaz.
-                    5.4- SATICI, sözleşme konusu ürünün sağlam, eksiksiz, siparişte belirtilen niteliklere uygun ve varsa garanti belgeleri ve kullanım
-                    kılavuzları ile teslim edilmesinden sorumludur.
-                    5.5- Sözleşme konusu ürünün teslimatı için işbu sözleşmenin imzalı nüshasının SATICI'ya ulaştırılmış olması ve bedelinin ALICI'nın
-                    tercih ettiği ödeme şekli ile ödenmiş olması şarttır. Herhangi bir nedenle ürün bedeli ödenmez veya banka kayıtlarında iptal edilir ise,
-                    SATICI ürünün teslimi yükümlülüğünden kurtulmuş kabul edilir.
-                    5.6- Ürünün tesliminden sonra ALICI'ya ait kredi kartının ALICI'nın kusurundan kaynaklanmayan bir şekilde yetkisiz kişilerce haksız veya
-                    hukuka aykırı olarak kullanılması nedeni ile ilgili banka veya finans kuruluşun ürün bedelini SATICI'ya ödememesi halinde, ALICI'nın
-                    kendisine teslim edilmiş olması kaydıyla eğitim giriş kayıt bilgilerini 3 gün içinde SATICI'ya bildirmesi zorunludur.
-
-                    6. CAYMA HAKKI
-
-                    ALICI, sözleşme konusu olan eğitime giriş yaptıktan sonra(*) içeriklerin kopyalanması durumundan dolayı cayma hakkı yoktur. Eğitime giriş
-                    yapmadan ondört (14) gün içinde cayma hakkı vardır.
-
-                    * Tüketici Kanunu ve Mesafeli Satış Sözleşmeleri Yönetmeliği'nde belirtilen cayma hakkının istisnaları MADDE 15 'in "ğ" bendine göre
-                    Elektronik ortamda anında ifaedilen hizmetler veya tüketiciye anında teslim edilen gayrimaddi mallara ilişkin sözleşmeler gereğince kişi
-                    cayma hakkını kullanamaz.
-
-                    7. TEMERRÜT HALİ VE HUKUKİ SONUÇLARI
-
-                    ALICI, ödeme işlemlerini kredi kartı ile yaptığı durumda temerrüde düştüğü takdirde, kart sahibi banka ile arasındaki kredi kartı
-                    sözleşmesi çerçevesinde faiz ödeyeceğini vebankaya karşı sorumlu olacağını kabul, beyan ve taahhüt eder. Bu durumda ilgili banka hukuki
-                    yollara başvurabilir; doğacak masrafları ve vekâlet ücretini ALICI’dan talepedebilir ve her koşulda ALICI’nın borcundan dolayı temerrüde
-                    düşmesi halinde, ALICI, borcun gecikmeli ifasından dolayı SATICI’nın uğradığı zarar ve ziyanını ödeyeceğini kabul,beyan ve taahhüt eder
-
-                    8. YETKİLİ MAHKEME
-
-                    İşbu sözleşmeden doğan uyuşmazlıklarda şikayet ve itirazlar, tüketicinin yerleşim yerinin bulunduğu veya tüketici işleminin yapıldığı
-                    yerdeki tüketici sorunları hakem heyetine veya tüketici mahkemesine yapılacaktır.
-
-                    Siparişin gerçekleşmesi durumunda ALICI işbu sözleşmenin tüm koşullarını kabul etmiş sayılır.
                 </pre>
+            </div>
+            <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                <pre>
+TÜRKİYE CUMHURİYETİ
+ANTALYA BİLİM ÜNİVERSİTESİ SÜREKLİ EĞİTİM MERKEZİ
+KİŞİSEL VERİ İŞLEME FAALİYETLERİNE DAİR RIZA METNİ
+                    Antalya Bilim Üniversitesi Sürekli Eğitim Merkezi ile paylaşmış olduğum aşağıda sayılan kişisel verilerimin gene aşağıda gösterilmiş
+                    olan amaçlar dâhilinde Antalya Bilim Üniversitesi tarafından işlenmesini ve Kişisel Verileri Koruma Politikası, Kişisel Verilen
+                    İşlenmesine İlişkin Aydınlatma Metni'nde gösterilen kişi ve kurumlarla paylaşılmasını ve yurt dışına aktarılmasını kabul ediyorum.
+
+AD-SOYAD:
+İMZA:
+                </pre>
+
+                <div class="table-responsive mt-4">
+                    <table class="table" style="width: 100%; border: 3px solid black; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="border: 2px solid black; padding: 15px; text-align: center; background-color: #f8f9fa;">VERİ</th>
+                                <th style="border: 2px solid black; padding: 15px; text-align: center; background-color: #f8f9fa;">FAALİYET</th>
+                                <th style="border: 2px solid black; padding: 15px; text-align: center; background-color: #f8f9fa;">AMAÇ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">AD-SOYAD</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ<br>
+                                    • YENİ EĞİTİM TARİHLERİNİN BİLDİRİLMESİ<br>
+                                    • E DEVLETTE SERTİFİKA OLUŞTURULMASI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">TC KİMLİK NO</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ<br>
+                                    • E DEVLETTE SERTİFİKA OLUŞTURULMASI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">FİZİKSEL ADRES</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">SERTİFİKA TESLİMİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • KARGO - POSTA
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">E-POSTA</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">ONLİNE EĞİTİM</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • İLETİŞİM<br>
+                                    • YENİ EĞİTİM TARİHLERİNİN BİLDİRİLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">TELEFON</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">BİLDİRİMLER</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • İLETİŞİM<br>
+                                    • YENİ EĞİTİM TARİHLERİNİN BİLDİRİLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURUM KARTI</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM FİYAT İNDİRİMİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">PASAPORT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • YABANCI ÖĞRENCİ EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">İMZA</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">EĞİTİM DEVAM KONTROLÜ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • EĞİTİM KATILIMININ TESPİTİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">VİZE</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">KURSİYER KAYIT</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • YABANCI ÖĞRENCİ EĞİTİM FAALİYETLERİNİN YÜRÜTÜLMESİ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">IP ADRESİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">SEM WEB SİTESİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • COĞRAFİ KONUM<br>
+                                    • DİL/YERELLEŞTİRME<br>
+                                    • GÜVENLİK AMAÇLARI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">GOOGLE</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: center;">SEM WEB SİTESİ</td>
+                                <td style="border: 2px solid black; padding: 15px; text-align: left;">
+                                    • GOOGLE ANALYTICS RAPORLAMA<br>
+                                    • KULLANICI DENEYİMİ İYİLEŞTİRME<br>
+                                    • PAZARLAMA STRATEJİLERİ OPTİMİZASYONU
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

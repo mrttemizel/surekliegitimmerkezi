@@ -39,9 +39,10 @@ class KesinKayitFormController extends Controller
             'kvkk' => 'required',
             'tc' => 'required',
             'address' => 'required',
+            'explicit' => 'required',
         ]);
 
-        $kurs = Courses::where('id',$request->id)->firstOrFail();
+        $kurs = Courses::where('id', $request->id)->firstOrFail();
         $data = new KesinKayitForm();
 
         $data->name = mb_strtoupper($request->input('name'), 'UTF-8');
@@ -50,7 +51,10 @@ class KesinKayitFormController extends Controller
         $data->phone = $request->input('phone');
         $data->tc = $request->input('tc');
         $data->address = $request->input('address');
+        
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
+        $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
+        $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
 
         $timestamp = Carbon::now()->format('YmdHis');
 
@@ -85,7 +89,8 @@ class KesinKayitFormController extends Controller
 
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
-        $data->sinif_id=$class;
+        $data->sinif_id = $class;
+        
         $query = $data->save();
 
         if (!$query) {

@@ -22,6 +22,38 @@
         .react-login-page .text-danger {
             font-size: 15px;
         }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            font-weight: bold;
+        }
+
+        .table tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .list-unstyled {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-unstyled li {
+            margin-bottom: 0.25rem;
+        }
     </style>
 
 @endsection
@@ -86,12 +118,14 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <b>Kurumsal fatura istiyorsanız sem@antalya.edu.tr adresine mail atınız...</b>
+                                            <b>Kurumsal fatura istiyorsanız sem@antalya.edu.tr adresine mail
+                                                atınız...</b>
                                         </div>
                                     @endif
 
 
-                                    <h5>Kullanıcı tarafından bildirilen verilerin doğruluğu tamamen kendisine aittir.</h5>
+                                    <h5>Kullanıcı tarafından bildirilen verilerin doğruluğu tamamen kendisine
+                                        aittir.</h5>
                                     @if(session('error'))
                                         <div class="alert alert-danger">
                                             <b>{{ session('error') }}</b>
@@ -161,7 +195,8 @@
                                         <select id="sinif_select" name="sinif" class="form-control">
                                             <option value="">Bir sınıf seçin</option>
                                             @foreach ($siniflar as $sinif)
-                                                <option value="{{ $sinif->id }}" data-egitici="{{ $sinif->egitici_adi }}">
+                                                <option value="{{ $sinif->id }}"
+                                                        data-egitici="{{ $sinif->egitici_adi }}">
                                                     {{ $sinif->sinif_adi }}
                                                 </option>
                                             @endforeach
@@ -225,15 +260,53 @@
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-1"
                                                name="kvkk" {{ old('kvkk') ? 'checked' : '' }}><em><span
-                                                class="text-danger">*</span><a href="{{ route('kvkk') }}" target="_blank"> Kişisel verilerin korunması ve
-                                            işlenmesi</em>&nbsp; hakkında bilgilendirme metnini ve haklarımı okudum.</a><br>
+                                                class="text-danger">*</span><a href="{{ route('kvkk') }}"
+                                                                               target="_blank"> Kişisel verilerime
+                                                ilişkin aydınlatma metnini ve haklarımı okudum, bilgilendirildim. Bu
+                                                form aracılığıyla paylaştığım kişisel verilerimin işlenmesini ve amacı
+                                                ile bağlantılı faaliyetlerde kullanılmasını kişisel verilerin </em>&nbsp;
+                                        işlenmesi açık rıza metni doğrultusunda onaylıyorum</a><br>
                                         <p></p>
                                         <span class="text-danger">
                                     @error('kvkk')
                                             {{ $message }}
                                             @enderror
-                            </span>
+                                       </span>
                                     </div>
+                                    <div class="back-check-box">
+                                        <!-- Checkbox görsel olarak işaretli ve devre dışı -->
+                                        <input type="checkbox" id="box-1" name="ticari" checked disabled>
+
+                                        <!-- Form gönderildiğinde sunucuya 'on' değerini göndermek için -->
+                                        <input type="hidden" name="electronic" value="on">
+
+                                        <em>
+                                            <span class="text-danger">*</span>
+                                            E-Bültene kayıt olmak istiyorum. Antalya Bilim Üniversitesi Sürekli
+                                            Eğitim Merkezi faaliyetleriyle ilgili olarak elektronik araçlar da dahil olmak üzere her türlü iletişim aracı ile benimle
+                                        </em>
+                                        &nbsp; iletişime geçilmesine izin veriyorum.
+                                        <br>
+                                        <p></p>
+                                        <span class="text-danger">
+                                            @error('ticari')
+                                            {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+                                    <div class="back-check-box">
+                                        <input type="checkbox" id="box-1" name="explicit" {{ old('explicit') ? 'checked' : '' }}>
+                                        <em><span class="text-danger">*</span></em>
+
+                                        <a href="{{ route('kvkk') }}" target="_blank">SEM Açık Rıza Metni</a>&nbsp;Okudum ve Onaylıyorum.<br>
+                                        <p></p>
+                                        <span class="text-danger">
+                                            @error('explicit')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+
                                     <button type="submit" id="submit">Kesin Kayıt Yap
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -291,7 +364,6 @@
                 }
             });
         });
-
 
 
         sinifSelect.addEventListener('change', function () {
