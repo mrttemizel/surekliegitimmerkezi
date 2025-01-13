@@ -51,7 +51,7 @@ class KesinKayitFormController extends Controller
         $data->phone = $request->input('phone');
         $data->tc = $request->input('tc');
         $data->address = $request->input('address');
-        
+
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
         $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
         $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
@@ -90,7 +90,7 @@ class KesinKayitFormController extends Controller
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
         $data->sinif_id = $class;
-        
+
         $query = $data->save();
 
         if (!$query) {
@@ -99,7 +99,7 @@ class KesinKayitFormController extends Controller
             try {
                 // Word dokümanını düzenle
                 $templateProcessor = new TemplateProcessor(public_path('word-templates/MesafeliSatis.docx'));
-                
+
                 // Değişkenleri tek tek kontrol ederek ve temizleyerek set edelim
                 $values = [
                     'AdSoyad' => htmlspecialchars(mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8')),
@@ -113,7 +113,7 @@ class KesinKayitFormController extends Controller
                     'ESayi' => '1'
                 ];
 
-                Log::info('Template değerleri:', $values);
+                //Log::info('Template değerleri:', $values);
 
                 // Her bir değeri ayrı ayrı set et ve kontrol et
                 foreach ($values as $key => $value) {
@@ -127,12 +127,12 @@ class KesinKayitFormController extends Controller
                         throw new \Exception("'{$key}' değeri set edilirken hata oluştu");
                     }
                 }
-                
+
                 // Dokümanı kaydet
                 $fileName = Str::slug($data->name . '-' . $data->surname) . '-' . uniqid() . '.docx';
                 $filePath = public_path('mesafeli-satis-sozlesmeleri/' . $fileName);
                 $fileUrl = url('mesafeli-satis-sozlesmeleri/' . $fileName);
-                
+
                 // Klasör kontrolü
                 $directory = public_path('mesafeli-satis-sozlesmeleri');
                 if (!file_exists($directory)) {
@@ -140,7 +140,7 @@ class KesinKayitFormController extends Controller
                         throw new \Exception('Klasör oluşturulamadı');
                     }
                 }
-                
+
                 // Dosyayı kaydetmeyi dene
                 try {
                     $templateProcessor->saveAs($filePath);
