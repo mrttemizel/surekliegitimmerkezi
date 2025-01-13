@@ -80,46 +80,13 @@
                                     </div>
                                     @if(session('success'))
                                         <div class="alert alert-success">
-                                            <b>{{ session('success') }}</b>
-                                            <div class="mt-2">
-                                                <a href="https://payment.antalya.edu.tr/Payment/UnAuthenticatedPayment?notAut=True">
-                                                    <b>Kredi Kartı İle Ödeme Yap</b>
+                                            {{ session('success') }}
+                                            @if(session('sozlesme_url'))
+                                                <br>
+                                                <a href="{{ session('sozlesme_url') }}" class="btn btn-primary mt-2">
+                                                    Mesafeli Satış Sözleşmesini İndir
                                                 </a>
-                                            </div>
-                                            <div class="alert alert-info mt-3">
-                                                <b>HAVALE İLE ÖDEME YAPMAK İÇİN TL HESAP BİLGİLERİ (SEM)</b>
-                                                <table class="table table-bordered mt-2">
-                                                    <tbody>
-                                                    <tr>
-                                                        <th>HESAP ADI (ACCOUNT NAME)</th>
-                                                        <td>ANTALYA BİLİM ÜNİVERSİTESİ</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>BANKA (BANK)</th>
-                                                        <td>VAKIFLAR BANKASI</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>ŞUBE (BRANCH)</th>
-                                                        <td>ANTALYA ŞUBE</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>HESAP TİPİ</th>
-                                                        <td>VADESİZ TL HESAP</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>HESAP NO (ACCOUNT NO.)</th>
-                                                        <td>445000266714</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>IBAN</th>
-                                                        <td>TR440001500158007317484665</td>
-                                                    </tr>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <b>Kurumsal fatura istiyorsanız sem@antalya.edu.tr adresine mail
-                                                atınız...</b>
+                                            @endif
                                         </div>
                                     @endif
 

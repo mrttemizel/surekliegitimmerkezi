@@ -13,7 +13,6 @@ use App\Mail\KesinKayitBilgilendirme;
 use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Log;
-use PhpOffice\PhpWord\IOFactory;
 
 class KesinKayitFormController extends Controller
 {
@@ -52,7 +51,7 @@ class KesinKayitFormController extends Controller
         $data->phone = $request->input('phone');
         $data->tc = $request->input('tc');
         $data->address = $request->input('address');
-
+        
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
         $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
         $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
@@ -91,83 +90,88 @@ class KesinKayitFormController extends Controller
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
         $data->sinif_id = $class;
-
+        
         $query = $data->save();
 
         if (!$query) {
             return back()->with('error', 'Eklenirken bir hata oluştu!');
         } else {
             try {
-                Log::info('Word dokümanı işlemi başlıyor', [
-                    'user_email' => $data->email,
-                    'template_path' => public_path('word-templates/MesafeliSatis.docx')
-                ]);
-
                 // Word dokümanını düzenle
                 $templateProcessor = new TemplateProcessor(public_path('word-templates/MesafeliSatis.docx'));
-
-                // Template değerlerini log için hazırla
-                $templateValues = [
-                    'AdSoyad' => mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8'),
-                    'Adres' => $data->address,
-                    'Telefon' => $data->phone,
-                    'Eposta' => $data->email,
-                    'EAdi' => $kurs->egitim_adi,
-                    'EIcerik' => $kurs->detay,
-                    'EFiyat' => number_format($kurs->fiyat, 2, ',', '.') . ' TL',
-                    'EType' => $kurs->egitim_platformu,
-                    'ESayi' => 1
+                
+                // Değişkenleri tek tek kontrol ederek ve temizleyerek set edelim
+                $values = [
+                    'AdSoyad' => htmlspecialchars(mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8')),
+                    'Adres' => htmlspecialchars($data->address),
+                    'Telefon' => htmlspecialchars($data->phone),
+                    'Eposta' => htmlspecialchars($data->email),
+                    'EAdi' => htmlspecialchars($kurs->egitim_adi),
+                    'EIcerik' => htmlspecialchars($kurs->detay),
+                    'EFiyat' => htmlspecialchars(number_format($kurs->fiyat, 2, ',', '.') . ' TL'),
+                    'EType' => htmlspecialchars($kurs->egitim_platformu),
+                    'ESayi' => '1'
                 ];
 
-                // Template değerlerini logla
-                Log::info('Template değerleri:', $templateValues);
+                Log::info('Template değerleri:', $values);
 
-                // Değerleri template'e set et
-                foreach ($templateValues as $key => $value) {
-                    $templateProcessor->setValue($key, $value);
+                // Her bir değeri ayrı ayrı set et ve kontrol et
+                foreach ($values as $key => $value) {
+                    try {
+                        $templateProcessor->setValue($key, $value);
+                        Log::info("Değer başarıyla set edildi: {$key}");
+                    } catch (\Exception $e) {
+                        Log::error("Değer set edilirken hata: {$key}", [
+                            'error' => $e->getMessage()
+                        ]);
+                        throw new \Exception("'{$key}' değeri set edilirken hata oluştu");
+                    }
                 }
-
-                // Geçici dosya oluştur
-                $tempFile = storage_path('app/public/temp/' . uniqid() . '_MesafeliSatis.docx');
-                $templateProcessor->saveAs($tempFile);
-
-                Log::info('Word dokümanı oluşturuldu', [
-                    'temp_file' => $tempFile
-                ]);
-
+                
+                // Dokümanı kaydet
+                $fileName = Str::slug($data->name . '-' . $data->surname) . '-' . uniqid() . '.docx';
+                $filePath = public_path('mesafeli-satis-sozlesmeleri/' . $fileName);
+                $fileUrl = url('mesafeli-satis-sozlesmeleri/' . $fileName);
+                
+                // Klasör kontrolü
+                $directory = public_path('mesafeli-satis-sozlesmeleri');
+                if (!file_exists($directory)) {
+                    if (!mkdir($directory, 0755, true)) {
+                        throw new \Exception('Klasör oluşturulamadı');
+                    }
+                }
+                
+                // Dosyayı kaydetmeyi dene
                 try {
-                    // Mail gönderme işlemi
-                    Mail::to($data->email)->send(new KesinKayitBilgilendirme([
-                        'name' => $data->name,
-                        'surname' => $data->surname,
-                        'kurs_adi' => $data->kurs_adi,
-                        'wordFile' => $tempFile
-                    ]));
-
-                    Log::info('Mail başarıyla gönderildi', [
-                        'to' => $data->email
+                    $templateProcessor->saveAs($filePath);
+                    Log::info('Dosya başarıyla kaydedildi', ['path' => $filePath]);
+                } catch (\Exception $e) {
+                    Log::error('Dosya kaydedilirken hata', [
+                        'error' => $e->getMessage(),
+                        'path' => $filePath
                     ]);
-                } catch (\Exception $mailError) {
-                    Log::error('Mail gönderme hatası', [
-                        'error' => $mailError->getMessage(),
-                        'trace' => $mailError->getTraceAsString()
-                    ]);
-                    throw $mailError;
+                    throw new \Exception('Dosya kaydedilemedi');
                 }
 
-                // Geçici dosyayı sil
-                if (file_exists($tempFile)) {
-                    unlink($tempFile);
-                    Log::info('Geçici dosya silindi');
-                }
+                // Mail gönderme işlemi
+                $mailData = [
+                    'name' => $data->name,
+                    'surname' => $data->surname,
+                    'kurs_adi' => $data->kurs_adi,
+                    'sozlesme_url' => $fileUrl
+                ];
 
-                return back()->with('success', 'Ön Başvurunuz Başarılı Bir Şekilde Alınmıştır.');
+                Mail::to($data->email)->send(new KesinKayitBilgilendirme($mailData));
+
+                return back()->with('success', 'Kesin Kayıt Başvurunuz Başarılı Bir Şekilde Alınmıştır.')
+                            ->with('sozlesme_url', $fileUrl);
+
             } catch (\Exception $e) {
-                Log::error('Genel hata', [
+                Log::error('Kritik hata', [
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString()
                 ]);
-                return back()->with('error', 'Mail gönderilirken bir hata oluştu: ' . $e->getMessage());
+                return back()->with('error', 'İşlem sırasında bir hata oluştu: ' . $e->getMessage());
             }
         }
     }

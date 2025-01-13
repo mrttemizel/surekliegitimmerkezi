@@ -10,20 +10,16 @@ class KesinKayitBilgilendirme extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $details;
 
-    public function __construct($data)
+    public function __construct($details)
     {
-        $this->data = $data;
+        $this->details = $details;
     }
 
     public function build()
     {
-        return $this->subject('Kesin Kayıt Başvurunuz Alındı')
-                    ->view('emails.kesin-kayit-bilgilendirme')
-                    ->attach($this->data['wordFile'], [
-                        'as' => 'Satis.docx',
-                        'mime' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                    ]);
+        return $this->subject('Kesin Kayıt Bilgilendirme')
+                    ->view('emails.kesin-kayit-bilgilendirme');
     }
 } 
