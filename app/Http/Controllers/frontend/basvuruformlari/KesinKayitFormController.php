@@ -13,6 +13,7 @@ use App\Mail\KesinKayitBilgilendirme;
 use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Log;
+use PhpOffice\PhpWord\IOFactory;
 
 class KesinKayitFormController extends Controller
 {
@@ -51,7 +52,7 @@ class KesinKayitFormController extends Controller
         $data->phone = $request->input('phone');
         $data->tc = $request->input('tc');
         $data->address = $request->input('address');
-        
+
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
         $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
         $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
@@ -90,7 +91,7 @@ class KesinKayitFormController extends Controller
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;
         $data->sinif_id = $class;
-        
+
         $query = $data->save();
 
         if (!$query) {
@@ -99,17 +100,35 @@ class KesinKayitFormController extends Controller
             try {
                 Log::info('Word dokümanı işlemi başlıyor', [
                     'user_email' => $data->email,
-                    'template_path' => public_path('word-templates/Satis.docx')
+                    'template_path' => public_path('word-templates/MesafeliSatis.docx')
                 ]);
 
                 // Word dokümanını düzenle
-                $templateProcessor = new TemplateProcessor(public_path('word-templates/Satis.docx'));
-                
-                // Sadece Ad-Soyad değişkenini set et
-                $templateProcessor->setValue('AdSoyad', mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8'));
-                
+                $templateProcessor = new TemplateProcessor(public_path('word-templates/MesafeliSatis.docx'));
+
+                // Template değerlerini log için hazırla
+                $templateValues = [
+                    'AdSoyad' => mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8'),
+                    'Adres' => $data->address,
+                    'Telefon' => $data->phone,
+                    'Eposta' => $data->email,
+                    'EAdi' => $kurs->egitim_adi,
+                    'EIcerik' => $kurs->detay,
+                    'EFiyat' => number_format($kurs->fiyat, 2, ',', '.') . ' TL',
+                    'EType' => $kurs->egitim_platformu,
+                    'ESayi' => 1
+                ];
+
+                // Template değerlerini logla
+                Log::info('Template değerleri:', $templateValues);
+
+                // Değerleri template'e set et
+                foreach ($templateValues as $key => $value) {
+                    $templateProcessor->setValue($key, $value);
+                }
+
                 // Geçici dosya oluştur
-                $tempFile = storage_path('app/public/temp/' . uniqid() . '_Satis.docx');
+                $tempFile = storage_path('app/public/temp/' . uniqid() . '_MesafeliSatis.docx');
                 $templateProcessor->saveAs($tempFile);
 
                 Log::info('Word dokümanı oluşturuldu', [
