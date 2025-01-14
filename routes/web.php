@@ -216,6 +216,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/refund-forms/update', [RefundformController::class, 'update'])->name('refundform.update');
     Route::get('/refund-forms/delete/{id}', [RefundformController::class, 'delete'])->name('refundform.delete');
     Route::get('/refund-forms/switch', [RefundformController::class, 'switch'])->name('refundform.switch');
+    Route::get('/kesin-kayit-basvurulari/delete/{id}', [KesinKayitBasvurulariController::class, 'delete'])
+        ->name('kesin.kayit.basvurulari.delete');
+    Route::get('/on-kayit-basvurulari/delete/{id}', [OnKayitBasvurulariController::class, 'delete'])
+        ->name('on.kayit.basvurulari.delete');
 });
 
 Route::get('/ucret-iade-formlari', [App\Http\Controllers\frontend\RefundformController::class, 'index'])

@@ -38,12 +38,12 @@ class OnKayitBasvurulariController extends Controller
     public function delete($id)
     {
         $data = OnBasvuruForm::find($id);
-
+        
         $query = $data->delete();
         if (!$query) {
-            return back()->with($this->toastr('Ön Başvuru Silme İşlemi Hatalı','error'));
+            return back()->with($this->toastr('Başvuru Silerken Hata Oluştu','error'));
         } else {
-            return back()->with($this->toastr('Ön Başvuru Silme İşlemi Başarılı','success'));
+            return back()->with($this->toastr('Başvuru Silme Başarılı', 'success'));
         }
     }
 }

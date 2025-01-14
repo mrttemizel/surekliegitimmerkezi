@@ -64,7 +64,7 @@
                                     <th>E-Posta</th>
                                     <th>Telefon</th>
                                     <th>Başvuru Tarihi</th>
-                                   <!-- <th>Durum</th> -->
+                                    <th>İşlemler</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -75,7 +75,13 @@
                                         <td>{{ $datas->email }}</td>
                                         <td>{{ $datas->phone }}</td>
                                         <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('d-m-Y') }}</td>
-
+                                        <td>
+                                            <a href="{{ route('on.kayit.basvurulari.delete', $datas->id) }}" 
+                                               onclick="return confirm('Başvuruyu silmek istediğinize emin misiniz?')"
+                                               class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i> Sil
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
