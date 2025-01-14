@@ -105,7 +105,7 @@ class KesinKayitFormController extends Controller
                 $pdf = new Fpdi();
                 $pdf->AddFont('arial', '', 'arial.php');
                 $pdf->SetFont('arial', '', 10);
-                
+
                 // Değişkenleri hazırla ve Türkçe karakterleri düzelt
                 $values = [
                     'AdSoyad' => iconv('utf-8', 'windows-1254', mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8')),
@@ -114,6 +114,8 @@ class KesinKayitFormController extends Controller
                     'Eposta' => iconv('utf-8', 'windows-1254', $data->email),
                     'EAdi' => iconv('utf-8', 'windows-1254', $kurs->egitim_adi),
                     'EIcerik' => iconv('utf-8', 'windows-1254', $kurs->detay),
+                    'ESaat' => iconv('utf-8', 'windows-1254', $kurs->egitim_saati),
+                    'EYeri' => iconv('utf-8', 'windows-1254', $kurs->egitim_yeri),
                     'EFiyat' => iconv('utf-8', 'windows-1254', number_format($kurs->fiyat, 2, ',', '.') . ' TL'),
                     'EFiyatTop' => iconv('utf-8', 'windows-1254', number_format($kurs->fiyat, 2, ',', '.') . ' TL (KDV Dahil) '),
                     'EType' => iconv('utf-8', 'windows-1254', $kurs->egitim_platformu),
@@ -134,9 +136,11 @@ class KesinKayitFormController extends Controller
                         'Adres' => [45, 91],
                         'Telefon' => [45, 100],
                         'Eposta' => [45, 108],
-                        'EAdi' => [35, 262],
-                        'EFiyat' => [35, 272],
-                        'EType' => [65, 272]
+                        'EAdi' => [35, 258],
+                        'EFiyat' => [35, 264],
+                        'EType' => [65, 264],
+                        'ESaat' => [85, 264],
+                        'EYeri' => [35, 271]
                     ],
                     // 2. sayfa koordinatları
                     'page2' => [
@@ -150,32 +154,32 @@ class KesinKayitFormController extends Controller
                         'AdSoyad' => [130, 35]  // İmza bölümündeki ad soyad
                     ]
                 ];
-                
+
                 // PDF şablonunu import et
                 $pageCount = $pdf->setSourceFile(public_path('word-templates/MesafeliSatis.pdf'));
-                
+
                 // Tüm sayfaları import et
                 for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
                     $templateId = $pdf->importPage($pageNo);
                     $pdf->AddPage();
                     $pdf->useTemplate($templateId);
-                    
+
                     if ($pageNo == 1) {
                         foreach ($coordinates['page1'] as $key => $pos) {
                             // Her alan için font boyutunu ayarla
                             $fontSize = isset($fontSizes[$key]) ? $fontSizes[$key] : $fontSizes['default'];
                             $pdf->SetFontSize($fontSize);
-                            
+
                             $pdf->SetXY($pos[0], $pos[1]);
                             $pdf->Write(0, $values[$key]);
                         }
-                    } 
+                    }
                     elseif ($pageNo == 2) {
                         foreach ($coordinates['page2'] as $key => $pos) {
                             // Her alan için font boyutunu ayarla
                             $fontSize = isset($fontSizes[$key]) ? $fontSizes[$key] : $fontSizes['default'];
                             $pdf->SetFontSize($fontSize);
-                            
+
                             $pdf->SetXY($pos[0], $pos[1]);
                             if ($key == 'ESayi') {
                                 $pdf->Write(0, '1');
@@ -189,12 +193,12 @@ class KesinKayitFormController extends Controller
                             // Her alan için font boyutunu ayarla
                             $fontSize = isset($fontSizes[$key]) ? $fontSizes[$key] : $fontSizes['default'];
                             $pdf->SetFontSize($fontSize);
-                            
+
                             $pdf->SetXY($pos[0], $pos[1]);
                             $pdf->Write(0, $values[$key]);
                         }
                     }
-                    
+
                     // Her sayfanın sonunda varsayılan font boyutuna geri dön
                     $pdf->SetFontSize($fontSizes['default']);
                 }
