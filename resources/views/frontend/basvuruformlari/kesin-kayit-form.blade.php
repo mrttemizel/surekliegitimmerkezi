@@ -225,28 +225,21 @@
 
 
                                     <div class="back-check-box">
-                                        <input type="checkbox" id="box-1"
-                                               name="kvkk" {{ old('kvkk') ? 'checked' : '' }}><em><span
-                                                class="text-danger">*</span><a href="{{ route('kvkk') }}"
-                                                                               target="_blank"> Kişisel verilerime
-                                                ilişkin aydınlatma metnini ve haklarımı okudum, bilgilendirildim. Bu
-                                                form aracılığıyla paylaştığım kişisel verilerimin işlenmesini ve amacı
-                                                ile bağlantılı faaliyetlerde kullanılmasını kişisel verilerin </em>&nbsp;
-                                        işlenmesi açık rıza metni doğrultusunda onaylıyorum</a><br>
+                                        <input type="checkbox" id="box-3" name="kvkk" {{ old('kvkk') ? 'checked' : '' }}>
+                                        <em>
+                                            <span class="text-danger">*</span>
+                                            <a href="{{ route('kvkk') }}" target="_blank">Kişisel verilerime ilişkin aydınlatma metnini</a> ve haklarımı okudum, bilgilendirildim.
+                                        </em>
+                                        <br>
                                         <p></p>
                                         <span class="text-danger">
-                                    @error('kvkk')
-                                            {{ $message }}
+                                            @error('kvkk')
+                                                {{ $message }}
                                             @enderror
-                                       </span>
+                                        </span>
                                     </div>
                                     <div class="back-check-box">
-                                        <!-- Checkbox görsel olarak işaretli ve devre dışı -->
-                                        <input type="checkbox" id="box-1" name="ticari" checked disabled>
-
-                                        <!-- Form gönderildiğinde sunucuya 'on' değerini göndermek için -->
-                                        <input type="hidden" name="electronic" value="on">
-
+                                        <input type="checkbox" id="box-2" name="electronic" {{ old('electronic') ? 'checked' : '' }}>
                                         <em>
                                             <span class="text-danger">*</span>
                                             E-Bültene kayıt olmak istiyorum. Antalya Bilim Üniversitesi Sürekli
@@ -256,16 +249,16 @@
                                         <br>
                                         <p></p>
                                         <span class="text-danger">
-                                            @error('ticari')
-                                            {{ $message }}
+                                            @error('electronic')
+                                                {{ $message }}
                                             @enderror
                                         </span>
                                     </div>
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-1" name="explicit" {{ old('explicit') ? 'checked' : '' }}>
                                         <em><span class="text-danger">*</span></em>
-
-                                        <a href="{{ route('kvkk') }}" target="_blank">SEM Açık Rıza Metni</a>&nbsp;Okudum ve Onaylıyorum.<br>
+                                        <a href="{{ route('acik.riza') }}" target="_blank">SEM Açık Rıza Metni</a>&nbsp;Okudum ve Onaylıyorum.
+                                        <br>
                                         <p></p>
                                         <span class="text-danger">
                                             @error('explicit')

@@ -43,6 +43,7 @@ class KesinKayitFormController extends Controller
             'tc' => 'required',
             'address' => 'required',
             'explicit' => 'required',
+            'electronic' => 'required',
         ]);
 
         $kurs = Courses::where('id', $request->id)->firstOrFail();

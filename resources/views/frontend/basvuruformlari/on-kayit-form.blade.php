@@ -90,10 +90,12 @@
                             </span>
                                     </p>
                                     <div class="back-check-box">
-                                        <input type="checkbox" id="box-1" name="kvkk" {{ old('kvkk') ? 'checked' : '' }}>
-                                        <em><a href="{{ route('kvkk') }}" target="_blank">
-                                            <span class="text-danger">*</span> Kişisel verilerin korunması ve işlenmesi</em>&nbsp;
-                                            hakkında bilgilendirme metnini ve haklarımı okudum.</a><br>
+                                        <input type="checkbox" id="box-3" name="kvkk" {{ old('kvkk') ? 'checked' : '' }}>
+                                        <em>
+                                            <span class="text-danger">*</span>
+                                            <a href="{{ route('kvkk') }}" target="_blank">Kişisel verilerime ilişkin aydınlatma metnini</a> ve haklarımı okudum, bilgilendirildim.
+                                        </em>
+                                        <br>
                                         <p></p>
                                         <span class="text-danger">
                                             @error('kvkk')
@@ -103,8 +105,7 @@
                                     </div>
 
                                     <div class="back-check-box">
-                                        <input type="checkbox" id="box-2" name="electronic" checked disabled>
-                                        <input type="hidden" name="electronic" value="on">
+                                        <input type="checkbox" id="box-2" name="electronic" {{ old('electronic') ? 'checked' : '' }}>
                                         <em>
                                             <span class="text-danger">*</span>
                                             E-Bültene kayıt olmak istiyorum. Antalya Bilim Üniversitesi Sürekli
@@ -121,9 +122,10 @@
                                     </div>
 
                                     <div class="back-check-box">
-                                        <input type="checkbox" id="box-3" name="explicit" {{ old('explicit') ? 'checked' : '' }}>
+                                        <input type="checkbox" id="box-1" name="explicit" {{ old('explicit') ? 'checked' : '' }}>
                                         <em><span class="text-danger">*</span></em>
-                                        <a href="{{ route('kvkk') }}" target="_blank">SEM Açık Rıza Metni</a>&nbsp;Okudum ve Onaylıyorum.<br>
+                                        <a href="{{ route('acik.riza') }}" target="_blank">SEM Açık Rıza Metni</a>&nbsp;Okudum ve Onaylıyorum.
+                                        <br>
                                         <p></p>
                                         <span class="text-danger">
                                             @error('explicit')

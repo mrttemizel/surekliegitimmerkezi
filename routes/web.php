@@ -224,3 +224,8 @@ Route::get('/ucret-iade-formlari', [App\Http\Controllers\frontend\RefundformCont
 Route::get('/ucret-iade-formlari/{id}/delete', [App\Http\Controllers\frontend\RefundformController::class, 'delete'])
     ->name('frontend.refundform.delete')
     ->middleware('auth');
+
+// KVKK ve ilgili sayfalar
+Route::get('/kvkk', [App\Http\Controllers\frontend\KvkkController::class, 'kvkk'])->name('kvkk');
+Route::get('/acik-riza', [App\Http\Controllers\frontend\KvkkController::class, 'acikRiza'])->name('acik.riza');
+Route::get('/sem-web-kullanim', [App\Http\Controllers\frontend\KvkkController::class, 'webKullanim'])->name('web.kullanim');

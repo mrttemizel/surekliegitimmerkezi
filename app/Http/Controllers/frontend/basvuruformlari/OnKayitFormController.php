@@ -27,6 +27,7 @@ class OnKayitFormController extends Controller
             'phone' => 'required',
             'kvkk' => 'required',
             'explicit' => 'required',
+            'electronic' => 'required',
         ]);
 
         $kurs = Courses::where('id',$request->id)->firstOrFail();
