@@ -122,7 +122,7 @@ class KesinKayitFormController extends Controller
                 // Font boyutlarını ayarla
                 $fontSizes = [
                     'default' => 12,
-                    'EAdi' => strlen($kurs->egitim_adi) > 50 ? 6 : (strlen($kurs->egitim_adi) > 30 ? 8 : 10)
+                    'EAdi' => strlen($kurs->egitim_adi) > 50 ? 8 : (strlen($kurs->egitim_adi) > 30 ? 10 : 12)
                 ];
 
                 // Koordinatları ayarla
