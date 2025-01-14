@@ -119,6 +119,12 @@ class KesinKayitFormController extends Controller
                     'ESayi' => '1'
                 ];
 
+                // Font boyutlarını ayarla
+                $fontSizes = [
+                    'default' => 12,
+                    'EAdi' => strlen($kurs->egitim_adi) > 50 ? 8 : (strlen($kurs->egitim_adi) > 30 ? 10 : 12)
+                ];
+
                 // Koordinatları ayarla
                 $coordinates = [
                     // 1. sayfa koordinatları
@@ -153,15 +159,22 @@ class KesinKayitFormController extends Controller
                     $pdf->AddPage();
                     $pdf->useTemplate($templateId);
                     
-                    // Sayfa numarasına göre değerleri yaz
                     if ($pageNo == 1) {
                         foreach ($coordinates['page1'] as $key => $pos) {
+                            // Her alan için font boyutunu ayarla
+                            $fontSize = isset($fontSizes[$key]) ? $fontSizes[$key] : $fontSizes['default'];
+                            $pdf->SetFontSize($fontSize);
+                            
                             $pdf->SetXY($pos[0], $pos[1]);
                             $pdf->Write(0, $values[$key]);
                         }
                     } 
                     elseif ($pageNo == 2) {
                         foreach ($coordinates['page2'] as $key => $pos) {
+                            // Her alan için font boyutunu ayarla
+                            $fontSize = isset($fontSizes[$key]) ? $fontSizes[$key] : $fontSizes['default'];
+                            $pdf->SetFontSize($fontSize);
+                            
                             $pdf->SetXY($pos[0], $pos[1]);
                             if ($key == 'ESayi') {
                                 $pdf->Write(0, '1');
@@ -172,10 +185,17 @@ class KesinKayitFormController extends Controller
                     }
                     elseif ($pageNo == 5) {
                         foreach ($coordinates['page5'] as $key => $pos) {
+                            // Her alan için font boyutunu ayarla
+                            $fontSize = isset($fontSizes[$key]) ? $fontSizes[$key] : $fontSizes['default'];
+                            $pdf->SetFontSize($fontSize);
+                            
                             $pdf->SetXY($pos[0], $pos[1]);
                             $pdf->Write(0, $values[$key]);
                         }
                     }
+                    
+                    // Her sayfanın sonunda varsayılan font boyutuna geri dön
+                    $pdf->SetFontSize($fontSizes['default']);
                 }
 
                 // Dosyayı kaydet
