@@ -12,7 +12,10 @@ use Illuminate\Support\Str;
 use App\Mail\KesinKayitBilgilendirme;
 use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\IOFactory;
+use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Facades\Log;
+use Mpdf\Mpdf;
 
 class KesinKayitFormController extends Controller
 {
@@ -97,39 +100,86 @@ class KesinKayitFormController extends Controller
             return back()->with('error', 'Eklenirken bir hata oluştu!');
         } else {
             try {
-                // Word dokümanını düzenle
-                $templateProcessor = new TemplateProcessor(public_path('word-templates/MesafeliSatis.docx'));
-
-                // Değişkenleri tek tek kontrol ederek ve temizleyerek set edelim
+                // PDF şablonunu yükle
+                $pdf = new Fpdi();
+                $pdf->AddFont('arial', '', 'arial.php');
+                $pdf->SetFont('arial', '', 12);
+                
+                // Değişkenleri hazırla ve Türkçe karakterleri düzelt
                 $values = [
-                    'AdSoyad' => htmlspecialchars(mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8')),
-                    'Adres' => htmlspecialchars($data->address),
-                    'Telefon' => htmlspecialchars($data->phone),
-                    'Eposta' => htmlspecialchars($data->email),
-                    'EAdi' => htmlspecialchars($kurs->egitim_adi),
-                    'EIcerik' => htmlspecialchars($kurs->detay),
-                    'EFiyat' => htmlspecialchars(number_format($kurs->fiyat, 2, ',', '.') . ' TL'),
-                    'EType' => htmlspecialchars($kurs->egitim_platformu),
+                    'AdSoyad' => iconv('utf-8', 'windows-1254', mb_strtoupper($data->name . ' ' . $data->surname, 'UTF-8')),
+                    'Adres' => iconv('utf-8', 'windows-1254', $data->address),
+                    'Telefon' => iconv('utf-8', 'windows-1254', $data->phone),
+                    'Eposta' => iconv('utf-8', 'windows-1254', $data->email),
+                    'EAdi' => iconv('utf-8', 'windows-1254', $kurs->egitim_adi),
+                    'EIcerik' => iconv('utf-8', 'windows-1254', $kurs->detay),
+                    'EFiyat' => iconv('utf-8', 'windows-1254', number_format($kurs->fiyat, 2, ',', '.') . ' TL'),
+                    'EFiyatTop' => iconv('utf-8', 'windows-1254', number_format($kurs->fiyat, 2, ',', '.') . ' TL (KDV Dahil) '),
+                    'EType' => iconv('utf-8', 'windows-1254', $kurs->egitim_platformu),
                     'ESayi' => '1'
                 ];
 
-                //Log::info('Template değerleri:', $values);
-
-                // Her bir değeri ayrı ayrı set et ve kontrol et
-                foreach ($values as $key => $value) {
-                    try {
-                        $templateProcessor->setValue($key, $value);
-                        Log::info("Değer başarıyla set edildi: {$key}");
-                    } catch (\Exception $e) {
-                        Log::error("Değer set edilirken hata: {$key}", [
-                            'error' => $e->getMessage()
-                        ]);
-                        throw new \Exception("'{$key}' değeri set edilirken hata oluştu");
+                // Koordinatları ayarla
+                $coordinates = [
+                    // 1. sayfa koordinatları
+                    'page1' => [
+                        'AdSoyad' => [45, 82],
+                        'Adres' => [45, 91],
+                        'Telefon' => [45, 100],
+                        'Eposta' => [45, 108],
+                        'EAdi' => [35, 262],
+                        'EFiyat' => [35, 272],
+                        'EType' => [65, 272]
+                    ],
+                    // 2. sayfa koordinatları
+                    'page2' => [
+                        'EAdi' => [35, 240],    // Hizmet Açıklaması
+                        'ESayi' => [79, 250],   // Adet (1)
+                        'EFiyat' => [100, 250],  // Birim Fiyatı
+                        'EFiyatTop' => [130, 250]  // Ara Toplam
+                    ],
+                    // 5. sayfa koordinatları - imza bölümü
+                    'page5' => [
+                        'AdSoyad' => [130, 35]  // İmza bölümündeki ad soyad
+                    ]
+                ];
+                
+                // PDF şablonunu import et
+                $pageCount = $pdf->setSourceFile(public_path('word-templates/MesafeliSatis.pdf'));
+                
+                // Tüm sayfaları import et
+                for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+                    $templateId = $pdf->importPage($pageNo);
+                    $pdf->AddPage();
+                    $pdf->useTemplate($templateId);
+                    
+                    // Sayfa numarasına göre değerleri yaz
+                    if ($pageNo == 1) {
+                        foreach ($coordinates['page1'] as $key => $pos) {
+                            $pdf->SetXY($pos[0], $pos[1]);
+                            $pdf->Write(0, $values[$key]);
+                        }
+                    } 
+                    elseif ($pageNo == 2) {
+                        foreach ($coordinates['page2'] as $key => $pos) {
+                            $pdf->SetXY($pos[0], $pos[1]);
+                            if ($key == 'ESayi') {
+                                $pdf->Write(0, '1');
+                            } else {
+                                $pdf->Write(0, $values[$key]);
+                            }
+                        }
+                    }
+                    elseif ($pageNo == 5) {
+                        foreach ($coordinates['page5'] as $key => $pos) {
+                            $pdf->SetXY($pos[0], $pos[1]);
+                            $pdf->Write(0, $values[$key]);
+                        }
                     }
                 }
 
-                // Dokümanı kaydet
-                $fileName = Str::slug($data->name . '-' . $data->surname) . '-' . uniqid() . '.docx';
+                // Dosyayı kaydet
+                $fileName = Str::slug($data->name . '-' . $data->surname) . '-' . uniqid() . '.pdf';
                 $filePath = public_path('mesafeli-satis-sozlesmeleri/' . $fileName);
                 $fileUrl = url('mesafeli-satis-sozlesmeleri/' . $fileName);
 
@@ -141,17 +191,14 @@ class KesinKayitFormController extends Controller
                     }
                 }
 
-                // Dosyayı kaydetmeyi dene
-                try {
-                    $templateProcessor->saveAs($filePath);
-                    Log::info('Dosya başarıyla kaydedildi', ['path' => $filePath]);
-                } catch (\Exception $e) {
-                    Log::error('Dosya kaydedilirken hata', [
-                        'error' => $e->getMessage(),
-                        'path' => $filePath
-                    ]);
-                    throw new \Exception('Dosya kaydedilemedi');
-                }
+                // PDF'i kaydet
+                $pdf->Output($filePath, 'F');
+
+                Log::info('PDF dokümanı oluşturuldu', [
+                    'file_path' => $filePath,
+                    'file_url' => $fileUrl,
+                    'page_count' => $pageCount
+                ]);
 
                 // Mail gönderme işlemi
                 $mailData = [
