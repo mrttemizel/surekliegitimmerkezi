@@ -235,8 +235,7 @@ class KesinKayitFormController extends Controller
 
                 Mail::to($data->email)->send(new KesinKayitBilgilendirme($mailData));
 
-                return back()->with('success', 'Kesin Kayıt Başvurunuz Başarılı Bir Şekilde Alınmıştır.')
-                            ->with('sozlesme_url', $fileUrl);
+                return back()->with('success', 'Kesin Kayıt Başvurunuz Başarılı Bir Şekilde Alınmıştır.');
 
             } catch (\Exception $e) {
                 Log::error('Kritik hata', [

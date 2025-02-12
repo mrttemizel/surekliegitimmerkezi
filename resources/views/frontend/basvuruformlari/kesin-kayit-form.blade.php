@@ -80,14 +80,14 @@
                                     </div>
                                     @if(session('success'))
                                         <div class="alert alert-success">
-                                            {{ session('success') }}
-                                            @if(session('sozlesme_url'))
-                                                <br>
-                                                <a href="{{ session('sozlesme_url') }}" class="btn btn-primary mt-2">
-                                                    Mesafeli Satış Sözleşmesini İndir
-                                                </a>
-                                            @endif
+                                            <b>{{ session('success') }}</b>
+                                            <p>Ödeme için <a href="https://payment.antalya.edu.tr/Payment/UnAuthenticatedPayment?notAut=True" target="_blank" id="paymentLink">buraya tıklayınız</a>.</p>
                                         </div>
+                                        <script>
+                                            window.onload = function() {
+                                                window.open('https://payment.antalya.edu.tr/Payment/UnAuthenticatedPayment?notAut=True', '_blank');
+                                            };
+                                        </script>
                                     @endif
 
 
