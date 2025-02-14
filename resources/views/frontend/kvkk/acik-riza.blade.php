@@ -6,7 +6,7 @@
                               ANTALYA BİLİM ÜNİVERSİTESİ SÜREKLİ EĞİTİM MERKEZİ
                               KİŞİSEL VERİ İŞLEME FAALİYETLERİNE DAİR RIZA METNİ
                               Antalya Bilim Üniversitesi Sürekli Eğitim Merkezi ile paylaşmış olduğum aşağıda sayılan kişisel
-                              verilerimin gene aşağıda gösterilmiş olan amaçlar dahilinde rıza tarihinden itibaren üç yıl süreyle Antalya
+                              verilerimin gene aşağıda gösterilmiş olan amaçlar dahilinde  Antalya
                               Bilim Üniversitesi tarafından işlenmesini kabul ediyorum.
                               AD-SOYAD:
                               İMZA:
