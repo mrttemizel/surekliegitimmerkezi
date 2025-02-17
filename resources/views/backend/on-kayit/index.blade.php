@@ -60,6 +60,7 @@
                                 <thead>
                                 <tr>
                                     <th>Ad Soyad</th>
+                                    <th>Soyad</th>
                                     <th>Kurs Adı</th>
                                     <th>E-Posta</th>
                                     <th>Telefon</th>
@@ -71,6 +72,7 @@
                                 @foreach($data as $datas)
                                     <tr>
                                         <td>{{ $datas->name }}</td>
+                                        <td>{{ $datas->surname }}</td>
                                         <td>{{ $datas->kurs_adi }}</td>
                                         <td>{{ $datas->email }}</td>
                                         <td>{{ $datas->phone }}</td>
@@ -111,45 +113,30 @@
             var courseId = this.value;
             var url = "{{ route('on-kayit-basvurulari.index') }}";
 
-            fetch(url + '?course_id=' + courseId)
-                .then(response => response.text())
-                .then(html => {
-                    document.querySelector('tbody').innerHTML = new DOMParser()
-                        .parseFromString(html, 'text/html')
-                        .querySelector('tbody').innerHTML;
-                })
-                .catch(error => console.error('Error:', error));
+            window.location.href = url + '?course_id=' + courseId;
         });
-    </script>
-    <script>
+
         $(document).ready(function () {
-            $('#alternative-pagination').DataTable({
-
-
+            var table = $('#alternative-pagination').DataTable({
                 buttons: [
                     {
                         extend: 'excelHtml5',
                         text: 'Excel İndir',
                         exportOptions: {
-                            selected: true,
-                            columns: [0, 1, 2, 3, 4] // Sadece belirtilen sütunları dahil et
-
+                            columns: [0, 1, 2, 3, 4]
                         }
-                    },
-
-
+                    }
                 ],
-                responsive: true, // Duyarlılık özelliğini etkinleştir
-                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tümü"]], // Gösterilen öğe sayısı seçenekleri
-                paging: true // Sayfalama etkin
+                responsive: true,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tümü"]],
+                paging: true
+            });
+
+            // Excel İndir butonunu düzenleme
+            $('#excelBtn').on('click', function () {
+                table.button('.buttons-excel').trigger();
             });
         });
-        // Excel İndir butonunu düzenleme
-        $('#excelBtn').on('click', function () {
-            $('#alternative-pagination').DataTable().button('.buttons-excel').trigger();
-        });
-
-
     </script>
 
     <script>
