@@ -47,6 +47,17 @@ class KesinKayitFormController extends Controller
         ]);
 
         $kurs = Courses::where('id', $request->id)->firstOrFail();
+        
+        // TC ve kurs_id kombinasyonu için kontrol yap
+        $existingRecord = KesinKayitForm::where('tc', $request->input('tc'))
+                        ->where('kurs_id', $request->id)
+                        ->first();
+        
+        // Eğer bu TC ile bu kursa daha önce kayıt yapılmışsa
+        if ($existingRecord) {
+            return back()->with('error', 'Bu TC kimlik numarası ile bu kursa daha önce kayıt yapılmıştır. Lütfen farklı bir TC numarası kullanın veya farklı bir kurs seçin.');
+        }
+        
         $data = new KesinKayitForm();
 
         $data->name = mb_strtoupper($request->input('name'), 'UTF-8');
@@ -233,7 +244,7 @@ class KesinKayitFormController extends Controller
                     'sozlesme_url' => $fileUrl
                 ];
 
-                Mail::to($data->email)->send(new KesinKayitBilgilendirme($mailData));
+               // Mail::to($data->email)->send(new KesinKayitBilgilendirme($mailData));
 
                 return back()->with('success', 'Kesin Kayıt Başvurunuz Başarılı Bir Şekilde Alınmıştır.');
 
