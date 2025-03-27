@@ -60,6 +60,11 @@
                             </form>
                         </div>
                         <div class="card-body d-flex justify-content-center flex-column">
+                            <div class="buttons d-flex align-items-center">
+                                <a href="#" class="btn btn-success me-2" id="excelBtn">
+                                    <i class="ri-file-excel-2-line me-1"></i> Excel İndir
+                                </a>
+                            </div>
                             <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
@@ -230,6 +235,8 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
 
     <script src="{{asset('backend/assets/js/pages/datatables.init.js')}}"></script>
@@ -368,28 +375,92 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const button = document.getElementById('generate-certificates-btn');
-            if (button) {
-                button.addEventListener('click', function() {
-                    const sinifId = @json($sinif_id);
-                    const kursId = @json($kurs_id);
-
+            const certificateBtn = document.getElementById('generate-certificates-btn');
+            
+            if (certificateBtn) {
+                certificateBtn.addEventListener('click', function() {
+                    // Sınıf ve kurs ID'lerini güvenli bir şekilde alalım
+                    const sinifId = "{{ $sinif_id ?? '' }}";
+                    const kursId = "{{ $kurs_id ?? '' }}";
+                    
+                    if (!sinifId || !kursId) {
+                        console.error('Sınıf ID veya Kurs ID bulunamadı');
+                        return;
+                    }
+                    
                     axios.post('{{ route('certificates.generate') }}', {
                         sinif_id: sinifId,
                         kurs_id: kursId
                     })
-                        .then(response => {
-                            alert('Sertifikalar başarıyla oluşturuldu!');
-                        })
-                        .catch(error => {
-                            console.error('Sertifikalar oluşturulurken bir hata oluştu:', error);
-                        });
+                    .then(response => {
+                        Swal.fire('Başarılı!', 'Sertifikalar başarıyla oluşturuldu!', 'success');
+                    })
+                    .catch(error => {
+                        console.error('Sertifikalar oluşturulurken bir hata oluştu:', error);
+                        Swal.fire('Hata!', 'Sertifikalar oluşturulurken bir hata oluştu', 'error');
+                    });
                 });
-            } else {
-                console.error('Button not found.');
             }
         });
+
+        $(document).ready(function() {
+            // Doğrudan Excel butonunun kendisini ekleyelim - en basit çözüm
+            $('#excelBtn').on('click', function() {
+                // Mevcut tablodan verileri toplayalım
+                var table = $('#alternative-pagination').DataTable();
+                var data = [];
+                
+                // Tablodan görünür verileri çekelim
+                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    var rowData = this.data();
+                    var cleanRow = [];
+                    
+                    // İlk 8 sütunu alalım (Düzenle ve İndir hariç)
+                    for (var i = 0; i < 8; i++) {
+                        // HTML etiketlerini temizleyelim
+                        var cellValue = rowData[i];
+                        if (typeof cellValue === 'string') {
+                            cellValue = cellValue.replace(/<[^>]*>/g, '');
+                        }
+                        cleanRow.push(cellValue);
+                    }
+                    
+                    data.push(cleanRow);
+                });
+                
+                // Başlık satırını ekleyelim
+                var headers = [];
+                $('#alternative-pagination thead th').each(function(index) {
+                    if (index < 8) { // İlk 8 sütunu al
+                        headers.push($(this).text());
+                    }
+                });
+                
+                // Excel için veriyi hazırlayalım
+                var tableData = [headers].concat(data);
+                
+                // Excel oluşturma ve indirme
+                var wb = XLSX.utils.book_new();
+                var ws = XLSX.utils.aoa_to_sheet(tableData);
+                XLSX.utils.book_append_sheet(wb, ws, "Öğrenci Listesi");
+                XLSX.writeFile(wb, "Ogrenci_Listesi.xlsx");
+            });
+            
+            // DataTable'ı başlatalım (Excel button özelliği olmadan)
+            if (!$.fn.dataTable.isDataTable('#alternative-pagination')) {
+                $('#alternative-pagination').DataTable({
+                    responsive: true,
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tümü"]],
+                    paging: true
+                });
+            }
+            
+            // Diğer event listener'lar...
+        });
     </script>
+
+    <!-- SheetJS - Excel oluşturma kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 @endsection
 

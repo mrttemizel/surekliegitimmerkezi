@@ -60,6 +60,7 @@
                             </form>
                         </div>
                         <div class="card-body d-flex justify-content-center flex-column">
+ 
                             <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
@@ -210,7 +211,7 @@
 @endsection
 
 @section('addjs')
-
+    <!-- Mevcut JS'ler -->
     <script src="{{ asset('backend/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/sweetalerts.init.js') }}"></script>
 
@@ -219,16 +220,44 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
-
-    <script src="{{asset('backend/assets/js/pages/datatables.init.js')}}"></script>
-
+    <!-- DataTables başlatma dosyasını kaldıralım ve burada yapılandıralım -->
+    <!-- <script src="{{asset('backend/assets/js/pages/datatables.init.js')}}"></script> -->
 
     <script src="{{ asset('backend/assets/libs/bootstrap-toogle/bootstrap-toggle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        $(function (){
-            $('.edit-click').click(function (){
+        $(document).ready(function() {
+            // DataTable'ı bir kez başlat
+            var table = $('#alternative-pagination').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel İndir',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5], // Düzenle sütunu hariç
+                            modifier: {
+                                page: 'all'
+                            }
+                        },
+                        className: 'hidden-button'
+                    }
+                ],
+                responsive: true,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tümü"]],
+                paging: true
+            });
+
+            // Excel butonunu manuel tetikle
+            $('#excelBtn').on('click', function() {
+                table.button('.buttons-excel').trigger();
+            });
+            
+            // Diğer click handler'ları
+            $('.edit-click').click(function() {
                 var id = $(this).attr('data-id');
                 $('#category_id').val(id); // Hidden input alanını doldur
 
@@ -261,10 +290,8 @@
                     }
                 });
             });
-        });
-
-
-            $(document).ready(function() {
+            
+            // Class-down olayı için handler
             $('.class-down').on('click', function(e) {
                 e.preventDefault(); // Sayfa yenilenmesini engelle
                 var classId = $(this).data('id'); // İlgili class ID'yi al
@@ -319,13 +346,9 @@
                     }
                 });
             });
-        });
-
-
-
-
-        $(function (){
-            $('.switchStatus').change(function (){
+            
+            // SwitchStatus değişikliği için handler
+            $('.switchStatus').change(function() {
                 var status = $(this).prop('checked');
                 var id=$(this).attr('data-id');
 
@@ -333,11 +356,10 @@
 
                 });
             });
+        });
 
-        })
-
-
-        $(document).on('click', '#delete_class', function () {
+        // Document ready dışında kalan event handler'lar
+        $(document).on('click', '#delete_class', function() {
             var user_id = $(this).attr('data-id');
             const url = $(this).attr('data-url');
             Swal.fire({
@@ -379,6 +401,5 @@
             }
         });
     </script>
-
 @endsection
 
