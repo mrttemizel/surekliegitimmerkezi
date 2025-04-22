@@ -35,37 +35,43 @@ class KesinKayitFormController extends Controller
     {
         $class = $request->input('sinif');
         $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
             'kvkk' => 'required',
-            'tc' => 'required',
-            'address' => 'required',
+            'tc' => 'required|digits:11|regex:/^[0-9]+$/',
+            'address' => 'required|string|max:500',
             'explicit' => 'required',
             'electronic' => 'required',
         ]);
 
-        $kurs = Courses::where('id', $request->id)->firstOrFail();
+        // Zararlı karakterleri temizle ve kontrol et
+        $name = $this->sanitizeInput($request->input('name'));
+        $surname = $this->sanitizeInput($request->input('surname'));
+        $email = filter_var($request->input('email'), FILTER_SANITIZE_EMAIL);
+        $phone = preg_replace('/[^0-9\-\+\(\) ]/', '', $request->input('phone'));
+        $tc = preg_replace('/[^0-9]/', '', $request->input('tc'));
+        $address = $this->sanitizeInput($request->input('address'));
         
-        // TC ve kurs_id kombinasyonu için kontrol yap
-        $existingRecord = KesinKayitForm::where('tc', $request->input('tc'))
+        // TC kimlik ve kurs_id kontrolü
+        $existingRecord = KesinKayitForm::where('tc', $tc)
                         ->where('kurs_id', $request->id)
                         ->first();
         
-        // Eğer bu TC ile bu kursa daha önce kayıt yapılmışsa
         if ($existingRecord) {
             return back()->with('error', 'Bu TC kimlik numarası ile bu kursa daha önce kayıt yapılmıştır. Lütfen farklı bir TC numarası kullanın veya farklı bir kurs seçin.');
         }
         
+        $kurs = Courses::where('id', $request->id)->firstOrFail();
+        
         $data = new KesinKayitForm();
-
-        $data->name = mb_strtoupper($request->input('name'), 'UTF-8');
-        $data->surname = mb_strtoupper($request->input('surname'), 'UTF-8');
-        $data->email = $request->input('email');
-        $data->phone = $request->input('phone');
-        $data->tc = $request->input('tc');
-        $data->address = $request->input('address');
+        $data->name = mb_strtoupper($name, 'UTF-8');
+        $data->surname = mb_strtoupper($surname, 'UTF-8');
+        $data->email = $email;
+        $data->phone = $phone;
+        $data->tc = $tc;
+        $data->address = $address;
 
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
         $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
@@ -256,5 +262,15 @@ class KesinKayitFormController extends Controller
                 return back()->with('error', 'İşlem sırasında bir hata oluştu: ' . $e->getMessage());
             }
         }
+    }
+
+    // Güvenli girdi temizleme fonksiyonu
+    private function sanitizeInput($input) {
+        // Tehlikeli karakterleri temizle
+        $input = strip_tags($input);
+        // SQL enjeksiyon karakterlerini temizle
+        $input = str_replace(["'", '"', '\\', ';', '+', 'CONCAT', 'CHR', 'SOCKET', 'REQUIRE', 'GETHOSTBYNAME'], '', $input);
+        // Ekstra güvenlik için HTML karakterleri kodla
+        return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     }
 }

@@ -21,23 +21,29 @@ class OnKayitFormController extends Controller
     public function storeOnKayitForm(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
             'kvkk' => 'required',
             'explicit' => 'required',
             'electronic' => 'required',
         ]);
 
-        $kurs = Courses::where('id',$request->id)->firstOrFail();
+        // Zararlı karakterleri temizle ve kontrol et
+        $name = $this->sanitizeInput($request->input('name'));
+        $surname = $this->sanitizeInput($request->input('surname'));
+        $email = filter_var($request->input('email'), FILTER_SANITIZE_EMAIL);
+        $phone = preg_replace('/[^0-9\-\+\(\) ]/', '', $request->input('phone'));
+        
+        $kurs = Courses::where('id', $request->id)->firstOrFail();
 
         $data = new OnBasvuruForm();
 
-        $data->name = mb_strtoupper($request->input('name'), 'UTF-8');
-        $data->surname = mb_strtoupper($request->input('surname'), 'UTF-8');
-        $data->email = $request->input('email');
-        $data->phone = $request->input('phone');
+        $data->name = mb_strtoupper($name, 'UTF-8');
+        $data->surname = mb_strtoupper($surname, 'UTF-8');
+        $data->email = $email;
+        $data->phone = $phone;
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
         $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
         $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
@@ -52,6 +58,13 @@ class OnKayitFormController extends Controller
         }
     }
 
-
-
+    // Güvenli girdi temizleme fonksiyonu
+    private function sanitizeInput($input) {
+        // Tehlikeli karakterleri temizle
+        $input = strip_tags($input);
+        // SQL enjeksiyon karakterlerini temizle
+        $input = str_replace(["'", '"', '\\', ';', '+', 'CONCAT', 'CHR', 'SOCKET', 'REQUIRE', 'GETHOSTBYNAME'], '', $input);
+        // Ekstra güvenlik için HTML karakterleri kodla
+        return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    }
 }
