@@ -60,7 +60,7 @@
                             </form>
                         </div>
                         <div class="card-body d-flex justify-content-center flex-column">
- 
+
                             <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
@@ -90,7 +90,11 @@
                                         <td>{{$classList->tc}}</td>
                                         <td>{{$classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{$classList->kurs_adi}}</td>
-                                        <td><input onchange="window.location.reload();" class="switchStatus" data-id={{ $classList->id }} type="checkbox" {{$classList->status == 0 ? '' : 'checked' }} data-toggle="toggle" data-on="Başarılı" data-off="Başarısız" data-onstyle="success" data-offstyle="danger"></td>
+                                        <td>
+                                            <a href="{{ route('class.switch') }}?id={{ $classList->id }}&status={{ $classList->status == 0 ? '1' : '0' }}&sinif_select={{ request()->get('sinif_select') }}&page={{ request()->get('page', 1) }}" class="btn btn-sm {{ $classList->status == 0 ? 'btn-danger' : 'btn-success' }}">
+                                                {{ $classList->status == 0 ? 'Başarısız' : 'Başarılı' }}
+                                            </a>
+                                        </td>
                                         <td>
                                             <div class="hstack gap-3 fs-15">
                                                 <a href="{{ route('class.down', ['id' => $classList->id]) }}" class="btn btn-sm btn-info class-down" data-id="{{ $classList->id }}">
@@ -255,7 +259,7 @@
             $('#excelBtn').on('click', function() {
                 table.button('.buttons-excel').trigger();
             });
-            
+
             // Diğer click handler'ları
             $('.edit-click').click(function() {
                 var id = $(this).attr('data-id');
@@ -290,7 +294,7 @@
                     }
                 });
             });
-            
+
             // Class-down olayı için handler
             $('.class-down').on('click', function(e) {
                 e.preventDefault(); // Sayfa yenilenmesini engelle
@@ -346,14 +350,18 @@
                     }
                 });
             });
-            
+
             // SwitchStatus değişikliği için handler
             $('.switchStatus').change(function() {
                 var status = $(this).prop('checked');
-                var id=$(this).attr('data-id');
-
-                $.get("{{route('class.switch')}}",{id:id,status:status}, function (data,status){
-
+                var id = $(this).attr('data-id');
+                var page = $(this).attr('data-page');
+                var sinif = $(this).attr('data-sinif');
+                
+                // AJAX çağrısı
+                $.get("{{route('class.switch')}}", {id:id, status:status}, function(data, status) {
+                    // İşlem tamamlandıktan sonra aynı sayfa ve parametrelerle yönlendir
+                    window.location = "{{ route('class.filter') }}?sinif_select=" + sinif + "&page=" + page;
                 });
             });
         });

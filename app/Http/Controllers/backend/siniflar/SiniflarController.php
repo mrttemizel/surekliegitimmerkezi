@@ -224,8 +224,14 @@ class SiniflarController extends Controller
     public function switch(Request $request)
     {
         $data = KesinKayitForm::findOrFail($request->id);
-        $data->status = $request->status=="true" ? 1 : 0;
+        $data->status = $request->status;
         $data->save();
+        
+        // Sayfaya geri dön
+        return redirect()->route('class.filter', [
+            'sinif_select' => $request->sinif_select,
+            'page' => $request->page
+        ]);
     }
 
     public function allList(Request $request)
