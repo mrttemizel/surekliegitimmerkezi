@@ -181,7 +181,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/class/filter', [SiniflarController::class, 'filter'])->name('class.filter');
         Route::get('/class/filterold', [SiniflarController::class, 'filterold'])->name('class.filterold');
         Route::get('/class/students/switch', [SiniflarController::class, 'switch'])->name('class.switch');
-        Route::post('/class/down/{id}',[SiniflarController::class,'down'])->name('class.down');
+        Route::match(['get', 'post'], '/class/down/{id}',[SiniflarController::class,'down'])->name('class.down');
         Route::get('/class/makeactive/{id}',[SiniflarController::class,'makeactive'])->name('class.makeactive');
         Route::get('/class/lists', [SiniflarController::class, 'allList'])->name('class.all-list');
 

@@ -295,13 +295,13 @@
                 });
             });
 
-            // Class-down olayı için handler
-            $('.class-down').on('click', function(e) {
-                e.preventDefault(); // Sayfa yenilenmesini engelle
-                var classId = $(this).data('id'); // İlgili class ID'yi al
-                var url = $(this).attr('href'); // class.down rotasını al
-
-                // SweetAlert ile onay penceresi
+            // Dinamik olay bağlama (delegasyon ile) - sayfalamada da çalışır
+            $(document).on('click', '.class-down', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                var sinif = "@isset($sinif_id){{ $sinif_id }}@endisset";
+                var page = "@isset($_GET['page']){{ $_GET['page'] }}@else{{ '1' }}@endisset";
+                
                 Swal.fire({
                     title: 'Emin misiniz?',
                     text: "Bu Kişiyi Sınıftan Çıkarmak İstediğinize Emin misiniz?",
@@ -310,41 +310,26 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Evet, Çıkar!',
-                    cancelButtonText: 'Hayır, iptal et'
+                    cancelButtonText: 'Vazgeç'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Eğer onaylandıysa AJAX isteğini gönder
                         $.ajax({
-                            url: url,
+                            url: '{{ route("class.down", ["id" => "_id_"]) }}'.replace('_id_', id),
                             type: 'POST',
                             data: {
-                                _token: '{{ csrf_token() }}', // CSRF token'ı ekleyin
-                                id: classId,
+                                _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
                                 if (response.success) {
                                     Swal.fire(
                                         'Başarılı!',
-                                        'Sınıftan Başarılı Bir Şekilde Çıkarıldı.',
+                                        response.message,
                                         'success'
                                     ).then(() => {
-                                        location.reload(); // Sayfayı yenile
+                                        // Sayfayı yenile, aynı sayfa numarasını ve sınıf filtresini koru
+                                        window.location.href = "{{ route('class.filter') }}?sinif_select=" + sinif + "&page=" + page;
                                     });
-                                } else {
-                                    Swal.fire(
-                                        'Hata!',
-                                        'Bir hata oluştu.',
-                                        'error'
-                                    );
                                 }
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(xhr.responseText);
-                                Swal.fire(
-                                    'Hata!',
-                                    'Bir hata oluştu.',
-                                    'error'
-                                );
                             }
                         });
                     }
