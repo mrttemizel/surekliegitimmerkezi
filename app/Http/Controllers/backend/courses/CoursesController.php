@@ -218,18 +218,22 @@ class CoursesController extends Controller
         $data = Excel::toArray([], $request->file('excel_file'))[0];
         $data = array_slice($data, 1);
 
-        foreach ($data as $row) {
+        foreach ($data as $index => $row) {
+            if (!isset($row[0]) || trim($row[0]) === '') {
+                continue; // name boşsa bu satırı atla
+            }
+
             $class = new KesinKayitForm();
             $class->sinif_id = $request->class_id;
             $class->kurs_id = $request->course_id;
             $class->kurs_adi = $course_data->egitim_adi;
             $class->kvkk = 'on';
-            $class->name = $row[0];
-            $class->surname = $row[1];
-            $class->email = $row[2];
-            $class->phone = $row[3];
-            $class->tc = $row[4];
-            $class->address = $row[5];
+            $class->name = trim($row[0]);
+            $class->surname = trim($row[1] ?? '');
+            $class->email = trim($row[2] ?? '');
+            $class->phone = trim($row[3] ?? '');
+            $class->tc = trim($row[4] ?? '');
+            $class->address = trim($row[5] ?? '');
             $class->status = 0;
             $class->save();
         }
