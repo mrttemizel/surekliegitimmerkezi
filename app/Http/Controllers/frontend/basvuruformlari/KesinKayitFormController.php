@@ -43,9 +43,15 @@ class KesinKayitFormController extends Controller
             'tc' => 'required|digits:11|regex:/^[0-9]+$/',
             'address' => 'required|string|max:500',
             'explicit' => 'required',
-            'electronic' => 'required',
         ]);
-
+        $data = new KesinKayitForm();
+        if (($request->input('electronic')=='on') and ($request->input('notelectronic')=='on')) {
+            $data->electronic = 'off';
+        }elseif($request->input('electronic')=='on'){
+            $data->electronic = 'on';
+        } else{
+            $data->electronic = 'off';
+        }
         // Zararlı karakterleri temizle ve kontrol et
         $name = $this->sanitizeInput($request->input('name'));
         $surname = $this->sanitizeInput($request->input('surname'));
@@ -53,19 +59,19 @@ class KesinKayitFormController extends Controller
         $phone = preg_replace('/[^0-9\-\+\(\) ]/', '', $request->input('phone'));
         $tc = preg_replace('/[^0-9]/', '', $request->input('tc'));
         $address = $this->sanitizeInput($request->input('address'));
-        
+
         // TC kimlik ve kurs_id kontrolü
         $existingRecord = KesinKayitForm::where('tc', $tc)
                         ->where('kurs_id', $request->id)
                         ->first();
-        
+
         if ($existingRecord) {
             return back()->with('error', 'Bu TC kimlik numarası ile bu kursa daha önce kayıt yapılmıştır. Lütfen farklı bir TC numarası kullanın veya farklı bir kurs seçin.');
         }
-        
+
         $kurs = Courses::where('id', $request->id)->firstOrFail();
-        
-        $data = new KesinKayitForm();
+
+
         $data->name = mb_strtoupper($name, 'UTF-8');
         $data->surname = mb_strtoupper($surname, 'UTF-8');
         $data->email = $email;

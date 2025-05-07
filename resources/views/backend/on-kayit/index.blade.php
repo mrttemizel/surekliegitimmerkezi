@@ -59,6 +59,7 @@
                             <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
+                                    <th>İZİN</th>
                                     <th>Ad Soyad</th>
                                     <th>Soyad</th>
                                     <th>Kurs Adı</th>
@@ -71,6 +72,13 @@
                                 <tbody>
                                 @foreach($data as $datas)
                                     <tr>
+                                        <td>
+                                            @if($datas->electronic == 'on')
+                                                <span class="badge bg-success">Onaylı</span>
+                                            @else
+                                                <span class="badge bg-danger">Onaysız</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $datas->name }}</td>
                                         <td>{{ $datas->surname }}</td>
                                         <td>{{ $datas->kurs_adi }}</td>
@@ -78,7 +86,7 @@
                                         <td>{{ $datas->phone }}</td>
                                         <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('d-m-Y') }}</td>
                                         <td>
-                                            <a href="{{ route('on.kayit.basvurulari.delete', $datas->id) }}" 
+                                            <a href="{{ route('on.kayit.basvurulari.delete', $datas->id) }}"
                                                onclick="return confirm('Başvuruyu silmek istediğinize emin misiniz?')"
                                                class="btn btn-danger btn-sm">
                                                 <i class="fas fa-trash"></i> Sil

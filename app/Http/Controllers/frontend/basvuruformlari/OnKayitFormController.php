@@ -27,25 +27,30 @@ class OnKayitFormController extends Controller
             'phone' => 'required|string|max:20',
             'kvkk' => 'required',
             'explicit' => 'required',
-            'electronic' => 'required',
         ]);
 
+        $data = new OnBasvuruForm();
+       if (($request->input('electronic')=='on') and ($request->input('notelectronic')=='on')) {
+           $data->electronic = 'off';
+       }elseif($request->input('electronic')=='on'){
+          $data->electronic = 'on';
+      } else{
+           $data->electronic = 'off';
+       }
         // Zararlı karakterleri temizle ve kontrol et
         $name = $this->sanitizeInput($request->input('name'));
         $surname = $this->sanitizeInput($request->input('surname'));
         $email = filter_var($request->input('email'), FILTER_SANITIZE_EMAIL);
         $phone = preg_replace('/[^0-9\-\+\(\) ]/', '', $request->input('phone'));
-        
-        $kurs = Courses::where('id', $request->id)->firstOrFail();
 
-        $data = new OnBasvuruForm();
+        $kurs = Courses::where('id', $request->id)->firstOrFail();
 
         $data->name = mb_strtoupper($name, 'UTF-8');
         $data->surname = mb_strtoupper($surname, 'UTF-8');
         $data->email = $email;
         $data->phone = $phone;
         $data->kvkk = $request->input('kvkk') === 'on' ? 'on' : 'off';
-        $data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
+        //$data->electronic = $request->input('electronic') === 'on' ? 'on' : 'off';
         $data->explicit = $request->input('explicit') === 'on' ? 'on' : 'off';
         $data->kurs_id = $request->input('id');
         $data->kurs_adi = $kurs->egitim_adi;

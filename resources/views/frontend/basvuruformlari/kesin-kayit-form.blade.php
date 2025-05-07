@@ -241,8 +241,7 @@
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-2" name="electronic" {{ old('electronic') ? 'checked' : '' }}>
                                         <em>
-                                            <span class="text-danger">*</span>
-                                            E-Bültene kayıt olmak istiyorum. Antalya Bilim Üniversitesi Sürekli
+                                            E-Bültene kayıt olmak <u> istiyorum </u>. Antalya Bilim Üniversitesi Sürekli
                                             Eğitim Merkezi faaliyetleriyle ilgili olarak elektronik araçlar da dahil olmak üzere her türlü iletişim aracı ile benimle
                                         </em>
                                         &nbsp; iletişime geçilmesine izin veriyorum.
@@ -251,6 +250,20 @@
                                         <span class="text-danger">
                                             @error('electronic')
                                                 {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+                                    <div class="back-check-box">
+                                        <input type="checkbox" id="box-2" name="notelectronic" {{ old('notelectronic') ? 'checked' : '' }}>
+                                        <em>
+                                            E-Bültene kayıt olmak <u>istemiyorum</u>.
+                                        </em>
+                                        <b>E-Bültene kayıt olmadığınız durumda sizinle iletişime geçileyemeyecektir.</b>
+                                        <br>
+                                        <p></p>
+                                        <span class="text-danger">
+                                            @error('notelectronic')
+                                            {{ $message }}
                                             @enderror
                                         </span>
                                     </div>
