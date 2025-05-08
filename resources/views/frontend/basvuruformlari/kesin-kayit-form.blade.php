@@ -241,7 +241,9 @@
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-2" name="electronic" {{ old('electronic') ? 'checked' : '' }}>
                                         <em>
-                                            Antalya Bilim Üniversitesi Sürekli Eğitim Merkezi faaliyetleriyle ilgili olarak 6563 Sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun uyarınca tarafıma elektronik ileti  gönderilmesine onay veriyorum.
+                                            Antalya Bilim Üniversitesi Sürekli Eğitim Merkezi faaliyetleriyle ilgili olarak 6563 Sayılı Elektronik Ticaretin
+                                            Düzenlenmesi Hakkında Kanun uyarınca tarafıma elektronik ileti gönderilmesine onay veriyorum.
+                                            <br/><u>Elektronik İleti Gönderiminin Onaylanmaması Durumunda İletişime Geçilemeyecektir.</u>
                                         </em>
                                         <br>
                                         <p></p>
