@@ -241,10 +241,8 @@
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-2" name="electronic" {{ old('electronic') ? 'checked' : '' }}>
                                         <em>
-                                            E-Bültene kayıt olmak <u> istiyorum </u>. Antalya Bilim Üniversitesi Sürekli
-                                            Eğitim Merkezi faaliyetleriyle ilgili olarak elektronik araçlar da dahil olmak üzere her türlü iletişim aracı ile benimle
+                                            Antalya Bilim Üniversitesi Sürekli Eğitim Merkezi faaliyetleriyle ilgili olarak 6563 Sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun uyarınca tarafıma elektronik ileti  gönderilmesine onay veriyorum.
                                         </em>
-                                        &nbsp; iletişime geçilmesine izin veriyorum.
                                         <br>
                                         <p></p>
                                         <span class="text-danger">
@@ -253,20 +251,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="back-check-box">
-                                        <input type="checkbox" id="box-2" name="notelectronic" {{ old('notelectronic') ? 'checked' : '' }}>
-                                        <em>
-                                            E-Bültene kayıt olmak <u>istemiyorum</u>.
-                                        </em>
-                                        <b>E-Bültene kayıt olmadığınız durumda sizinle iletişime geçileyemeyecektir.</b>
-                                        <br>
-                                        <p></p>
-                                        <span class="text-danger">
-                                            @error('notelectronic')
-                                            {{ $message }}
-                                            @enderror
-                                        </span>
-                                    </div>
+
                                     <div class="back-check-box">
                                         <input type="checkbox" id="box-1" name="explicit" {{ old('explicit') ? 'checked' : '' }}>
                                         <em><span class="text-danger">*</span></em>

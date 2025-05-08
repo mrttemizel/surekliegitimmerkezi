@@ -30,13 +30,12 @@ class OnKayitFormController extends Controller
         ]);
 
         $data = new OnBasvuruForm();
-       if (($request->input('electronic')=='on') and ($request->input('notelectronic')=='on')) {
-           $data->electronic = 'off';
-       }elseif($request->input('electronic')=='on'){
-          $data->electronic = 'on';
-      } else{
-           $data->electronic = 'off';
-       }
+        // Electronic değeri sadece 'on' olarak geliyorsa 'on' yap, diğer tüm durumlarda 'off' olsun
+        if ($request->has('electronic') && $request->input('electronic') == 'on') {
+            $data->electronic = 'on';
+        } else {
+            $data->electronic = 'off';
+        } 
         // Zararlı karakterleri temizle ve kontrol et
         $name = $this->sanitizeInput($request->input('name'));
         $surname = $this->sanitizeInput($request->input('surname'));
