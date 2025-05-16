@@ -66,6 +66,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Adı Soyadı</th>
+                                    <th>Email</th>
+                                    <th>Telefon</th>
                                     <th>TC</th>
                                     <th>Sınıf</th>
                                     <th>Eğitim</th>
@@ -87,6 +89,8 @@
                                     <tr>
                                         <td>{{$classList->id}}</td>
                                         <td>{{$classList->name. ' '. $classList->surname}}</td>
+                                        <td>{{$classList->email}}</td>
+                                        <td>{{$classList->phone}}</td>
                                         <td>{{$classList->tc}}</td>
                                         <td>{{$classList->getSinif->sinif_adi ?? 'Değer girişmemiş' }}</td>
                                         <td>{{$classList->kurs_adi}}</td>
@@ -301,7 +305,7 @@
                 var id = $(this).data('id');
                 var sinif = "@isset($sinif_id){{ $sinif_id }}@endisset";
                 var page = "@isset($_GET['page']){{ $_GET['page'] }}@else{{ '1' }}@endisset";
-                
+
                 Swal.fire({
                     title: 'Emin misiniz?',
                     text: "Bu Kişiyi Sınıftan Çıkarmak İstediğinize Emin misiniz?",
@@ -342,7 +346,7 @@
                 var id = $(this).attr('data-id');
                 var page = $(this).attr('data-page');
                 var sinif = $(this).attr('data-sinif');
-                
+
                 // AJAX çağrısı
                 $.get("{{route('class.switch')}}", {id:id, status:status}, function(data, status) {
                     // İşlem tamamlandıktan sonra aynı sayfa ve parametrelerle yönlendir
