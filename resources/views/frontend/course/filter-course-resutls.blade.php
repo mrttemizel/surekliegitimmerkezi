@@ -100,7 +100,7 @@
                                                 <img src="{{ $datas->image ? asset('courses/'.$datas->image) : asset('courses/no_name.jpg') }}" alt="Course Image">
                                             </div>
                                             <div class="case-content">
-                                                <h4 class="case-title"> <a href="coureses-single.html">{{$datas->egitim_adi}}</a></h4>
+                                                <h4 class="case-title"> <a href="{{route('egitim_detay.index', ['slug' => $datas->slug])}}">{{$datas->egitim_adi}}</a></h4>
                                                 <ul class="meta-course">
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> {{$datas->egitim_platformu}} </li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {{$datas->egitim_saati}}</li>
