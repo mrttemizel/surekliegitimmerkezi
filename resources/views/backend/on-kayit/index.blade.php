@@ -131,7 +131,7 @@
                         extend: 'excelHtml5',
                         text: 'Excel İndir',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4,5]
                         }
                     }
                 ],
