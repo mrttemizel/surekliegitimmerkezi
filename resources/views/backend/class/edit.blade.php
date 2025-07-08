@@ -120,6 +120,7 @@
                                             <option value="katilim.pdf" {{ old('sertifika', $data->sertifika) == "katilim.pdf" ? 'selected' : '' }}>Katılım Belgesi</option>
                                             <option value="temel.pdf" {{ old('sertifika', $data->sertifika) == "temel.pdf" ? 'selected' : '' }}>Temel Sertifika</option>
                                             <option value="tr-eng.pdf" {{ old('sertifika', $data->sertifika) == "tr-eng.pdf" ? 'selected' : '' }}>TR-ENG Sertifika Belgesi</option>
+                                            <option value="bilirkisi.pdf" {{ old('sertifika', $data->sertifika) == "bilirkisi.pdf" ? 'selected' : '' }}>Bilirkişi Sertifika Belgesi</option>
                                         </select>
                                         <span class="text-danger">
                             @error('sertifika')

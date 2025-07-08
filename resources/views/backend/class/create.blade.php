@@ -119,6 +119,7 @@
                                             <option value="katilim.pdf" {{ old('sertifika_tipi') == "katilim.pdf" ? 'selected' : '' }}>Katılım Belgesi</option>
                                             <option value="temel.pdf" {{ old('sertifika_tipi') == "temel.pdf" ? 'selected' : '' }}>Temel Sertifika</option>
                                             <option value="tr-eng.pdf" {{ old('sertifika_tipi') == "tr-eng.pdf" ? 'selected' : '' }}>TR-ENG Sertifika Belgesi</option>
+                                            <option value="bilirkisi.pdf" {{ old('sertifika_tipi') == "bilirkisi.pdf" ? 'selected' : '' }}>Bilirkişi Sertifika Belgesi</option>
                                         </select>
                                        <!-- <input type="file" name="sertifika" class="form-control">
                                         <small class="form-text text-muted">Lütfen belgeyi "pdf" formatında yükleyiniz. Yükleyebileceğiniz dosya boyutu maksimum 2 MB'dır. Hata almanız durumunda belgeleri tekrar yüklemelisiniz.</small>-->
