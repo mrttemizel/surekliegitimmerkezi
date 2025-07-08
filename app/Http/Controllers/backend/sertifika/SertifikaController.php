@@ -305,7 +305,7 @@ class SertifikaController extends Controller
         $pdf->AddFont('arial', '', 'arial.php');
         $pdf->SetFont('arial', '', 22);
         $fullName = $classList->name . ' ' . $classList->surname;
-        $dataRange =  $courses_data->egitim_baslangic_tarihi . ' - ' . $courses_data->egitim_bitis_tarihi;
+        $dataRange =  $class_data->baslangic_tarihi . ' - ' . $class_data->bitis_tarihi;
         $nameLength = strlen($fullName);
 
         $fontSize = 22;
