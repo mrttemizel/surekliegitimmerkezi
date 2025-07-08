@@ -119,7 +119,6 @@ class SiniflarController extends Controller
     public function update(Request $request)
     {
 
-
         $request->validate([
             'sinif_adi' => 'required',
             'baslangic_tarihi' => 'required|date',
@@ -144,6 +143,7 @@ class SiniflarController extends Controller
         $data->egitici_adi = $request->input('egitici_adi');
         $data->sertifika_tipi = $request->input('sertifika_tipi');
         $data->sertifika_dili = $request->input('sertifika_dili');
+        $data->sertifika = $request->input('sertifika');
 
 
         if ($request->hasFile('sertifika')) {
@@ -226,7 +226,7 @@ class SiniflarController extends Controller
         $data = KesinKayitForm::findOrFail($request->id);
         $data->status = $request->status;
         $data->save();
-        
+
         // Sayfaya geri dön
         return redirect()->route('class.filter', [
             'sinif_select' => $request->sinif_select,
